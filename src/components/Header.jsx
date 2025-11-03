@@ -21,6 +21,7 @@ const Header = () => {
   const shouldReduceMotion = useShouldReduceMotion();
   const { scrollY } = useScroll();
   const location = useLocation();
+  const logoSrc = `${import.meta.env.BASE_URL}logo.svg`;
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 8);
@@ -57,7 +58,7 @@ const Header = () => {
       <div className="container flex h-20 items-center justify-between gap-6">
         <Link to="/" className="flex items-center gap-3 text-lg font-semibold text-sf-black">
           <img
-            src="/logo.svg"
+            src={logoSrc}
             alt="Solar Flare Robotics logo"
             className="h-10 w-auto"
             loading="lazy"

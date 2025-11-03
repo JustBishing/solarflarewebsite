@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 
-const Footer = () => (
-  <footer className="bg-sf-black text-white">
+const Footer = () => {
+  const logoSrc = `${import.meta.env.BASE_URL}logo.svg`;
+
+  return (
+    <footer className="bg-sf-black text-white">
     <div className="container grid gap-10 py-12 sm:grid-cols-[1.5fr_1fr]">
       <div>
         <div className="flex items-center gap-3 text-lg font-semibold">
           <img
-            src="/logo.svg"
+            src={logoSrc}
             alt="Solar Flare Robotics logo"
             className="h-10 w-auto"
             loading="lazy"
@@ -92,6 +95,7 @@ const Footer = () => (
       </div>
     </div>
   </footer>
-);
+  );
+};
 
 export default Footer;
