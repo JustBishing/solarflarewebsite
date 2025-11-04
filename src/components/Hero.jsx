@@ -19,10 +19,10 @@ const Hero = () => {
 
   return (
     <section className="relative overflow-hidden text-sf-text">
-      <div className="absolute inset-0 -z-20 bg-sf-bg" />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(234,80,32,0.4),transparent_55%),radial-gradient(circle_at_bottom_left,rgba(32,46,90,0.8),transparent_60%)]" />
-      <div className="absolute inset-0 -z-10 opacity-60 mix-blend-screen bg-[conic-gradient(from_120deg_at_50%_50%,rgba(248,146,33,0.25),transparent_50%)]" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(9,13,26,0.4),transparent)]" />
+      <div className="absolute inset-0 -z-30 bg-sf-bg" />
+      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_right,rgba(234,80,32,0.4),transparent_55%),radial-gradient(circle_at_bottom_left,rgba(32,46,90,0.8),transparent_60%)]" />
+      <div className="absolute inset-0 -z-20 opacity-60 mix-blend-screen bg-[conic-gradient(from_120deg_at_50%_50%,rgba(248,146,33,0.25),transparent_50%)]" />
+      <div className="absolute inset-0 -z-20 bg-[linear-gradient(120deg,rgba(9,13,26,0.4),transparent)]" />
 
       <div className="container flex min-h-[72vh] flex-col justify-center py-24 sm:py-32">
         <motion.div

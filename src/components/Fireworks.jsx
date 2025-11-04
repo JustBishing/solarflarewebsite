@@ -68,7 +68,7 @@ const Fireworks = () => {
   }
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-10 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 z-30 overflow-hidden">
       {launches.map((launch) => (
         <Launch key={launch.id} launch={launch} />
       ))}
