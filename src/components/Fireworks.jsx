@@ -3,6 +3,11 @@ import { motion } from 'framer-motion';
 import { useShouldReduceMotion } from '../lib/motion.js';
 
 const FIREWORK_COLORS = ['#EA5020', '#F89221', '#FFB15C'];
+const MIN_HEIGHT = 25;
+const MAX_HEIGHT = 60;
+const ROCKET_DURATION = 2.6;
+const EXPLOSION_DELAY = 2.45;
+const EXPLOSION_DURATION = 2.6;
 
 const Fireworks = () => {
   const shouldReduceMotion = useShouldReduceMotion();
@@ -24,7 +29,7 @@ const Fireworks = () => {
         }
 
         const baseX = 15 + Math.random() * 70;
-        const peakY = 18 + Math.random() * 60;
+        const peakY = MIN_HEIGHT + Math.random() * (MAX_HEIGHT - MIN_HEIGHT);
         const color = FIREWORK_COLORS[Math.floor(Math.random() * FIREWORK_COLORS.length)];
         const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
@@ -33,7 +38,7 @@ const Fireworks = () => {
           {
             id,
             x: baseX,
-            peakY,
+            height: peakY,
             color,
           },
         ]);
@@ -48,7 +53,7 @@ const Fireworks = () => {
         }, 4000);
 
         cleanupTimersRef.current.push(removalTimeout);
-        scheduleNext(4000 + Math.random() * 3200);
+        scheduleNext(4200 + Math.random() * 2800);
       }, delay);
     };
 
@@ -67,7 +72,7 @@ const Fireworks = () => {
   }
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-40 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden mix-blend-screen">
       {launches.map((launch) => (
         <Launch key={launch.id} launch={launch} />
       ))}
@@ -80,9 +85,28 @@ export default Fireworks;
 const EASE = [0.22, 1, 0.36, 1];
 const MotionDiv = motion.div;
 const MotionSpan = motion.span;
-const RAY_COUNT = 12;
+const PARTICLE_COUNT = 18;
 
 const Launch = ({ launch }) => {
+  const travelDistance = 100 - launch.height;
+  const particlesRef = useRef(null);
+
+  if (!particlesRef.current) {
+    particlesRef.current = Array.from({ length: PARTICLE_COUNT }).map((_, index) => {
+      const baseAngle = (Math.PI * 2 * index) / PARTICLE_COUNT;
+      const jitter = (Math.random() - 0.5) * 0.4;
+      return {
+        angle: baseAngle + jitter,
+        radius: 120 + Math.random() * 100,
+        size: 4 + Math.random() * 6,
+        opacity: 0.5 + Math.random() * 0.2,
+        duration: EXPLOSION_DURATION + Math.random() * 0.4,
+      };
+    });
+  }
+
+  const particles = particlesRef.current;
+
   return (
     <div className="absolute inset-0">
       <MotionDiv
@@ -93,44 +117,58 @@ const Launch = ({ launch }) => {
           transform: 'translate(-50%, 0)',
         }}
         initial={{ y: 0, opacity: 0, scale: 0.9 }}
-        animate={{ y: `-${launch.peakY}vh`, opacity: 0.9, scale: 1 }}
-        transition={{ duration: 2.4, ease: EASE }}
+        animate={{ y: `-${travelDistance}vh`, opacity: 0.8, scale: 1 }}
+        transition={{ duration: ROCKET_DURATION, ease: EASE }}
       >
         <MotionSpan
-          className="block h-28 w-2 rounded-full bg-gradient-to-b from-white/90 via-white/40 to-transparent shadow-[0_0_16px_rgba(255,255,255,0.7)]"
-          animate={{ opacity: [0, 1, 0.4], scaleY: [0.7, 1, 1] }}
-          transition={{ duration: 2.4, ease: EASE }}
+          className="block h-32 w-2 rounded-full bg-gradient-to-b from-white/80 via-white/30 to-transparent shadow-[0_0_14px_rgba(255,255,255,0.6)]"
+          animate={{ opacity: [0, 0.85, 0.25], scaleY: [0.6, 1, 1] }}
+          transition={{ duration: ROCKET_DURATION, ease: EASE }}
         />
       </MotionDiv>
 
       <MotionDiv
-        className="absolute h-[35vmin] w-[35vmin]"
+        className="absolute h-[45vmin] w-[45vmin]"
         style={{
           left: `${launch.x}%`,
-          top: `${launch.peakY}vh`,
+          top: `${launch.height}vh`,
           transform: 'translate(-50%, -50%)',
           color: launch.color,
         }}
-        initial={{ scale: 0.2, opacity: 0 }}
-        animate={{ scale: 1, opacity: [0, 1, 0] }}
-        transition={{ duration: 2.2, ease: EASE, delay: 2.1 }}
+        initial={{ scale: 0.35, opacity: 0 }}
+        animate={{ scale: [0.35, 1.05, 1.1], opacity: [0, 0.55, 0] }}
+        transition={{ duration: EXPLOSION_DURATION, ease: EASE, delay: EXPLOSION_DELAY }}
       >
         <MotionSpan
           className="absolute inset-0 rounded-full border-2"
-          style={{ borderColor: `${launch.color}55` }}
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: [0.6, 0.2, 0], scale: 1.1 }}
-          transition={{ duration: 2.2, ease: EASE, delay: 2.1 }}
+          style={{ borderColor: `${launch.color}33` }}
+          initial={{ opacity: 0, scale: 0.4 }}
+          animate={{ opacity: [0.4, 0.15, 0], scale: 1.05 }}
+          transition={{ duration: EXPLOSION_DURATION, ease: EASE, delay: EXPLOSION_DELAY }}
         />
-        <span className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/80 shadow-[0_0_18px_rgba(255,255,255,0.85)]" />
-        {Array.from({ length: RAY_COUNT }).map((_, idx) => (
+        <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/70 shadow-[0_0_14px_rgba(255,255,255,0.7)]" />
+        {particles.map((particle, idx) => (
           <MotionSpan
             key={`${launch.id}-ray-${idx}`}
-            className="absolute left-1/2 top-1/2 h-1 w-1/2 origin-left rounded-full"
-            style={{ rotate: (360 / RAY_COUNT) * idx, backgroundColor: launch.color }}
-            initial={{ scaleX: 0.2, opacity: 0 }}
-            animate={{ scaleX: [0.2, 1.2, 1.4], opacity: [0.8, 0.6, 0] }}
-            transition={{ duration: 2.2, ease: EASE, delay: 2.1 }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+              backgroundColor: launch.color,
+              filter: 'blur(0.5px)',
+            }}
+            initial={{ x: 0, y: 0, opacity: particle.opacity }}
+            animate={{
+              x: Math.cos(particle.angle) * particle.radius,
+              y: Math.sin(particle.angle) * particle.radius,
+              opacity: 0,
+              scale: 0.6,
+            }}
+            transition={{
+              duration: particle.duration,
+              ease: EASE,
+              delay: EXPLOSION_DELAY + 0.05 * Math.random(),
+            }}
           />
         ))}
       </MotionDiv>
