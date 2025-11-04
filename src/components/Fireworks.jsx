@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useShouldReduceMotion } from '../lib/motion.js';
 
 const FIREWORK_COLORS = ['#EA5020', '#F89221', '#FF7A3D', '#FFB15C', '#FFCB7A'];
-const EXPLOSION_DURATION = 2.8;
+const EXPLOSION_DURATION = 4;
 
 const Fireworks = () => {
   const shouldReduceMotion = useShouldReduceMotion();
@@ -46,14 +46,14 @@ const Fireworks = () => {
           cleanupTimersRef.current = cleanupTimersRef.current.filter(
             (timerId) => timerId !== removalTimeout,
           );
-        }, 4000);
+        }, 6200);
 
         cleanupTimersRef.current.push(removalTimeout);
-        scheduleNext(3800 + Math.random() * 2600);
+        scheduleNext(4200 + Math.random() * 2600);
       }, delay);
     };
 
-    scheduleNext(1500 + Math.random() * 2200);
+    scheduleNext(1800 + Math.random() * 2200);
 
     return () => {
       mounted = false;
@@ -92,10 +92,10 @@ const Launch = ({ launch }) => {
       const jitter = (Math.random() - 0.5) * 0.4;
       return {
         angle: baseAngle + jitter,
-        radius: 180 + Math.random() * 160,
-        size: 6 + Math.random() * 8,
-        opacity: 0.85 + Math.random() * 0.15,
-        duration: EXPLOSION_DURATION + Math.random() * 0.5,
+        radius: 180 + Math.random() * 140,
+        size: 7 + Math.random() * 10,
+        opacity: 0.92 + Math.random() * 0.08,
+        duration: EXPLOSION_DURATION + Math.random() * 0.8,
         color: FIREWORK_COLORS[Math.floor(Math.random() * FIREWORK_COLORS.length)],
       };
     });
@@ -113,17 +113,17 @@ const Launch = ({ launch }) => {
           transform: 'translate(-50%, -50%)',
         }}
         initial={{ scale: 0.25, opacity: 0 }}
-        animate={{ scale: [0.25, 1.15, 1.25], opacity: [0, 0.65, 0] }}
+        animate={{ scale: [0.25, 1.15, 1.25], opacity: [0, 0.75, 0] }}
         transition={{ duration: EXPLOSION_DURATION, ease: EASE }}
       >
         <MotionSpan
           className="absolute inset-0 rounded-full border"
-          style={{ borderColor: `${launch.color}AA` }}
+          style={{ borderColor: `${launch.color}CC` }}
           initial={{ opacity: 0, scale: 0.35 }}
-          animate={{ opacity: [0.6, 0.2, 0], scale: 1.05 }}
+          animate={{ opacity: [0.75, 0.35, 0], scale: 1.05 }}
           transition={{ duration: EXPLOSION_DURATION, ease: EASE }}
         />
-        <span className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/85 shadow-[0_0_18px_rgba(255,255,255,0.9)]" />
+        <span className="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/90 shadow-[0_0_20px_rgba(255,255,255,0.95)]" />
         {particles.map((particle, idx) => (
           <MotionSpan
             key={`${launch.id}-ray-${idx}`}
@@ -133,19 +133,19 @@ const Launch = ({ launch }) => {
               height: `${particle.size}px`,
               backgroundColor: particle.color,
               filter: 'blur(0.6px)',
-              boxShadow: `0 0 12px ${particle.color}66`,
+              boxShadow: `0 0 18px ${particle.color}88`,
             }}
             initial={{ x: 0, y: 0, opacity: particle.opacity }}
             animate={{
               x: Math.cos(particle.angle) * particle.radius,
               y: Math.sin(particle.angle) * particle.radius,
-              opacity: [particle.opacity, particle.opacity * 0.6, 0],
-              scale: [1, 0.85, 0.6],
+              opacity: [particle.opacity, particle.opacity * 0.7, 0],
+              scale: [1, 0.9, 0.6],
             }}
             transition={{
               duration: particle.duration,
               ease: EASE,
-              delay: 0.05 * Math.random(),
+              delay: 0.08 * Math.random(),
             }}
           />
         ))}
