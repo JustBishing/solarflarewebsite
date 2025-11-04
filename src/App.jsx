@@ -8,6 +8,7 @@ import Team from './pages/Team.jsx';
 import Sponsorships from './pages/Sponsorships.jsx';
 import RouteTransition from './components/RouteTransition.jsx';
 import { useShouldReduceMotion } from './lib/motion.js';
+import Fireworks from './components/Fireworks.jsx';
 
 const ScrollToTop = () => {
   const location = useLocation();
@@ -29,6 +30,7 @@ const App = () => {
   return (
     <div className="flex min-h-screen flex-col bg-sf-bg text-sf-text">
       <Header />
+      <Fireworks />
       <ScrollToTop />
       <main className="flex flex-1 flex-col pt-20 sm:pt-24">
         <AnimatePresence mode="wait" initial={false}>
