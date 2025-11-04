@@ -10,7 +10,7 @@
 }
 
 body {
-  @apply bg-sf-bg text-sf-black selection:bg-sf-orange-1/80 selection:text-white;
+  @apply bg-sf-bg text-sf-text selection:bg-sf-orange-1/80 selection:text-sf-bg;
 }
 
 a {

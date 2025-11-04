@@ -67,7 +67,7 @@ const Sponsorships = () => {
         description="Partnerships help us compete at our best while expanding hands-on STEM opportunities for students throughout Westchester County."
       >
         <MotionDiv
-          className="space-y-5 text-base leading-relaxed text-sf-black/80 sm:text-lg"
+          className="space-y-5 text-base leading-relaxed text-sf-muted sm:text-lg"
           variants={textVariants}
         >
           <p>
@@ -86,7 +86,7 @@ const Sponsorships = () => {
               href="https://hcb.hackclub.com/donations/start/solar-flare"
               target="_blank"
               rel="noreferrer"
-              className="rounded-xl bg-sf-black px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-[#1a1a1a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+              className="rounded-xl bg-sf-orange-1 px-6 py-3 text-base font-semibold text-sf-bg shadow-sm transition hover:bg-[#ff6a2e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
               whileTap={scaleTap}
               {...hoverProps}
             >
@@ -94,7 +94,7 @@ const Sponsorships = () => {
             </MotionAnchor>
             <MotionAnchor
               href="mailto:team@solarflarerobotics.org"
-              className="rounded-xl border border-sf-black px-6 py-3 text-base font-semibold text-sf-black transition hover:border-sf-orange-1 hover:text-sf-orange-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+              className="rounded-xl border border-sf-orange-1 px-6 py-3 text-base font-semibold text-sf-orange-1 transition hover:bg-sf-orange-1 hover:text-sf-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
               whileTap={scaleTap}
               {...hoverProps}
             >
@@ -111,7 +111,7 @@ const Sponsorships = () => {
         >
           {TIERS.map((tier) => (
             <Card key={tier.title} title={tier.title} subtitle={tier.amount}>
-              <ul className="space-y-2 text-sm leading-relaxed text-sf-black/75 sm:text-base">
+              <ul className="space-y-2 text-sm leading-relaxed text-sf-muted sm:text-base">
                 {tier.benefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-2">
                     <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-sf-orange-1" aria-hidden="true" />

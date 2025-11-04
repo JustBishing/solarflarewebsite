@@ -15,11 +15,11 @@ const TeamCard = ({ member }) => {
 
   return (
     <MotionArticle
-      className="flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_24px_36px_-35px_rgba(0,0,0,0.55)]"
+      className="flex h-full flex-col overflow-hidden rounded-2xl border border-sf-border bg-sf-surface shadow-[0_28px_44px_-32px_rgba(0,0,0,0.65)]"
       variants={resolveVariant(fadeInUp, shouldReduceMotion)}
       {...hoverProps}
     >
-      <div className="relative aspect-square w-full overflow-hidden bg-sf-orange-1/10">
+      <div className="relative aspect-square w-full overflow-hidden bg-sf-orange-1/20">
         <img
           src={member.photo}
           alt={`${member.name} portrait`}
@@ -28,11 +28,11 @@ const TeamCard = ({ member }) => {
         />
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-xl font-semibold text-sf-black">{member.name}</h3>
+        <h3 className="text-xl font-semibold text-sf-text">{member.name}</h3>
         <p className="mt-1 text-sm font-semibold uppercase tracking-[0.18rem] text-sf-orange-1">
           {member.role}
         </p>
-        <p className="mt-4 text-base leading-relaxed text-sf-black/75">
+        <p className="mt-4 text-base leading-relaxed text-sf-muted">
           {member.bio}
         </p>
       </div>

@@ -21,7 +21,7 @@ const Card = ({
 
   return (
     <MotionComponent
-      className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-[0_28px_40px_-35px_rgba(0,0,0,0.5)] transition-shadow ${className}`}
+      className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-sf-border bg-sf-surface shadow-[0_28px_48px_-30px_rgba(0,0,0,0.65)] transition-shadow ${className}`}
       variants={resolveVariant(fadeInUp, shouldReduceMotion)}
       {...hoverProps}
       whileTap={scaleTap}
@@ -35,13 +35,13 @@ const Card = ({
             </p>
           ) : null}
           {title ? (
-            <h3 className="mt-3 text-xl font-semibold text-sf-black sm:text-2xl">
+            <h3 className="mt-3 text-xl font-semibold text-sf-text sm:text-2xl">
               {title}
             </h3>
           ) : null}
         </div>
         {children ? (
-          <div className="mt-4 text-base leading-relaxed text-sf-black/80">
+          <div className="mt-4 text-base leading-relaxed text-sf-muted">
             {children}
           </div>
         ) : null}

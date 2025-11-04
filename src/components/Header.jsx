@@ -33,14 +33,20 @@ const Header = () => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  const headerAnimate = useMemo(
-    () => ({
-      backgroundColor: scrolled ? 'rgba(251, 251, 250, 0.98)' : 'rgba(251, 251, 250, 0)',
-      boxShadow: scrolled ? '0 10px 30px -25px rgba(0,0,0,0.35)' : '0 0 0 rgba(0,0,0,0)',
-      backdropFilter: scrolled ? 'blur(12px)' : 'blur(0px)',
-    }),
-    [scrolled],
-  );
+  const headerAnimate = useMemo(() => {
+    if (scrolled) {
+      return {
+        backgroundColor: 'rgba(5, 5, 5, 0.9)',
+        boxShadow: '0 20px 40px -32px rgba(0,0,0,0.85)',
+        backdropFilter: 'blur(10px)',
+      };
+    }
+    return {
+      backgroundColor: 'rgba(5, 5, 5, 0)',
+      boxShadow: '0 0 0 rgba(0,0,0,0)',
+      backdropFilter: 'blur(0px)',
+    };
+  }, [scrolled]);
 
   const MotionButton = motion.button;
 
@@ -56,7 +62,7 @@ const Header = () => {
       }
     >
       <div className="container flex h-20 items-center justify-between gap-6">
-        <Link to="/" className="flex items-center gap-3 text-lg font-semibold text-sf-black">
+        <Link to="/" className="flex items-center gap-3 text-lg font-semibold text-sf-text">
           <img
             src={logoSrc}
             alt="Solar Flare Robotics logo"
@@ -75,7 +81,7 @@ const Header = () => {
                 `rounded-full px-4 py-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-1 ${
                   isActive
                     ? 'text-sf-orange-1'
-                    : 'text-sf-black hover:text-sf-orange-2'
+                    : 'text-sf-muted hover:text-sf-text'
                 }`
               }
             >
@@ -98,7 +104,7 @@ const Header = () => {
           aria-label="Toggle navigation menu"
           aria-expanded={isMenuOpen}
           aria-controls="mobile-nav"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-sf-black/10 bg-white text-sf-black shadow-sm transition hover:border-sf-orange-1 sm:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-sf-border bg-sf-surface text-sf-text shadow-sm transition hover:border-sf-orange-1 sm:hidden"
           onClick={() => setIsMenuOpen((prev) => !prev)}
           whileTap={scaleTap}
         >
@@ -142,7 +148,7 @@ const Header = () => {
             }
           >
             <div className="container pb-4">
-              <div className="flex flex-col gap-2 rounded-2xl border border-sf-black/10 bg-white p-4 shadow-[0_24px_36px_-32px_rgba(0,0,0,0.6)]">
+              <div className="flex flex-col gap-2 rounded-2xl border border-sf-border bg-sf-elevated p-4 shadow-[0_28px_44px_-32px_rgba(0,0,0,0.7)]">
                 {navItems.map((item) => (
                   <NavLink
                     key={item.to}
@@ -151,8 +157,8 @@ const Header = () => {
                     className={({ isActive }) =>
                       `rounded-xl px-4 py-3 text-base font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-1 ${
                         isActive
-                          ? 'bg-sf-orange-1/10 text-sf-orange-1'
-                          : 'text-sf-black hover:bg-sf-orange-2/10 hover:text-sf-black'
+                          ? 'bg-sf-orange-1/20 text-sf-orange-1'
+                          : 'text-sf-muted hover:bg-white/5 hover:text-sf-text'
                       }`
                     }
                   >

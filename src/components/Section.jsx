@@ -28,12 +28,12 @@ const Section = ({
               {eyebrow}
             </p>
           ) : null}
-          <h2 className="mt-4 text-3xl font-bold leading-tight text-sf-black sm:text-4xl">
+          <h2 className="mt-4 text-3xl font-bold leading-tight text-sf-text sm:text-4xl">
             {title}
           </h2>
           <div className="mt-3 h-0.5 w-16 bg-sf-orange-1" />
           {description ? (
-            <p className="mt-6 text-base text-sf-black/80 sm:text-lg">
+            <p className="mt-6 text-base text-sf-muted sm:text-lg">
               {description}
             </p>
           ) : null}

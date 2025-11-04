@@ -28,7 +28,7 @@ const Home = () => {
         description="Solar Flare Robotics is a first-year FIRST Tech Challenge team pushing Into the Deep with bold ideas and community impact."
       >
         <MotionDiv
-          className="space-y-5 text-base leading-relaxed text-sf-black/80 sm:text-lg"
+          className="space-y-5 text-base leading-relaxed text-sf-muted sm:text-lg"
           variants={textVariants}
         >
           <p>
@@ -78,15 +78,15 @@ const Home = () => {
       >
         <MotionDiv variants={listVariants} className="space-y-8">
           <SponsorGrid sponsors={SPONSORS} />
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-sf-black/10 bg-white px-6 py-6 shadow-[0_24px_36px_-32px_rgba(0,0,0,0.6)]">
-            <p className="max-w-2xl text-sm text-sf-black/70">
+          <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-sf-border bg-sf-elevated px-6 py-6 shadow-[0_28px_46px_-32px_rgba(0,0,0,0.65)]">
+            <p className="max-w-2xl text-sm text-sf-muted">
               Interested in partnering with Solar Flare? Explore our sponsorship
               tiers to learn how your organization can make an impact during the
               2024-2025 Into the Deep season.
             </p>
             <Link
               to="/sponsorships"
-              className="rounded-xl border border-sf-black px-5 py-2 text-sm font-semibold text-sf-black transition hover:border-sf-orange-1 hover:text-sf-orange-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+              className="rounded-xl border border-sf-orange-1 px-5 py-2 text-sm font-semibold text-sf-orange-1 transition hover:bg-sf-orange-1 hover:text-sf-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
             >
               View sponsorships
             </Link>

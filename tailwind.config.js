@@ -6,8 +6,12 @@ export default {
       colors: {
         'sf-orange-1': '#EA5020',
         'sf-orange-2': '#F89221',
-        'sf-bg': '#FBFBFA',
-        'sf-black': '#000000',
+        'sf-bg': '#050505',
+        'sf-surface': '#111111',
+        'sf-elevated': '#181818',
+        'sf-border': '#262626',
+        'sf-text': '#F5F5F5',
+        'sf-muted': '#A0A0A0',
       },
       fontFamily: {
         sans: ['"Exo 2"', 'ui-sans-serif', 'system-ui', 'sans-serif'],

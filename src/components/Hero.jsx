@@ -51,26 +51,26 @@ const Hero = () => {
             across our community. We are fiscally sponsored by Hack Club, so
             every contribution is tax-deductible.
           </motion.p>
-          <motion.div
-            className="mt-8 flex flex-wrap gap-4"
-            variants={itemVariants}
+        <motion.div
+          className="mt-8 flex flex-wrap gap-4"
+          variants={itemVariants}
+        >
+          <MotionLink
+            to="/team"
+            className="rounded-xl bg-sf-bg px-6 py-3 text-base font-semibold text-sf-text shadow-[0_18px_32px_-20px_rgba(0,0,0,0.7)] transition hover:bg-[#101010] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-bg"
+            whileTap={scaleTap}
+            {...hoverPrimary}
           >
-            <MotionLink
-              to="/team"
-              className="rounded-xl bg-sf-black px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-[#1a1a1a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
-              whileTap={scaleTap}
-              {...hoverPrimary}
-            >
-              Meet the team
-            </MotionLink>
-            <MotionLink
-              to="/sponsorships"
-              className="rounded-xl border border-sf-black px-6 py-3 text-base font-semibold text-sf-black transition hover:border-sf-orange-1 hover:text-sf-orange-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
-              whileTap={scaleTap}
-              {...hoverSecondary}
-            >
-              Support our season
-            </MotionLink>
+            Meet the team
+          </MotionLink>
+          <MotionLink
+            to="/sponsorships"
+            className="rounded-xl border border-white/70 px-6 py-3 text-base font-semibold text-white transition hover:border-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            whileTap={scaleTap}
+            {...hoverSecondary}
+          >
+            Support our season
+          </MotionLink>
           </motion.div>
         </motion.div>
       </div>

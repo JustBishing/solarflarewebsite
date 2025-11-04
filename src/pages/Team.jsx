@@ -23,7 +23,7 @@ const Team = () => {
         description="Solar Flare is made up of builders, programmers, storytellers, and leaders who show up ready to learn at every workshop and match."
       >
         <MotionDiv
-          className="space-y-4 text-base leading-relaxed text-sf-black/80 sm:text-lg"
+          className="space-y-4 text-base leading-relaxed text-sf-muted sm:text-lg"
           variants={textVariants}
         >
           <p>
@@ -54,7 +54,7 @@ const Team = () => {
 
       <Section title="Connect with us">
         <MotionDiv
-          className="flex flex-wrap items-center gap-4 rounded-2xl border border-sf-black/10 bg-white px-6 py-6 text-sm text-sf-black shadow-[0_24px_36px_-32px_rgba(0,0,0,0.6)]"
+          className="flex flex-wrap items-center gap-4 rounded-2xl border border-sf-border bg-sf-elevated px-6 py-6 text-sm text-sf-text shadow-[0_28px_46px_-32px_rgba(0,0,0,0.65)]"
           variants={textVariants}
         >
           <span className="font-semibold uppercase tracking-[0.3rem] text-sf-orange-1">
@@ -64,7 +64,7 @@ const Team = () => {
             href="https://instagram.com/solarflarerobotics"
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-sf-black/15 px-4 py-2 transition hover:border-sf-orange-1 hover:text-sf-orange-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+            className="rounded-full border border-sf-border px-4 py-2 transition hover:border-sf-orange-1 hover:bg-sf-orange-1 hover:text-sf-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
           >
             Instagram
           </a>
@@ -72,13 +72,13 @@ const Team = () => {
             href="https://www.youtube.com/@solarflarerobotics"
             target="_blank"
             rel="noreferrer"
-            className="rounded-full border border-sf-black/15 px-4 py-2 transition hover:border-sf-orange-1 hover:text-sf-orange-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+            className="rounded-full border border-sf-border px-4 py-2 transition hover:border-sf-orange-1 hover:bg-sf-orange-1 hover:text-sf-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
           >
             YouTube
           </a>
           <a
             href="mailto:team@solarflarerobotics.org"
-            className="rounded-full border border-sf-black/15 px-4 py-2 transition hover:border-sf-orange-1 hover:text-sf-orange-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+            className="rounded-full border border-sf-border px-4 py-2 transition hover:border-sf-orange-1 hover:bg-sf-orange-1 hover:text-sf-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
           >
             Email
           </a>

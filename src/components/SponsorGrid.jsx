@@ -23,7 +23,7 @@ const SponsorGrid = ({ sponsors, className = '' }) => {
             href={sponsor.website}
             target={sponsor.website ? '_blank' : undefined}
             rel={sponsor.website ? 'noreferrer' : undefined}
-            className="flex flex-col items-center rounded-2xl border border-black/5 bg-white p-6 text-center shadow-[0_18px_36px_-30px_rgba(0,0,0,0.55)] transition-shadow"
+            className="flex flex-col items-center rounded-2xl border border-sf-border bg-sf-surface p-6 text-center shadow-[0_24px_40px_-32px_rgba(0,0,0,0.6)] transition-shadow"
             variants={resolveVariant(fadeInUp, shouldReduceMotion)}
             {...hoverProps}
           >
@@ -34,10 +34,10 @@ const SponsorGrid = ({ sponsors, className = '' }) => {
               loading="lazy"
             />
             <div className="mt-4">
-              <p className="text-base font-semibold text-sf-black">
+              <p className="text-base font-semibold text-sf-text">
                 {sponsor.name}
               </p>
-              <p className="mt-1 text-sm text-sf-black/70">
+              <p className="mt-1 text-sm text-sf-muted">
                 {sponsor.contribution}
               </p>
             </div>

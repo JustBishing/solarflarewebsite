@@ -27,7 +27,7 @@ const App = () => {
   const location = useLocation();
 
   return (
-    <div className="flex min-h-screen flex-col bg-sf-bg text-sf-black">
+    <div className="flex min-h-screen flex-col bg-sf-bg text-sf-text">
       <Header />
       <ScrollToTop />
       <main className="flex flex-1 flex-col pt-20 sm:pt-24">
