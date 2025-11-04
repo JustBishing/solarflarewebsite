@@ -72,7 +72,7 @@ const Fireworks = () => {
   }
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden mix-blend-screen">
+    <div className="pointer-events-none fixed inset-0 z-10 overflow-hidden">
       {launches.map((launch) => (
         <Launch key={launch.id} launch={launch} />
       ))}
@@ -99,7 +99,7 @@ const Launch = ({ launch }) => {
         angle: baseAngle + jitter,
         radius: 120 + Math.random() * 100,
         size: 4 + Math.random() * 6,
-        opacity: 0.5 + Math.random() * 0.2,
+        opacity: 0.75 + Math.random() * 0.2,
         duration: EXPLOSION_DURATION + Math.random() * 0.4,
       };
     });
@@ -117,12 +117,12 @@ const Launch = ({ launch }) => {
           transform: 'translate(-50%, 0)',
         }}
         initial={{ y: 0, opacity: 0, scale: 0.9 }}
-        animate={{ y: `-${travelDistance}vh`, opacity: 0.8, scale: 1 }}
+        animate={{ y: `-${travelDistance}vh`, opacity: 1, scale: 1 }}
         transition={{ duration: ROCKET_DURATION, ease: EASE }}
       >
         <MotionSpan
-          className="block h-32 w-2 rounded-full bg-gradient-to-b from-white/80 via-white/30 to-transparent shadow-[0_0_14px_rgba(255,255,255,0.6)]"
-          animate={{ opacity: [0, 0.85, 0.25], scaleY: [0.6, 1, 1] }}
+          className="block h-32 w-2 rounded-full bg-gradient-to-b from-white/95 via-white/45 to-transparent shadow-[0_0_18px_rgba(255,255,255,0.75)]"
+          animate={{ opacity: [0.15, 1, 0.4], scaleY: [0.6, 1, 1] }}
           transition={{ duration: ROCKET_DURATION, ease: EASE }}
         />
       </MotionDiv>
@@ -141,12 +141,12 @@ const Launch = ({ launch }) => {
       >
         <MotionSpan
           className="absolute inset-0 rounded-full border-2"
-          style={{ borderColor: `${launch.color}33` }}
+          style={{ borderColor: `${launch.color}88` }}
           initial={{ opacity: 0, scale: 0.4 }}
           animate={{ opacity: [0.4, 0.15, 0], scale: 1.05 }}
           transition={{ duration: EXPLOSION_DURATION, ease: EASE, delay: EXPLOSION_DELAY }}
         />
-        <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/70 shadow-[0_0_14px_rgba(255,255,255,0.7)]" />
+        <span className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/85 shadow-[0_0_16px_rgba(255,255,255,0.85)]" />
         {particles.map((particle, idx) => (
           <MotionSpan
             key={`${launch.id}-ray-${idx}`}
@@ -161,8 +161,8 @@ const Launch = ({ launch }) => {
             animate={{
               x: Math.cos(particle.angle) * particle.radius,
               y: Math.sin(particle.angle) * particle.radius,
-              opacity: 0,
-              scale: 0.6,
+              opacity: [particle.opacity, particle.opacity * 0.6, 0],
+              scale: [1, 0.85, 0.6],
             }}
             transition={{
               duration: particle.duration,

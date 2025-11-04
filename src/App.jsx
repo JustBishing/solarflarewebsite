@@ -32,7 +32,7 @@ const App = () => {
       <Header />
       <Fireworks />
       <ScrollToTop />
-      <main className="relative z-10 flex flex-1 flex-col pt-20 sm:pt-24">
+      <main className="relative z-20 flex flex-1 flex-col pt-20 sm:pt-24">
         <AnimatePresence mode="wait" initial={false}>
           <RouteTransition key={location.pathname}>
             <Routes location={location}>
