@@ -27,12 +27,14 @@ const SponsorGrid = ({ sponsors, className = '' }) => {
             variants={resolveVariant(fadeInUp, shouldReduceMotion)}
             {...hoverProps}
           >
-            <img
-              src={sponsor.logo}
-              alt={`${sponsor.name} logo`}
-              className="h-16 w-auto object-contain"
-              loading="lazy"
-            />
+            <div className="flex min-h-[7rem] w-full items-center justify-center rounded-xl bg-black/10 p-4">
+              <img
+                src={sponsor.logo}
+                alt={`${sponsor.name} logo`}
+                className="h-24 w-full object-contain"
+                loading="lazy"
+              />
+            </div>
             <div className="mt-4">
               <p className="text-base font-semibold text-sf-text">
                 {sponsor.name}
