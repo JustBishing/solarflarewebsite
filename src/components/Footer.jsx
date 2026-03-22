@@ -80,6 +80,14 @@ const Footer = () => {
                   Sponsorships
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/admin"
+                  className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                >
+                  Admin
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
