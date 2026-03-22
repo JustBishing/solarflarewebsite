@@ -7,7 +7,7 @@ A Vite-powered React site for Solar Flare Robotics (FTC Team #25707). The site c
 - [Vite](https://vite.dev/) + React (JavaScript)
 - [React Router](https://reactrouter.com/) for routing
 - [Tailwind CSS](https://tailwindcss.com/) for styling
-- [Framer Motion](https://www.framer.com/motion/) for animation with reduced-motion fallbacks
+- [Framer Motion](https://www.framer.com/motion/) for animation with reduced-motion fallback
 
 ## Getting started
 
