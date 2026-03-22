@@ -59,10 +59,34 @@ export const signOutAdmin = async () => {
   await signOut(auth);
 };
 
+const withTimeout = (promise, timeoutMs, message) =>
+  Promise.race([
+    promise,
+    new Promise((_, reject) => {
+      window.setTimeout(() => {
+        reject(new Error(message));
+      }, timeoutMs);
+    }),
+  ]);
+
 export const saveSiteContent = async (content) => {
   if (!siteContentDocRef) {
     throw new Error('Firestore is not configured.');
   }
 
-  await setDoc(siteContentDocRef, content, { merge: false });
+  if (!auth?.currentUser) {
+    throw new Error('You need to be signed in before saving.');
+  }
+
+  await withTimeout(
+    auth.currentUser.getIdToken(),
+    10000,
+    'Sign-in verification timed out. Refresh the page and try again.',
+  );
+
+  await withTimeout(
+    setDoc(siteContentDocRef, content, { merge: false }),
+    15000,
+    'Saving timed out. Check your internet connection and Firestore rules, then try again.',
+  );
 };

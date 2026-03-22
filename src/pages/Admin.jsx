@@ -150,6 +150,24 @@ const ActionButton = ({ children, onClick, tone = 'secondary' }) => (
   </button>
 );
 
+const getFriendlyErrorMessage = (error) => {
+  const code = error?.code || '';
+
+  if (code === 'permission-denied') {
+    return 'Save failed: Firestore denied the write. Check that this email is allowed in your live Firestore rules.';
+  }
+
+  if (code === 'unauthenticated') {
+    return 'Save failed: your sign-in session is no longer valid. Refresh the page and sign in again.';
+  }
+
+  if (code === 'unavailable') {
+    return 'Save failed: Firestore is temporarily unavailable. Try again in a moment.';
+  }
+
+  return error?.message || 'Something went wrong.';
+};
+
 const Admin = () => {
   const { loadError, siteContent } = useSiteContent();
   const [user, setUser] = useState(null);
@@ -179,6 +197,10 @@ const Admin = () => {
     const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
       setUser(nextUser);
       setAuthChecked(true);
+
+      if (nextUser) {
+        setSaveError('');
+      }
     });
 
     return unsubscribe;
@@ -209,8 +231,9 @@ const Admin = () => {
 
     try {
       await signInWithGoogle();
+      setSaveError('');
     } catch (error) {
-      setSaveError(error.message);
+      setSaveError(getFriendlyErrorMessage(error));
     } finally {
       setIsSigningIn(false);
     }
@@ -222,8 +245,9 @@ const Admin = () => {
 
     try {
       await signOutAdmin();
+      setSaveError('');
     } catch (error) {
-      setSaveError(error.message);
+      setSaveError(getFriendlyErrorMessage(error));
     }
   };
 
@@ -236,7 +260,7 @@ const Admin = () => {
       await saveSiteContent(draftContent);
       setStatus('Saved. The public site will update from Firestore.');
     } catch (error) {
-      setSaveError(error.message);
+      setSaveError(getFriendlyErrorMessage(error));
     } finally {
       setIsSaving(false);
     }
