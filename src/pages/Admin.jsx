@@ -168,6 +168,40 @@ const getFriendlyErrorMessage = (error) => {
   return error?.message || 'Something went wrong.';
 };
 
+const saveScopes = {
+  home: {
+    buttonLabel: 'Save homepage changes',
+    payload: (content) => ({
+      hero: content.hero,
+      home: content.home,
+      sponsors: content.sponsors,
+    }),
+    successMessage: 'Saved homepage changes.',
+  },
+  team: {
+    buttonLabel: 'Save team page changes',
+    payload: (content) => ({
+      team: content.team,
+    }),
+    successMessage: 'Saved team page changes.',
+  },
+  sponsorships: {
+    buttonLabel: 'Save sponsorship changes',
+    payload: (content) => ({
+      sponsorships: content.sponsorships,
+    }),
+    successMessage: 'Saved sponsorship changes.',
+  },
+  footer: {
+    buttonLabel: 'Save footer changes',
+    payload: (content) => ({
+      branding: content.branding,
+      footer: content.footer,
+    }),
+    successMessage: 'Saved footer and branding changes.',
+  },
+};
+
 const Admin = () => {
   const { loadError, siteContent } = useSiteContent();
   const [user, setUser] = useState(null);
@@ -178,6 +212,7 @@ const Admin = () => {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [activePage, setActivePage] = useState('home');
+  const activeSaveScope = saveScopes[activePage] || saveScopes.home;
 
   const isAuthorized = useMemo(
     () => isAuthorizedEmail(user?.email || ''),
@@ -257,8 +292,10 @@ const Admin = () => {
     setIsSaving(true);
 
     try {
-      await saveSiteContent(draftContent);
-      setStatus('Saved. The public site will update from Firestore.');
+      await saveSiteContent(activeSaveScope.payload(draftContent));
+      setStatus(
+        `${activeSaveScope.successMessage} The public site will update from Firestore.`,
+      );
     } catch (error) {
       setSaveError(getFriendlyErrorMessage(error));
     } finally {
@@ -332,7 +369,7 @@ const Admin = () => {
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             {draftContent.hero.stats.map((stat, index) => (
               <div
-                key={`${stat.label}-${index}`}
+                key={`hero-stat-${index}`}
                 className="rounded-2xl border border-sf-border bg-sf-surface/70 p-4"
               >
                 <AdminEditableField
@@ -454,7 +491,7 @@ const Admin = () => {
           <div className="grid gap-4 md:grid-cols-2">
             {draftContent.home.highlights.items.map((item, index) => (
               <div
-                key={`${item.event}-${index}`}
+                key={`highlight-${index}`}
                 className="rounded-2xl border border-sf-border bg-sf-surface p-5"
               >
                 <AdminEditableField
@@ -554,7 +591,7 @@ const Admin = () => {
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {draftContent.sponsors.map((sponsor, index) => (
               <div
-                key={`${sponsor.name}-${index}`}
+                key={`sponsor-${index}`}
                 className="rounded-2xl border border-sf-border bg-sf-surface p-4"
               >
                 <AdminEditableField
@@ -675,7 +712,7 @@ const Admin = () => {
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {draftContent.team.roster.members.map((member, index) => (
               <div
-                key={`${member.name}-${index}`}
+                key={`member-${index}`}
                 className="rounded-2xl border border-sf-border bg-sf-surface p-4"
               >
                 <div className="overflow-hidden rounded-xl border border-sf-border bg-black/20 p-3">
@@ -753,7 +790,7 @@ const Admin = () => {
           />
           {draftContent.team.connect.links.map((link, index) => (
             <div
-              key={`${link.label}-${index}`}
+              key={`team-link-${index}`}
               className="rounded-2xl border border-sf-border bg-sf-surface p-4"
             >
               <AdminEditableField
@@ -903,7 +940,7 @@ const Admin = () => {
           <div className="grid gap-4 md:grid-cols-2">
             {draftContent.sponsorships.tiers.items.map((tier, tierIndex) => (
               <div
-                key={`${tier.title}-${tierIndex}`}
+                key={`tier-${tierIndex}`}
                 className="rounded-2xl border border-sf-border bg-sf-surface p-5"
               >
                 <AdminEditableField
@@ -930,7 +967,7 @@ const Admin = () => {
                 <div className="mt-4 space-y-3">
                   {tier.benefits.map((benefit, benefitIndex) => (
                     <div
-                      key={`${benefit}-${benefitIndex}`}
+                      key={`tier-${tierIndex}-benefit-${benefitIndex}`}
                       className="rounded-xl border border-sf-border bg-black/10 p-3"
                     >
                       <AdminEditableField
@@ -1083,7 +1120,7 @@ const Admin = () => {
           />
           {draftContent.footer.socials.map((social, index) => (
             <div
-              key={`${social.label}-${index}`}
+              key={`social-${index}`}
               className="rounded-2xl border border-sf-border bg-sf-surface p-4"
             >
               <AdminEditableField
@@ -1164,7 +1201,7 @@ const Admin = () => {
               Load defaults
             </ActionButton>
             <ActionButton onClick={handleSave} tone="primary">
-              {isSaving ? 'Saving...' : 'Save live content'}
+              {isSaving ? 'Saving...' : activeSaveScope.buttonLabel}
             </ActionButton>
           </div>
         </div>

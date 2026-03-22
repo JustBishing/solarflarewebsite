@@ -85,7 +85,7 @@ export const saveSiteContent = async (content) => {
   );
 
   await withTimeout(
-    setDoc(siteContentDocRef, content, { merge: false }),
+    setDoc(siteContentDocRef, content, { merge: true }),
     15000,
     'Saving timed out. Check your internet connection and Firestore rules, then try again.',
   );
