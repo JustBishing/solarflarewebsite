@@ -1195,11 +1195,6 @@ const Admin = () => {
             <ActionButton onClick={() => setDraftContent(cloneValue(siteContent))}>
               Reset to live
             </ActionButton>
-            <ActionButton
-              onClick={() => setDraftContent(cloneValue(defaultSiteContent))}
-            >
-              Load defaults
-            </ActionButton>
             <ActionButton onClick={handleSave} tone="primary">
               {isSaving ? 'Saving...' : activeSaveScope.buttonLabel}
             </ActionButton>
