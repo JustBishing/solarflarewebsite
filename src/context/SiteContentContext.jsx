@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { onSnapshot } from 'firebase/firestore';
 import { db, isFirebaseConfigured, siteContentDocRef } from '../lib/firebase.js';
 import { defaultSiteContent, resolveSiteContent } from '../lib/siteContent.js';
+import { resolveSiteAssetUrl } from '../lib/assets.js';
 import { applyThemeColors } from '../lib/theme.js';
 
 const SITE_CONTENT_STORAGE_KEY = 'solarflare.siteContent.v1';
@@ -50,6 +51,23 @@ export const SiteContentProvider = ({ children }) => {
 
   useEffect(() => {
     applyThemeColors(siteContent.theme?.colors);
+  }, [siteContent]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    const favicon = document.querySelector('link[rel="icon"]');
+
+    if (!favicon) {
+      return;
+    }
+
+    favicon.setAttribute(
+      'href',
+      resolveSiteAssetUrl(siteContent.branding?.logoSrc, 'logo.png'),
+    );
   }, [siteContent]);
 
   useEffect(() => {

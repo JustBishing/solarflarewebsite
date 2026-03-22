@@ -3,6 +3,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import AdminEditableField from '../components/admin/AdminEditableField.jsx';
+import AdminImageField from '../components/admin/AdminImageField.jsx';
 import AdminEditableUrlField from '../components/admin/AdminEditableUrlField.jsx';
 import AdminEditorSection from '../components/admin/AdminEditorSection.jsx';
 import { useSiteContent } from '../context/useSiteContent.js';
@@ -609,7 +610,7 @@ const Admin = () => {
                   }
                   className="mt-2 text-sf-muted"
                 />
-                <div className="mt-3 space-y-3">
+              <div className="mt-3 space-y-3">
                   <AdminEditableUrlField
                     label="Sponsor website"
                     value={sponsor.website || ''}
@@ -617,19 +618,12 @@ const Admin = () => {
                       setField(['sponsors', index, 'website'], value)
                     }
                   />
-                  <AdminEditableUrlField
-                    label="Logo image URL"
+                  <AdminImageField
+                    label="Logo image"
                     value={sponsor.logo}
                     onChange={(value) =>
                       setField(['sponsors', index, 'logo'], value)
                     }
-                  />
-                </div>
-                <div className="mt-4 overflow-hidden rounded-xl border border-sf-border bg-black/20 p-4">
-                  <img
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    className="h-14 w-full object-contain"
                   />
                 </div>
                 <div className="mt-4">
@@ -747,8 +741,8 @@ const Admin = () => {
                     multiline
                     className="text-sf-muted"
                   />
-                  <AdminEditableUrlField
-                    label="Photo URL"
+                  <AdminImageField
+                    label="Photo image"
                     value={member.photo}
                     onChange={(value) =>
                       setField(['team', 'roster', 'members', index, 'photo'], value)
@@ -1119,6 +1113,11 @@ const Admin = () => {
       >
         <div className="grid gap-6 rounded-[2rem] border border-sf-border bg-sf-bg p-8 lg:grid-cols-2">
         <div className="space-y-4">
+          <AdminImageField
+            label="Site logo"
+            value={draftContent.branding.logoSrc}
+            onChange={(value) => setField(['branding', 'logoSrc'], value)}
+          />
           <AdminEditableField
             value={draftContent.branding.siteName}
             onChange={(value) => setField(['branding', 'siteName'], value)}

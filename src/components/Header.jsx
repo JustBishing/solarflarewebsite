@@ -9,6 +9,7 @@ import {
 import { scaleTap, useShouldReduceMotion } from '../lib/motion.js';
 import useScrollLock from '../lib/useScrollLock.js';
 import { useSiteContent } from '../context/useSiteContent.js';
+import { resolveSiteAssetUrl } from '../lib/assets.js';
 
 const navItems = [
   { label: 'Home', to: '/', end: true },
@@ -25,7 +26,7 @@ const Header = () => {
   } = useSiteContent();
   const { scrollY } = useScroll();
   const location = useLocation();
-  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
+  const logoSrc = resolveSiteAssetUrl(branding.logoSrc, 'logo.png');
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 8);

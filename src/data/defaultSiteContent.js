@@ -17,6 +17,7 @@ const defaultSiteContent = {
     season: 'Into the Deep',
     region: 'NY-Excelsior region',
     logoAlt: 'Solar Flare Robotics logo',
+    logoSrc: 'logo.png',
   },
   hero: {
     eyebrow: 'FTC Team #25707 · Into the Deep',

@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useSiteContent } from '../context/useSiteContent.js';
+import { resolveSiteAssetUrl } from '../lib/assets.js';
 
 const Footer = () => {
   const {
     siteContent: { branding, footer },
   } = useSiteContent();
-  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
+  const logoSrc = resolveSiteAssetUrl(branding.logoSrc, 'logo.png');
 
   return (
     <footer className="bg-sf-elevated text-sf-text">
