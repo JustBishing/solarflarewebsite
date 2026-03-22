@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
-const AdminEditableUrlField = ({ label, onChange, value }) => (
+const AdminEditableUrlField = ({ label, onChange, type = 'text', value }) => (
   <label className="flex flex-col gap-2 text-xs font-semibold uppercase tracking-[0.18rem] text-sf-muted">
     <span>{label}</span>
     <input
-      type="text"
+      type={type}
       value={value}
       onChange={(event) => onChange(event.target.value)}
       spellCheck="false"
@@ -16,6 +16,7 @@ const AdminEditableUrlField = ({ label, onChange, value }) => (
 AdminEditableUrlField.propTypes = {
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  type: PropTypes.string,
   value: PropTypes.string.isRequired,
 };
 

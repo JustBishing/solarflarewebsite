@@ -4,14 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        'sf-orange-1': '#EA5020',
-        'sf-orange-2': '#F89221',
-        'sf-bg': '#0B101E',
-        'sf-surface': '#141A2D',
-        'sf-elevated': '#1C2339',
-        'sf-border': '#2A3350',
-        'sf-text': '#F5F7FF',
-        'sf-muted': '#C4C8E0',
+        'sf-orange-1': 'rgb(var(--sf-orange1) / <alpha-value>)',
+        'sf-orange-2': 'rgb(var(--sf-orange2) / <alpha-value>)',
+        'sf-bg': 'rgb(var(--sf-bg) / <alpha-value>)',
+        'sf-surface': 'rgb(var(--sf-surface) / <alpha-value>)',
+        'sf-elevated': 'rgb(var(--sf-elevated) / <alpha-value>)',
+        'sf-border': 'rgb(var(--sf-border) / <alpha-value>)',
+        'sf-text': 'rgb(var(--sf-text) / <alpha-value>)',
+        'sf-muted': 'rgb(var(--sf-muted) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['"Exo 2"', 'ui-sans-serif', 'system-ui', 'sans-serif'],

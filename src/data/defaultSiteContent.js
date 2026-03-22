@@ -1,4 +1,16 @@
 const defaultSiteContent = {
+  theme: {
+    colors: {
+      orange1: '#EA5020',
+      orange2: '#F89221',
+      bg: '#0B101E',
+      surface: '#141A2D',
+      elevated: '#1C2339',
+      border: '#2A3350',
+      text: '#F5F7FF',
+      muted: '#C4C8E0',
+    },
+  },
   branding: {
     siteName: 'Solar Flare Robotics',
     teamNumber: '25707',

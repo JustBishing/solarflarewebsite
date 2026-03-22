@@ -7,6 +7,14 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --sf-orange1: 234 80 32;
+  --sf-orange2: 248 146 33;
+  --sf-bg: 11 16 30;
+  --sf-surface: 20 26 45;
+  --sf-elevated: 28 35 57;
+  --sf-border: 42 51 80;
+  --sf-text: 245 247 255;
+  --sf-muted: 196 200 224;
 }
 
 body {

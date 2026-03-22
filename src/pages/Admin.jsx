@@ -195,10 +195,11 @@ const saveScopes = {
   footer: {
     buttonLabel: 'Save footer changes',
     payload: (content) => ({
+      theme: content.theme,
       branding: content.branding,
       footer: content.footer,
     }),
-    successMessage: 'Saved footer and branding changes.',
+    successMessage: 'Saved footer, branding, and theme changes.',
   },
 };
 
@@ -1067,11 +1068,56 @@ const Admin = () => {
   );
 
   const renderFooterEditor = () => (
-    <AdminEditorSection
-      title="Footer and branding"
-      description="These fields affect the shared header and footer across the site."
-    >
-      <div className="grid gap-6 rounded-[2rem] border border-sf-border bg-sf-bg p-8 lg:grid-cols-2">
+    <div className="space-y-8">
+      <AdminEditorSection
+        title="Theme colors"
+        description="Change the live brand colors that drive the whole site. These update the CSS theme variables used across the app."
+      >
+        <div className="grid gap-4 rounded-[2rem] border border-sf-border bg-sf-bg p-8 md:grid-cols-2 xl:grid-cols-4">
+          {[
+            ['orange1', 'Primary orange'],
+            ['orange2', 'Accent orange'],
+            ['bg', 'Background'],
+            ['surface', 'Surface'],
+            ['elevated', 'Elevated surface'],
+            ['border', 'Border'],
+            ['text', 'Primary text'],
+            ['muted', 'Muted text'],
+          ].map(([key, label]) => (
+            <label
+              key={key}
+              className="rounded-2xl border border-sf-border bg-sf-surface p-4"
+            >
+              <span className="text-xs font-semibold uppercase tracking-[0.18rem] text-sf-muted">
+                {label}
+              </span>
+              <div className="mt-3 flex items-center gap-3">
+                <input
+                  type="color"
+                  value={draftContent.theme.colors[key]}
+                  onChange={(event) =>
+                    setField(['theme', 'colors', key], event.target.value)
+                  }
+                  className="h-12 w-14 cursor-pointer rounded-lg border border-sf-border bg-transparent p-1"
+                />
+                <AdminEditableUrlField
+                  label="Hex"
+                  value={draftContent.theme.colors[key]}
+                  onChange={(value) =>
+                    setField(['theme', 'colors', key], value)
+                  }
+                />
+              </div>
+            </label>
+          ))}
+        </div>
+      </AdminEditorSection>
+
+      <AdminEditorSection
+        title="Footer and branding"
+        description="These fields affect the shared header and footer across the site."
+      >
+        <div className="grid gap-6 rounded-[2rem] border border-sf-border bg-sf-bg p-8 lg:grid-cols-2">
         <div className="space-y-4">
           <AdminEditableField
             value={draftContent.branding.siteName}
@@ -1155,7 +1201,8 @@ const Admin = () => {
           </ActionButton>
         </div>
       </div>
-    </AdminEditorSection>
+      </AdminEditorSection>
+    </div>
   );
 
   const renderActiveEditor = () => {

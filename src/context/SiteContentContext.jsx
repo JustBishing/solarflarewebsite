@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { onSnapshot } from 'firebase/firestore';
 import { db, isFirebaseConfigured, siteContentDocRef } from '../lib/firebase.js';
 import { defaultSiteContent, resolveSiteContent } from '../lib/siteContent.js';
+import { applyThemeColors } from '../lib/theme.js';
 
 const SITE_CONTENT_STORAGE_KEY = 'solarflare.siteContent.v1';
 
@@ -46,6 +47,10 @@ export const SiteContentProvider = ({ children }) => {
   useEffect(() => {
     hasCachedContentRef.current = hasCachedContent;
   }, [hasCachedContent]);
+
+  useEffect(() => {
+    applyThemeColors(siteContent.theme?.colors);
+  }, [siteContent]);
 
   useEffect(() => {
     if (!isFirebaseConfigured || !db || !siteContentDocRef) {
