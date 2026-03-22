@@ -620,6 +620,7 @@ const Admin = () => {
                   />
                   <AdminImageField
                     label="Logo image"
+                    size="large"
                     value={sponsor.logo}
                     onChange={(value) =>
                       setField(['sponsors', index, 'logo'], value)

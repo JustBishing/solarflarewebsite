@@ -9,7 +9,12 @@ const readFileAsDataUrl = (file) =>
     reader.readAsDataURL(file);
   });
 
-const AdminImageField = ({ label, onChange, value }) => {
+const sizeClasses = {
+  default: 'max-h-40',
+  large: 'max-h-64',
+};
+
+const AdminImageField = ({ label, onChange, size = 'default', value }) => {
   const handleFileChange = async (event) => {
     const [file] = event.target.files || [];
 
@@ -31,7 +36,7 @@ const AdminImageField = ({ label, onChange, value }) => {
         <img
           src={value}
           alt={label}
-          className="max-h-40 w-full object-contain"
+          className={`${sizeClasses[size]} w-full object-contain`}
         />
       </div>
       <input
@@ -57,6 +62,7 @@ const AdminImageField = ({ label, onChange, value }) => {
 AdminImageField.propTypes = {
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  size: PropTypes.oneOf(['default', 'large']),
   value: PropTypes.string.isRequired,
 };
 
