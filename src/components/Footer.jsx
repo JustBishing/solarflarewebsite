@@ -5,7 +5,7 @@ const Footer = () => {
   const {
     siteContent: { branding, footer },
   } = useSiteContent();
-  const logoSrc = `${import.meta.env.BASE_URL}logo.svg`;
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
   return (
     <footer className="bg-sf-elevated text-sf-text">

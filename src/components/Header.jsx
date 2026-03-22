@@ -25,7 +25,7 @@ const Header = () => {
   } = useSiteContent();
   const { scrollY } = useScroll();
   const location = useLocation();
-  const logoSrc = `${import.meta.env.BASE_URL}logo.svg`;
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 8);
