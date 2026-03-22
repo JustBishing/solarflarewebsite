@@ -7,16 +7,30 @@ import {
 } from 'firebase/auth';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+const firebaseEnvMap = {
+  VITE_FIREBASE_API_KEY: import.meta.env.VITE_FIREBASE_API_KEY,
+  VITE_FIREBASE_AUTH_DOMAIN: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  VITE_FIREBASE_PROJECT_ID: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  VITE_FIREBASE_STORAGE_BUCKET: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  VITE_FIREBASE_MESSAGING_SENDER_ID:
+    import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  VITE_FIREBASE_APP_ID: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-export const isFirebaseConfigured = Object.values(firebaseConfig).every(Boolean);
+export const missingFirebaseEnvKeys = Object.entries(firebaseEnvMap)
+  .filter(([, value]) => !value)
+  .map(([key]) => key);
+
+const firebaseConfig = {
+  apiKey: firebaseEnvMap.VITE_FIREBASE_API_KEY,
+  authDomain: firebaseEnvMap.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: firebaseEnvMap.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: firebaseEnvMap.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: firebaseEnvMap.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: firebaseEnvMap.VITE_FIREBASE_APP_ID,
+};
+
+export const isFirebaseConfigured = missingFirebaseEnvKeys.length === 0;
 
 const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
 

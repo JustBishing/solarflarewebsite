@@ -10,6 +10,7 @@ import { defaultSiteContent } from '../lib/siteContent.js';
 import {
   auth,
   isFirebaseConfigured,
+  missingFirebaseEnvKeys,
   saveSiteContent,
   signInWithGoogle,
   signOutAdmin,
@@ -1184,6 +1185,12 @@ const Admin = () => {
             {!isFirebaseConfigured ? (
               <p className="mt-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-amber-100">
                 Add the Firebase env vars before admin mode can sign in or save.
+                {missingFirebaseEnvKeys.length ? (
+                  <>
+                    {' '}Missing:{' '}
+                    {missingFirebaseEnvKeys.join(', ')}
+                  </>
+                ) : null}
               </p>
             ) : null}
 
