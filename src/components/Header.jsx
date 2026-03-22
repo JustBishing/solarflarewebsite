@@ -8,6 +8,7 @@ import {
 } from 'framer-motion';
 import { scaleTap, useShouldReduceMotion } from '../lib/motion.js';
 import useScrollLock from '../lib/useScrollLock.js';
+import { useSiteContent } from '../context/useSiteContent.js';
 
 const navItems = [
   { label: 'Home', to: '/', end: true },
@@ -19,6 +20,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const shouldReduceMotion = useShouldReduceMotion();
+  const {
+    siteContent: { branding },
+  } = useSiteContent();
   const { scrollY } = useScroll();
   const location = useLocation();
   const logoSrc = `${import.meta.env.BASE_URL}logo.svg`;
@@ -65,11 +69,11 @@ const Header = () => {
         <Link to="/" className="flex items-center gap-3 text-lg font-semibold text-sf-text">
           <img
             src={logoSrc}
-            alt="Solar Flare Robotics logo"
+            alt={branding.logoAlt}
             className="h-10 w-auto"
             loading="lazy"
           />
-          <span className="hidden sm:inline-block">Solar Flare Robotics</span>
+          <span className="hidden sm:inline-block">{branding.siteName}</span>
         </Link>
         <nav className="hidden items-center gap-1 text-sm font-semibold sm:flex">
           {navItems.map((item) => (

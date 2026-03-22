@@ -36,11 +36,20 @@ npm run preview
 
 ## Updating content
 
-- Team members: `src/data/team.js`
-- Sponsors: `src/data/sponsors.js`
-- Season achievements: `src/data/achievements.js`
+The public site now reads from a single site-content object. You can still edit the built-in defaults in [src/data/defaultSiteContent.js](/Users/rishi/Desktop/Projects/solarflarewebsite/src/data/defaultSiteContent.js), or enable the live admin editor below.
 
-Each file exports an array—update, add, or remove entries as needed. Images use placeholder URLs by default; swap them with hosted images when available.
+## Admin mode
+
+`/admin` uses Firebase Authentication for Google sign-in and Firestore for persistent live content updates.
+
+1. Copy [.env.example](/Users/rishi/Desktop/Projects/solarflarewebsite/.env.example) to `.env.local`.
+2. Fill in your Firebase web-app config values.
+3. Set `VITE_ADMIN_AUTHORIZED_EMAILS` to the exact Google emails, or `@domain.com` suffixes, allowed to edit the site.
+4. Enable Google as a sign-in provider in Firebase Authentication.
+5. Create a Firestore database. The app writes the live document to `siteContent/current`.
+6. Publish Firestore rules that mirror your allowed admin emails or domains. A starter example lives in [firestore.rules.example](/Users/rishi/Desktop/Projects/solarflarewebsite/firestore.rules.example).
+
+If Firebase is not configured, the public site falls back to the built-in defaults and `/admin` shows setup guidance instead of allowing sign-in or saving.
 
 ## Accessibility & motion
 

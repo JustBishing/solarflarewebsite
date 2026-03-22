@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useSiteContent } from '../context/useSiteContent.js';
 
 const Footer = () => {
+  const {
+    siteContent: { branding, footer },
+  } = useSiteContent();
   const logoSrc = `${import.meta.env.BASE_URL}logo.svg`;
 
   return (
@@ -10,56 +14,47 @@ const Footer = () => {
           <div className="flex items-center gap-3 text-lg font-semibold">
             <img
               src={logoSrc}
-              alt="Solar Flare Robotics logo"
+              alt={branding.logoAlt}
               className="h-10 w-auto"
               loading="lazy"
             />
-            <span>Solar Flare Robotics</span>
+            <span>{branding.siteName}</span>
           </div>
           <p className="mt-4 max-w-xl text-sm text-sf-muted">
-            FTC Team #25707 – Solar Flare Robotics, proudly representing the NY-Excelsior region.
-            Fiscally sponsored by Hack Club (501(c)(3)), making every donation tax-deductible.
+            {footer.description}
           </p>
           <p className="mt-6 text-sm text-sf-muted/80">
-            Fiscally sponsored by Hack Club (501(c)(3)).
+            {footer.sponsorNote}
           </p>
         </div>
         <div className="grid gap-6 text-sm">
           <div>
-            <h3 className="text-base font-semibold text-sf-text">Get in touch</h3>
+            <h3 className="text-base font-semibold text-sf-text">{footer.contactTitle}</h3>
             <ul className="mt-3 space-y-2">
               <li>
                 <a
-                  href="mailto:team@solarflarerobotics.org"
+                  href={`mailto:${footer.email}`}
                   className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
                 >
-                  team@solarflarerobotics.org
+                  {footer.email}
                 </a>
               </li>
-              <li>
-                <a
-                  href="https://instagram.com/solarflarerobotics"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
-                >
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.youtube.com/@solarflarerobotics"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
-                >
-                  YouTube
-                </a>
-              </li>
+              {footer.socials.map((social) => (
+                <li key={`${social.label}-${social.href}`}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                  >
+                    {social.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div>
-            <h3 className="text-base font-semibold text-sf-text">Quick links</h3>
+            <h3 className="text-base font-semibold text-sf-text">{footer.quickLinksTitle}</h3>
             <ul className="mt-3 space-y-2">
               <li>
                 <Link
@@ -91,7 +86,7 @@ const Footer = () => {
       </div>
       <div className="border-t border-sf-border py-6">
         <div className="container text-center text-xs text-sf-muted">
-          © {new Date().getFullYear()} Solar Flare Robotics. All rights reserved.
+          © {new Date().getFullYear()} {footer.copyrightPrefix}
         </div>
       </div>
     </footer>

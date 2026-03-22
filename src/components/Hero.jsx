@@ -7,11 +7,15 @@ import {
   staggerChildren,
   useShouldReduceMotion,
 } from '../lib/motion.js';
+import { useSiteContent } from '../context/useSiteContent.js';
 
 const MotionLink = motion(Link);
 
 const Hero = () => {
   const shouldReduceMotion = useShouldReduceMotion();
+  const {
+    siteContent: { hero },
+  } = useSiteContent();
   const containerVariants = resolveVariant(staggerChildren, shouldReduceMotion);
   const itemVariants = resolveVariant(fadeInUp, shouldReduceMotion);
   const hoverPrimary = shouldReduceMotion ? {} : { whileHover: { scale: 1.02 } };
@@ -35,56 +39,60 @@ const Hero = () => {
             className="text-xs font-semibold uppercase tracking-[0.4rem] text-sf-muted/80 sm:text-sm"
             variants={itemVariants}
           >
-            FTC Team #25707 · Into the Deep
+            {hero.eyebrow}
           </motion.p>
           <motion.h1
             className="mt-6 text-4xl font-extrabold leading-tight text-sf-text sm:text-5xl lg:text-6xl"
             variants={itemVariants}
           >
-            Lighting the future of FTC innovation.
+            {hero.title}
           </motion.h1>
           <motion.p
             className="mt-6 text-lg text-sf-muted sm:text-xl"
             variants={itemVariants}
           >
-            Solar Flare Robotics is an FTC team from the NY-Excelsior region,
-            building advanced robots, mentoring peers, and expanding STEM access
-            across our community. We are fiscally sponsored by Hack Club, so
-            every contribution is tax-deductible.
+            {hero.description}
           </motion.p>
           <motion.div
             className="mt-8 flex flex-wrap gap-4"
             variants={itemVariants}
           >
             <MotionLink
-              to="/team"
+              to={hero.primaryCtaLink}
               className="rounded-xl bg-sf-orange-1 px-6 py-3 text-base font-semibold text-sf-bg shadow-[0_20px_38px_-18px_rgba(234,80,32,0.65)] transition hover:bg-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
               whileTap={scaleTap}
               {...hoverPrimary}
             >
-              Meet the team
+              {hero.primaryCtaLabel}
             </MotionLink>
             <MotionLink
-              to="/sponsorships"
+              to={hero.secondaryCtaLink}
               className="rounded-xl border border-sf-border/80 px-6 py-3 text-base font-semibold text-sf-text transition hover:border-sf-orange-1 hover:text-sf-orange-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
               whileTap={scaleTap}
               {...hoverSecondary}
             >
-              Support our season
+              {hero.secondaryCtaLabel}
             </MotionLink>
           </motion.div>
           <motion.div
             className="mt-10 grid gap-4 text-sm text-sf-muted sm:grid-cols-2"
             variants={itemVariants}
           >
-            <div className="flex items-center gap-3 rounded-xl border border-sf-border/80 bg-sf-surface/70 px-4 py-3 backdrop-blur-sm">
-              <span className="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-sf-orange-1 shadow-[0_0_12px_rgba(234,80,32,0.75)]" />
-              <span>2024-25 Excelsior Finalist Alliance Captain & Design Award winners.</span>
-            </div>
-            <div className="flex items-center gap-3 rounded-xl border border-sf-border/80 bg-sf-surface/70 px-4 py-3 backdrop-blur-sm">
-              <span className="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-white/80" />
-              <span>Fiscally sponsored by Hack Club Bank · donations stay tax-deductible.</span>
-            </div>
+            {hero.stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex items-center gap-3 rounded-xl border border-sf-border/80 bg-sf-surface/70 px-4 py-3 backdrop-blur-sm"
+              >
+                <span
+                  className={`inline-flex h-2.5 w-2.5 shrink-0 rounded-full ${
+                    stat.accent === 'orange'
+                      ? 'bg-sf-orange-1 shadow-[0_0_12px_rgba(234,80,32,0.75)]'
+                      : 'bg-white/80'
+                  }`}
+                />
+                <span>{stat.label}</span>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>

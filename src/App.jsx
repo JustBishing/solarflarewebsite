@@ -6,6 +6,7 @@ import Footer from './components/Footer.jsx';
 import Home from './pages/Home.jsx';
 import Team from './pages/Team.jsx';
 import Sponsorships from './pages/Sponsorships.jsx';
+import Admin from './pages/Admin.jsx';
 import RouteTransition from './components/RouteTransition.jsx';
 import { useShouldReduceMotion } from './lib/motion.js';
 import Fireworks from './components/Fireworks.jsx';
@@ -39,6 +40,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/team" element={<Team />} />
               <Route path="/sponsorships" element={<Sponsorships />} />
+              <Route path="/admin" element={<Admin />} />
             </Routes>
           </RouteTransition>
         </AnimatePresence>
