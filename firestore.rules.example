@@ -8,7 +8,8 @@ service cloud.firestore {
         && (
           request.auth.token.email in [
             'tristan@solarflarerobotics.org',
-            'rishi@solarflarerobotics.org'
+            'rishi@solarflarerobotics.org',
+            'ryan@solarflarerobotics.org'
           ]
         );
     }
