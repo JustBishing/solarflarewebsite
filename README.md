@@ -51,6 +51,16 @@ The public site now reads from a single site-content object. You can still edit 
 
 If Firebase is not configured, the public site falls back to the built-in defaults and `/admin` shows setup guidance instead of allowing sign-in or saving.
 
+## Weekly backup
+
+The repo includes a scheduled GitHub Action that exports `siteContent/current` from Firestore into [backups/siteContent.current.json](/Users/rishi/Desktop/Projects/solarflarewebsite/backups/siteContent.current.json) once a week and commits the change back to `main`.
+
+To enable it:
+
+1. Create a Firebase service account with Firestore read access.
+2. Add the full JSON credentials as a GitHub Actions secret named `FIREBASE_SERVICE_ACCOUNT`.
+3. Enable the workflow in the `Actions` tab. It also supports manual runs.
+
 ## Accessibility & motion
 
 - Headings follow a semantic structure, focus states are visible, and navigation uses `aria-current="page"`.
