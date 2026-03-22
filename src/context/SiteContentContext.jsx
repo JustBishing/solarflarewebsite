@@ -1,19 +1,51 @@
-import { createContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { onSnapshot } from 'firebase/firestore';
 import { db, isFirebaseConfigured, siteContentDocRef } from '../lib/firebase.js';
 import { defaultSiteContent, resolveSiteContent } from '../lib/siteContent.js';
 
+const SITE_CONTENT_STORAGE_KEY = 'solarflare.siteContent.v1';
+
+const getCachedSiteContent = () => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  try {
+    const rawValue = window.localStorage.getItem(SITE_CONTENT_STORAGE_KEY);
+
+    if (!rawValue) {
+      return null;
+    }
+
+    return resolveSiteContent(JSON.parse(rawValue));
+  } catch {
+    return null;
+  }
+};
+
 const SiteContentContext = createContext({
+  hasCachedContent: false,
   isLoading: false,
   loadError: '',
   siteContent: defaultSiteContent,
 });
 
 export const SiteContentProvider = ({ children }) => {
-  const [siteContent, setSiteContent] = useState(defaultSiteContent);
+  const cachedSiteContent = getCachedSiteContent();
+  const [siteContent, setSiteContent] = useState(
+    cachedSiteContent || defaultSiteContent,
+  );
+  const [hasCachedContent, setHasCachedContent] = useState(
+    Boolean(cachedSiteContent),
+  );
+  const hasCachedContentRef = useRef(Boolean(cachedSiteContent));
   const [isLoading, setIsLoading] = useState(isFirebaseConfigured);
   const [loadError, setLoadError] = useState('');
+
+  useEffect(() => {
+    hasCachedContentRef.current = hasCachedContent;
+  }, [hasCachedContent]);
 
   useEffect(() => {
     if (!isFirebaseConfigured || !db || !siteContentDocRef) {
@@ -25,12 +57,24 @@ export const SiteContentProvider = ({ children }) => {
     const unsubscribe = onSnapshot(
       siteContentDocRef,
       (snapshot) => {
-        setSiteContent(resolveSiteContent(snapshot.data()));
+        const resolvedSiteContent = resolveSiteContent(snapshot.data());
+
+        setSiteContent(resolvedSiteContent);
+        setHasCachedContent(true);
         setLoadError('');
         setIsLoading(false);
+
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem(
+            SITE_CONTENT_STORAGE_KEY,
+            JSON.stringify(resolvedSiteContent),
+          );
+        }
       },
       (error) => {
-        setSiteContent(defaultSiteContent);
+        setSiteContent((current) =>
+          hasCachedContentRef.current ? current : defaultSiteContent,
+        );
         setLoadError(error.message);
         setIsLoading(false);
       },
@@ -41,11 +85,12 @@ export const SiteContentProvider = ({ children }) => {
 
   const value = useMemo(
     () => ({
+      hasCachedContent,
       isLoading,
       loadError,
       siteContent,
     }),
-    [isLoading, loadError, siteContent],
+    [hasCachedContent, isLoading, loadError, siteContent],
   );
 
   return (

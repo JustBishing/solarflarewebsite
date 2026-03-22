@@ -28,22 +28,23 @@ const ScrollToTop = () => {
 
 const App = () => {
   const location = useLocation();
-  const { isLoading } = useSiteContent();
+  const { hasCachedContent, isLoading } = useSiteContent();
 
-  if (isLoading) {
+  if (isLoading && !hasCachedContent) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-sf-bg px-6 text-sf-text">
-        <div className="w-full max-w-md rounded-[2rem] border border-sf-border bg-sf-surface/80 p-8 text-center shadow-[0_28px_48px_-30px_rgba(0,0,0,0.65)] backdrop-blur-sm">
-          <div className="mx-auto h-14 w-14 animate-pulse rounded-full border border-sf-orange-1/35 bg-[radial-gradient(circle_at_center,rgba(248,146,33,0.45),rgba(234,80,32,0.12),transparent_72%)]" />
-          <p className="mt-6 text-xs font-semibold uppercase tracking-[0.32rem] text-sf-orange-1/80">
-            Solar Flare Robotics
-          </p>
-          <h1 className="mt-3 text-2xl font-bold text-sf-text">
-            Loading live content
-          </h1>
-          <p className="mt-3 text-sm text-sf-muted sm:text-base">
-            Syncing the latest website content from Firestore before rendering.
-          </p>
+      <div className="min-h-screen bg-sf-bg text-sf-text">
+        <div className="h-1 w-full overflow-hidden bg-white/5">
+          <div className="h-full w-1/3 animate-[pulse_1.2s_ease-in-out_infinite] bg-[linear-gradient(90deg,rgba(234,80,32,0),rgba(234,80,32,0.85),rgba(248,146,33,0))]" />
+        </div>
+        <div className="flex min-h-[calc(100vh-4px)] items-center justify-center px-6">
+          <div className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.32rem] text-sf-orange-1/80">
+              Solar Flare Robotics
+            </p>
+            <p className="mt-4 text-sm text-sf-muted sm:text-base">
+              Loading live content...
+            </p>
+          </div>
         </div>
       </div>
     );
