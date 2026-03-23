@@ -69,6 +69,22 @@ const withTimeout = (promise, timeoutMs, message) =>
     }),
   ]);
 
+const sanitizeForFirestore = (value) => {
+  if (Array.isArray(value)) {
+    return value.map((item) => sanitizeForFirestore(item));
+  }
+
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([, entryValue]) => entryValue !== undefined)
+        .map(([key, entryValue]) => [key, sanitizeForFirestore(entryValue)]),
+    );
+  }
+
+  return value;
+};
+
 export const saveSiteContent = async (content) => {
   if (!siteContentDocRef) {
     throw new Error('Firestore is not configured.');
@@ -85,7 +101,7 @@ export const saveSiteContent = async (content) => {
   );
 
   await withTimeout(
-    setDoc(siteContentDocRef, content, { merge: true }),
+    setDoc(siteContentDocRef, sanitizeForFirestore(content), { merge: true }),
     15000,
     'Saving timed out. Check your internet connection and Firestore rules, then try again.',
   );
