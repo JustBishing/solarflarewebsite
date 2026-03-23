@@ -6,6 +6,13 @@ import {
   signOut,
 } from 'firebase/auth';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+} from 'firebase/storage';
+import { encodeSiteContentForFirestore } from './siteContent.js';
 
 const firebaseEnvMap = {
   VITE_FIREBASE_API_KEY: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -36,6 +43,7 @@ const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
 
 export const auth = app ? getAuth(app) : null;
 export const db = app ? getFirestore(app) : null;
+export const storage = app ? getStorage(app) : null;
 export const googleProvider = app ? new GoogleAuthProvider() : null;
 export const siteContentDocRef = db ? doc(db, 'siteContent', 'current') : null;
 
@@ -57,6 +65,45 @@ export const signOutAdmin = async () => {
   }
 
   await signOut(auth);
+};
+
+const slugifyFileName = (value) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9.-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+export const uploadSiteImage = async (file, folder = 'general') => {
+  if (!storage) {
+    throw new Error('Firebase Storage is not configured.');
+  }
+
+  if (!auth?.currentUser) {
+    throw new Error('You need to be signed in before uploading images.');
+  }
+
+  const timestamp = Date.now();
+  const safeFileName = slugifyFileName(file.name || `upload-${timestamp}`);
+  const storageRef = ref(
+    storage,
+    `site-content/${folder}/${timestamp}-${safeFileName}`,
+  );
+
+  await withTimeout(
+    auth.currentUser.getIdToken(),
+    10000,
+    'Sign-in verification timed out. Refresh the page and try again.',
+  );
+
+  const snapshot = await withTimeout(
+    uploadBytes(storageRef, file, {
+      contentType: file.type || 'application/octet-stream',
+    }),
+    20000,
+    'Image upload timed out. Check your internet connection and Storage rules, then try again.',
+  );
+
+  return getDownloadURL(snapshot.ref);
 };
 
 const withTimeout = (promise, timeoutMs, message) =>
@@ -101,7 +148,11 @@ export const saveSiteContent = async (content) => {
   );
 
   await withTimeout(
-    setDoc(siteContentDocRef, sanitizeForFirestore(content), { merge: true }),
+    setDoc(
+      siteContentDocRef,
+      encodeSiteContentForFirestore(sanitizeForFirestore(content)),
+      { merge: true },
+    ),
     15000,
     'Saving timed out. Check your internet connection and Firestore rules, then try again.',
   );

@@ -15,6 +15,7 @@ import {
   saveSiteContent,
   signInWithGoogle,
   signOutAdmin,
+  uploadSiteImage,
 } from '../lib/firebase.js';
 
 const MotionDiv = motion.div;
@@ -220,6 +221,7 @@ const Admin = () => {
   const [saveError, setSaveError] = useState('');
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [activePage, setActivePage] = useState('home');
   const activeSaveScope = saveScopes[activePage] || saveScopes.home;
 
@@ -310,6 +312,16 @@ const Admin = () => {
     } finally {
       setIsSaving(false);
     }
+  };
+
+  const handleImageUploadError = (message) => {
+    setStatus('');
+    setSaveError(message);
+  };
+
+  const handleImageUploadSuccess = (message) => {
+    setSaveError('');
+    setStatus(message);
   };
 
   const renderHomeEditor = () => (
@@ -628,6 +640,11 @@ const Admin = () => {
                   <AdminImageField
                     label="Logo image"
                     size="large"
+                    uploadFolder="sponsors"
+                    uploadImage={uploadSiteImage}
+                    onUploadError={handleImageUploadError}
+                    onUploadSuccess={handleImageUploadSuccess}
+                    onUploadStatusChange={setIsUploadingImage}
                     value={sponsor.logo}
                     onChange={(value) =>
                       setField(['sponsors', index, 'logo'], value)
@@ -751,6 +768,11 @@ const Admin = () => {
                   />
                   <AdminImageField
                     label="Photo image"
+                    uploadFolder="team"
+                    uploadImage={uploadSiteImage}
+                    onUploadError={handleImageUploadError}
+                    onUploadSuccess={handleImageUploadSuccess}
+                    onUploadStatusChange={setIsUploadingImage}
                     value={member.photo}
                     onChange={(value) =>
                       setField(['team', 'roster', 'members', index, 'photo'], value)
@@ -1348,6 +1370,11 @@ const Admin = () => {
         <div className="space-y-4">
           <AdminImageField
             label="Site logo"
+            uploadFolder="branding"
+            uploadImage={uploadSiteImage}
+            onUploadError={handleImageUploadError}
+            onUploadSuccess={handleImageUploadSuccess}
+            onUploadStatusChange={setIsUploadingImage}
             value={draftContent.branding.logoSrc}
             onChange={(value) => setField(['branding', 'logoSrc'], value)}
           />
@@ -1479,7 +1506,11 @@ const Admin = () => {
               Reset to live
             </ActionButton>
             <ActionButton onClick={handleSave} tone="primary">
-              {isSaving ? 'Saving...' : activeSaveScope.buttonLabel}
+              {isUploadingImage
+                ? 'Uploading image...'
+                : isSaving
+                  ? 'Saving...'
+                  : activeSaveScope.buttonLabel}
             </ActionButton>
           </div>
         </div>

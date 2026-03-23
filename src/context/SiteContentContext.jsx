@@ -2,7 +2,11 @@ import { createContext, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { onSnapshot } from 'firebase/firestore';
 import { db, isFirebaseConfigured, siteContentDocRef } from '../lib/firebase.js';
-import { defaultSiteContent, resolveSiteContent } from '../lib/siteContent.js';
+import {
+  decodeSiteContentFromFirestore,
+  defaultSiteContent,
+  resolveSiteContent,
+} from '../lib/siteContent.js';
 import { resolveSiteAssetUrl } from '../lib/assets.js';
 import { applyThemeColors } from '../lib/theme.js';
 
@@ -80,9 +84,10 @@ export const SiteContentProvider = ({ children }) => {
     const unsubscribe = onSnapshot(
       siteContentDocRef,
       (snapshot) => {
-        const resolvedSiteContent = resolveSiteContent(snapshot.data());
+        const decodedSiteContent = decodeSiteContentFromFirestore(snapshot.data());
+        const mergedSiteContent = resolveSiteContent(decodedSiteContent);
 
-        setSiteContent(resolvedSiteContent);
+        setSiteContent(mergedSiteContent);
         setHasCachedContent(true);
         setLoadError('');
         setIsLoading(false);
@@ -90,7 +95,7 @@ export const SiteContentProvider = ({ children }) => {
         if (typeof window !== 'undefined') {
           window.localStorage.setItem(
             SITE_CONTENT_STORAGE_KEY,
-            JSON.stringify(resolvedSiteContent),
+            JSON.stringify(mergedSiteContent),
           );
         }
       },
