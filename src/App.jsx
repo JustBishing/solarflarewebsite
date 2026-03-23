@@ -5,6 +5,7 @@ import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import Home from './pages/Home.jsx';
 import Team from './pages/Team.jsx';
+import PastSeasons from './pages/PastSeasons.jsx';
 import Sponsorships from './pages/Sponsorships.jsx';
 import Admin from './pages/Admin.jsx';
 import RouteTransition from './components/RouteTransition.jsx';
@@ -61,6 +62,7 @@ const App = () => {
             <Routes location={location}>
               <Route path="/" element={<Home />} />
               <Route path="/team" element={<Team />} />
+              <Route path="/past-seasons" element={<PastSeasons />} />
               <Route path="/sponsorships" element={<Sponsorships />} />
               <Route path="/admin" element={<Admin />} />
             </Routes>

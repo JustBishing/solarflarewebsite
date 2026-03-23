@@ -83,6 +83,14 @@ const Footer = () => {
               </li>
               <li>
                 <Link
+                  to="/past-seasons"
+                  className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                >
+                  Past Seasons
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/admin"
                   className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
                 >

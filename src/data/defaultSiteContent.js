@@ -167,6 +167,43 @@ const defaultSiteContent = {
         },
       ],
     },
+    apply: {
+      title: 'Apply to join Solar Flare',
+      description:
+        'Interested in building, programming, outreach, or strategy? Fill out our interest form and we will follow up about the next steps.',
+      buttonLabel: 'Apply now',
+      buttonLink:
+        'https://docs.google.com/forms/d/e/1FAIpQLSddJdvq9qldA5Velh1F4SKJrOyt0YPKk1tst5hpR22xhks9IA/viewform?usp=dialog',
+    },
+  },
+  pastSeasons: {
+    intro: {
+      title: 'Past seasons',
+      description:
+        'Track how Solar Flare has evolved from one FTC season to the next, from robot iterations to outreach and competition milestones.',
+      paragraphs: [
+        'This archive gives sponsors, teammates, and future applicants a quick way to see what we built, what we learned, and how the team grew over time.',
+        'As new seasons finish, we add the strongest results, design breakthroughs, and community impact highlights here so the history stays easy to revisit.',
+      ],
+    },
+    archive: {
+      title: 'Season archive',
+      description:
+        'A running log of our major seasons, what defined them, and the moments we want to preserve.',
+      seasons: [
+        {
+          year: '2024-2025',
+          title: 'Into the Deep',
+          summary:
+            'Our rookie season established Solar Flare as a serious Excelsior team, blending fast iteration, strong autonomous work, and consistent outreach growth.',
+          highlights: [
+            'Finalist Alliance Captain at the Excelsior championship.',
+            'Design Award winners and multiple qualifier award finishes.',
+            'Strong autonomous performance and one of the best statistical seasons in the region.',
+          ],
+        },
+      ],
+    },
   },
   sponsorships: {
     intro: {

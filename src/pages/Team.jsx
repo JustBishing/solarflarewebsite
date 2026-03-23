@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Section from '../components/Section.jsx';
 import TeamCard from '../components/TeamCard.jsx';
 import { useSiteContent } from '../context/useSiteContent.js';
@@ -65,6 +66,30 @@ const Team = () => {
               {link.label}
             </a>
           ))}
+        </MotionDiv>
+      </Section>
+
+      <Section
+        title={team.apply.title}
+        description={team.apply.description}
+      >
+        <MotionDiv
+          className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-sf-border bg-sf-elevated px-6 py-6 shadow-[0_28px_46px_-32px_rgba(0,0,0,0.65)]"
+          variants={textVariants}
+        >
+          <p className="max-w-2xl text-sm text-sf-muted">
+            Ready to jump in? Use the interest form to tell us about your
+            experience, what you want to work on, and why you want to join
+            Solar Flare.
+          </p>
+          <Link
+            to={team.apply.buttonLink}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-xl bg-sf-orange-1 px-5 py-3 text-sm font-semibold text-sf-bg transition hover:bg-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+          >
+            {team.apply.buttonLabel}
+          </Link>
         </MotionDiv>
       </Section>
     </>

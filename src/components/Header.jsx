@@ -14,6 +14,7 @@ import { resolveSiteAssetUrl } from '../lib/assets.js';
 const navItems = [
   { label: 'Home', to: '/', end: true },
   { label: 'Team', to: '/team' },
+  { label: 'Past Seasons', to: '/past-seasons' },
   { label: 'Sponsorships', to: '/sponsorships' },
 ];
 

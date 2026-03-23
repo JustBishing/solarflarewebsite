@@ -186,6 +186,13 @@ const saveScopes = {
     }),
     successMessage: 'Saved team page changes.',
   },
+  pastSeasons: {
+    buttonLabel: 'Save past seasons changes',
+    payload: (content) => ({
+      pastSeasons: content.pastSeasons,
+    }),
+    successMessage: 'Saved past seasons changes.',
+  },
   sponsorships: {
     buttonLabel: 'Save sponsorship changes',
     payload: (content) => ({
@@ -821,6 +828,231 @@ const Admin = () => {
           </ActionButton>
         </div>
       </AdminEditorSection>
+
+      <AdminEditorSection
+        title={draftContent.team.apply.title}
+        description="Control the recruitment call-to-action and the Google Form link."
+      >
+        <div className="space-y-4 rounded-[2rem] border border-sf-border bg-sf-bg p-8">
+          <AdminEditableField
+            value={draftContent.team.apply.title}
+            onChange={(value) => setField(['team', 'apply', 'title'], value)}
+            size="title"
+          />
+          <AdminEditableField
+            value={draftContent.team.apply.description}
+            onChange={(value) =>
+              setField(['team', 'apply', 'description'], value)
+            }
+            multiline
+            className="text-sf-muted"
+          />
+          <div className="rounded-2xl border border-sf-border bg-sf-surface p-4">
+            <AdminEditableField
+              value={draftContent.team.apply.buttonLabel}
+              onChange={(value) =>
+                setField(['team', 'apply', 'buttonLabel'], value)
+              }
+              className="font-semibold"
+            />
+            <div className="mt-3">
+              <AdminEditableUrlField
+                label="Application form link"
+                value={draftContent.team.apply.buttonLink}
+                onChange={(value) =>
+                  setField(['team', 'apply', 'buttonLink'], value)
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </AdminEditorSection>
+    </div>
+  );
+
+  const renderPastSeasonsEditor = () => (
+    <div className="space-y-8">
+      <AdminEditorSection
+        title={draftContent.pastSeasons.intro.title}
+        description={draftContent.pastSeasons.intro.description}
+      >
+        <div className="space-y-4 rounded-[2rem] border border-sf-border bg-sf-bg p-8">
+          <AdminEditableField
+            value={draftContent.pastSeasons.intro.title}
+            onChange={(value) =>
+              setField(['pastSeasons', 'intro', 'title'], value)
+            }
+            size="title"
+          />
+          <AdminEditableField
+            value={draftContent.pastSeasons.intro.description}
+            onChange={(value) =>
+              setField(['pastSeasons', 'intro', 'description'], value)
+            }
+            multiline
+            className="text-sf-muted"
+          />
+          {draftContent.pastSeasons.intro.paragraphs.map((paragraph, index) => (
+            <div
+              key={`past-season-intro-${index}`}
+              className="rounded-2xl border border-sf-border bg-sf-surface p-4"
+            >
+              <AdminEditableField
+                value={paragraph}
+                onChange={(value) =>
+                  setField(['pastSeasons', 'intro', 'paragraphs', index], value)
+                }
+                multiline
+                className="text-sf-muted"
+              />
+              <div className="mt-3">
+                <ActionButton
+                  onClick={() =>
+                    removeItem(['pastSeasons', 'intro', 'paragraphs'], index)
+                  }
+                >
+                  Remove paragraph
+                </ActionButton>
+              </div>
+            </div>
+          ))}
+          <ActionButton
+            onClick={() =>
+              addItem(['pastSeasons', 'intro', 'paragraphs'], 'New paragraph')
+            }
+          >
+            Add paragraph
+          </ActionButton>
+        </div>
+      </AdminEditorSection>
+
+      <AdminEditorSection
+        title={draftContent.pastSeasons.archive.title}
+        description={draftContent.pastSeasons.archive.description}
+      >
+        <div className="space-y-4 rounded-[2rem] border border-sf-border bg-sf-bg p-8">
+          <AdminEditableField
+            value={draftContent.pastSeasons.archive.title}
+            onChange={(value) =>
+              setField(['pastSeasons', 'archive', 'title'], value)
+            }
+            size="title"
+          />
+          <AdminEditableField
+            value={draftContent.pastSeasons.archive.description}
+            onChange={(value) =>
+              setField(['pastSeasons', 'archive', 'description'], value)
+            }
+            multiline
+            className="text-sf-muted"
+          />
+          <div className="grid gap-4 md:grid-cols-2">
+            {draftContent.pastSeasons.archive.seasons.map((season, index) => (
+              <div
+                key={`season-${index}`}
+                className="rounded-2xl border border-sf-border bg-sf-surface p-5"
+              >
+                <AdminEditableField
+                  value={season.year}
+                  onChange={(value) =>
+                    setField(['pastSeasons', 'archive', 'seasons', index, 'year'], value)
+                  }
+                  size="label"
+                  className="text-sf-orange-1"
+                />
+                <AdminEditableField
+                  value={season.title}
+                  onChange={(value) =>
+                    setField(['pastSeasons', 'archive', 'seasons', index, 'title'], value)
+                  }
+                  className="mt-2 text-xl font-semibold"
+                />
+                <AdminEditableField
+                  value={season.summary}
+                  onChange={(value) =>
+                    setField(
+                      ['pastSeasons', 'archive', 'seasons', index, 'summary'],
+                      value,
+                    )
+                  }
+                  multiline
+                  className="mt-3 text-sf-muted"
+                />
+                <div className="mt-4 space-y-3">
+                  {season.highlights.map((highlight, highlightIndex) => (
+                    <div
+                      key={`season-${index}-highlight-${highlightIndex}`}
+                      className="rounded-xl border border-sf-border bg-black/10 p-3"
+                    >
+                      <AdminEditableField
+                        value={highlight}
+                        onChange={(value) =>
+                          setField(
+                            [
+                              'pastSeasons',
+                              'archive',
+                              'seasons',
+                              index,
+                              'highlights',
+                              highlightIndex,
+                            ],
+                            value,
+                          )
+                        }
+                        multiline
+                        className="text-sm text-sf-muted"
+                      />
+                      <div className="mt-3">
+                        <ActionButton
+                          onClick={() =>
+                            removeItem(
+                              ['pastSeasons', 'archive', 'seasons', index, 'highlights'],
+                              highlightIndex,
+                            )
+                          }
+                        >
+                          Remove highlight
+                        </ActionButton>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <ActionButton
+                    onClick={() =>
+                      addItem(
+                        ['pastSeasons', 'archive', 'seasons', index, 'highlights'],
+                        'New highlight',
+                      )
+                    }
+                  >
+                    Add highlight
+                  </ActionButton>
+                  <ActionButton
+                    onClick={() =>
+                      removeItem(['pastSeasons', 'archive', 'seasons'], index)
+                    }
+                  >
+                    Remove season
+                  </ActionButton>
+                </div>
+              </div>
+            ))}
+          </div>
+          <ActionButton
+            onClick={() =>
+              addItem(['pastSeasons', 'archive', 'seasons'], {
+                year: 'New season',
+                title: 'Season title',
+                summary: 'Season summary',
+                highlights: ['New highlight'],
+              })
+            }
+          >
+            Add season
+          </ActionButton>
+        </div>
+      </AdminEditorSection>
     </div>
   );
 
@@ -1210,6 +1442,10 @@ const Admin = () => {
       return renderTeamEditor();
     }
 
+    if (activePage === 'pastSeasons') {
+      return renderPastSeasonsEditor();
+    }
+
     if (activePage === 'sponsorships') {
       return renderSponsorshipsEditor();
     }
@@ -1349,6 +1585,7 @@ const Admin = () => {
             {[
               ['home', 'Homepage'],
               ['team', 'Team page'],
+              ['pastSeasons', 'Past seasons'],
               ['sponsorships', 'Sponsorships'],
               ['footer', 'Footer'],
             ].map(([value, label]) => (
