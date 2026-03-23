@@ -6,12 +6,6 @@ import {
   signOut,
 } from 'firebase/auth';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytes,
-} from 'firebase/storage';
 import { encodeSiteContentForFirestore } from './siteContent.js';
 
 const firebaseEnvMap = {
@@ -43,7 +37,6 @@ const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
 
 export const auth = app ? getAuth(app) : null;
 export const db = app ? getFirestore(app) : null;
-export const storage = app ? getStorage(app) : null;
 export const googleProvider = app ? new GoogleAuthProvider() : null;
 export const siteContentDocRef = db ? doc(db, 'siteContent', 'current') : null;
 
@@ -66,81 +59,6 @@ export const signOutAdmin = async () => {
 
   await signOut(auth);
 };
-
-const getFirebaseStorageErrorMessage = (error) => {
-  const code = error?.code || '';
-
-  if (code === 'storage/unauthorized') {
-    return 'Image upload failed: Firebase Storage rules denied this upload for the current account.';
-  }
-
-  if (code === 'storage/unauthenticated') {
-    return 'Image upload failed: you are not signed in anymore. Refresh the page and sign in again.';
-  }
-
-  if (code === 'storage/retry-limit-exceeded') {
-    return 'Image upload failed: Firebase Storage retried too many times. Check your internet connection or Storage bucket settings.';
-  }
-
-  if (code === 'storage/quota-exceeded') {
-    return 'Image upload failed: the Firebase Storage quota has been exceeded.';
-  }
-
-  if (code === 'storage/object-not-found') {
-    return 'Image upload failed: the destination Storage path could not be found.';
-  }
-
-  if (code === 'storage/unknown') {
-    return 'Image upload failed: Firebase Storage returned an unknown error. Check the Storage bucket and rules.';
-  }
-
-  return error?.message || 'Image upload failed.';
-};
-
-const slugifyFileName = (value) =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9.-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-
-export const uploadSiteImage = async (file, folder = 'general') => {
-  if (!storage) {
-    throw new Error('Firebase Storage is not configured.');
-  }
-
-  if (!auth?.currentUser) {
-    throw new Error('You need to be signed in before uploading images.');
-  }
-
-  const timestamp = Date.now();
-  const safeFileName = slugifyFileName(file.name || `upload-${timestamp}`);
-  const storageRef = ref(
-    storage,
-    `site-content/${folder}/${timestamp}-${safeFileName}`,
-  );
-
-  await withTimeout(
-    auth.currentUser.getIdToken(),
-    10000,
-    'Sign-in verification timed out. Refresh the page and try again.',
-  );
-
-  const snapshot = await withTimeout(
-    uploadBytes(storageRef, file, {
-      contentType: file.type || 'application/octet-stream',
-    }),
-    20000,
-    'Image upload timed out. Check your internet connection and Storage rules, then try again.',
-  );
-
-  try {
-    return await getDownloadURL(snapshot.ref);
-  } catch (error) {
-    throw new Error(getFirebaseStorageErrorMessage(error));
-  }
-};
-
-export { getFirebaseStorageErrorMessage };
 
 const withTimeout = (promise, timeoutMs, message) =>
   Promise.race([

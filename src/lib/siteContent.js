@@ -1,6 +1,15 @@
 import defaultSiteContent from '../data/defaultSiteContent.js';
 
 const FIRESTORE_ARRAY_MARKER = '__sf_firestore_array__';
+const sponsorLogoByName = {
+  'Art of Problem Solving': 'sponsorships/AOPS.png',
+  'CNC Madness': 'sponsorships/CNC Madness.png',
+  'Gene Haas Foundation': 'sponsorships/HAAS.png',
+  Misumi: 'sponsorships/Misumi.png',
+  'Pantry Shelf': 'sponsorships/pantry.png',
+  Polymaker: 'sponsorships/polymaker.png',
+  'White Plains Hospital': 'sponsorships/WhitePlainsHospital.png',
+};
 
 const isPlainObject = (value) =>
   Boolean(value) && typeof value === 'object' && !Array.isArray(value);
@@ -27,8 +36,30 @@ const mergeSiteContent = (baseValue, overrideValue) => {
   return result;
 };
 
+const normalizeSponsorLogos = (content) => {
+  if (!Array.isArray(content?.sponsors)) {
+    return content;
+  }
+
+  return {
+    ...content,
+    sponsors: content.sponsors.map((sponsor) => {
+      const mappedLogo = sponsorLogoByName[sponsor?.name];
+
+      if (!mappedLogo) {
+        return sponsor;
+      }
+
+      return {
+        ...sponsor,
+        logo: mappedLogo,
+      };
+    }),
+  };
+};
+
 export const resolveSiteContent = (remoteContent) =>
-  mergeSiteContent(defaultSiteContent, remoteContent);
+  normalizeSponsorLogos(mergeSiteContent(defaultSiteContent, remoteContent));
 
 const encodeFirestoreArrays = (value, insideArray = false) => {
   if (Array.isArray(value)) {

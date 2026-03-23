@@ -6,6 +6,7 @@ import {
   resolveVariant,
   useShouldReduceMotion,
 } from '../lib/motion.js';
+import { resolveSiteAssetUrl } from '../lib/assets.js';
 
 const SponsorGrid = ({ sponsors, className = '' }) => {
   const shouldReduceMotion = useShouldReduceMotion();
@@ -29,7 +30,7 @@ const SponsorGrid = ({ sponsors, className = '' }) => {
           >
             <div className="flex min-h-[7rem] w-full items-center justify-center rounded-xl bg-black/10 p-4">
               <img
-                src={sponsor.logo}
+                src={resolveSiteAssetUrl(sponsor.logo)}
                 alt={`${sponsor.name} logo`}
                 className="h-24 w-full object-contain"
                 loading="lazy"
