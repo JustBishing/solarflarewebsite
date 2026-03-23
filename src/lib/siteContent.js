@@ -10,6 +10,19 @@ const sponsorLogoByName = {
   Polymaker: 'sponsorships/polymaker.png',
   'White Plains Hospital': 'sponsorships/WhitePlainsHospital.png',
 };
+const memberPhotoByName = {
+  Arick: 'members/Arick.png',
+  'Arick Khanna': 'members/Arick.png',
+  'Arjun Gupta': 'members/Arjun Gupta.png',
+  'Arjun Khanna': 'members/Arjun Khanna.png',
+  Dani: 'members/Dani.png',
+  'Dani Nayal': 'members/Dani.png',
+  Rishi: 'members/Rishi.png',
+  Ryan: 'members/Ryan.png',
+  'Ryan Ma': 'members/Ryan.png',
+  Tristan: 'members/Tristan.png',
+  'Tristan Li': 'members/Tristan.png',
+};
 
 const isPlainObject = (value) =>
   Boolean(value) && typeof value === 'object' && !Array.isArray(value);
@@ -58,8 +71,39 @@ const normalizeSponsorLogos = (content) => {
   };
 };
 
+const normalizeMemberPhotos = (content) => {
+  if (!Array.isArray(content?.team?.roster?.members)) {
+    return content;
+  }
+
+  return {
+    ...content,
+    team: {
+      ...content.team,
+      roster: {
+        ...content.team.roster,
+        members: content.team.roster.members.map((member) => {
+          const mappedPhoto = memberPhotoByName[member?.name]
+            || (member?.name === 'Arjun' ? 'members/Arjun Gupta.png' : null);
+
+          if (!mappedPhoto) {
+            return member;
+          }
+
+          return {
+            ...member,
+            photo: mappedPhoto,
+          };
+        }),
+      },
+    },
+  };
+};
+
 export const resolveSiteContent = (remoteContent) =>
-  normalizeSponsorLogos(mergeSiteContent(defaultSiteContent, remoteContent));
+  normalizeMemberPhotos(
+    normalizeSponsorLogos(mergeSiteContent(defaultSiteContent, remoteContent)),
+  );
 
 const encodeFirestoreArrays = (value, insideArray = false) => {
   if (Array.isArray(value)) {

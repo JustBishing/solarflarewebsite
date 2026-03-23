@@ -6,6 +6,7 @@ import {
   resolveVariant,
   useShouldReduceMotion,
 } from '../lib/motion.js';
+import { resolveSiteAssetUrl } from '../lib/assets.js';
 
 const MotionArticle = motion.article;
 
@@ -21,7 +22,7 @@ const TeamCard = ({ member }) => {
     >
       <div className="relative aspect-square w-full overflow-hidden bg-sf-orange-1/20">
         <img
-          src={member.photo}
+          src={resolveSiteAssetUrl(member.photo)}
           alt={`${member.name} portrait`}
           className="h-full w-full object-cover"
           loading="lazy"
