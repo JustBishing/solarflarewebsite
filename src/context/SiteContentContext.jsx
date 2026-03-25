@@ -10,24 +10,21 @@ import {
 import { resolveSiteAssetUrl } from '../lib/assets.js';
 import { applyThemeColors } from '../lib/theme.js';
 
-const SITE_CONTENT_STORAGE_KEY = 'solarflare.siteContent.v1';
+const CACHE_KEY = 'solarflare.siteContent.v1';
 
-const getCachedSiteContent = () => {
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
+const getCached = () => {
   try {
-    const rawValue = window.localStorage.getItem(SITE_CONTENT_STORAGE_KEY);
-
-    if (!rawValue) {
-      return null;
-    }
-
-    return resolveSiteContent(JSON.parse(rawValue));
+    const raw = window.localStorage.getItem(CACHE_KEY);
+    return raw ? resolveSiteContent(JSON.parse(raw)) : null;
   } catch {
     return null;
   }
+};
+
+const cache = (content) => {
+  try {
+    window.localStorage.setItem(CACHE_KEY, JSON.stringify(content));
+  } catch { /* ignore quota errors */ }
 };
 
 const SiteContentContext = createContext({
@@ -38,86 +35,62 @@ const SiteContentContext = createContext({
 });
 
 export const SiteContentProvider = ({ children }) => {
-  const cachedSiteContent = getCachedSiteContent();
-  const [siteContent, setSiteContent] = useState(
-    cachedSiteContent || defaultSiteContent,
-  );
-  const [hasCachedContent, setHasCachedContent] = useState(
-    Boolean(cachedSiteContent),
-  );
-  const hasCachedContentRef = useRef(Boolean(cachedSiteContent));
-  const [isLoading, setIsLoading] = useState(isFirebaseConfigured);
+  const cached = getCached();
+  const [siteContent, setSiteContent] = useState(cached || defaultSiteContent);
+  const [hasCachedContent, setHasCachedContent] = useState(Boolean(cached));
+  const hasCachedRef = useRef(Boolean(cached));
+  const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
 
-  useEffect(() => {
-    hasCachedContentRef.current = hasCachedContent;
-  }, [hasCachedContent]);
+  useEffect(() => { hasCachedRef.current = hasCachedContent; }, [hasCachedContent]);
+  useEffect(() => { applyThemeColors(siteContent.theme?.colors); }, [siteContent]);
 
   useEffect(() => {
-    applyThemeColors(siteContent.theme?.colors);
-  }, [siteContent]);
-
-  useEffect(() => {
-    if (typeof document === 'undefined') {
-      return;
-    }
-
     const favicon = document.querySelector('link[rel="icon"]');
-
-    if (!favicon) {
-      return;
+    if (favicon) {
+      favicon.setAttribute('href', resolveSiteAssetUrl(siteContent.branding?.logoSrc, 'logo.png'));
     }
-
-    favicon.setAttribute(
-      'href',
-      resolveSiteAssetUrl(siteContent.branding?.logoSrc, 'logo.png'),
-    );
   }, [siteContent]);
 
+  // Load content: Firestore (live) or static JSON (fallback)
   useEffect(() => {
-    if (!isFirebaseConfigured || !db || !siteContentDocRef) {
-      setSiteContent(defaultSiteContent);
+    const applyContent = (content) => {
+      setSiteContent(content);
+      setHasCachedContent(true);
+      setLoadError('');
       setIsLoading(false);
-      return undefined;
+      cache(content);
+    };
+
+    const handleError = (error) => {
+      if (!hasCachedRef.current) setSiteContent(defaultSiteContent);
+      setLoadError(error.message);
+      setIsLoading(false);
+    };
+
+    // Use Firestore when configured
+    if (isFirebaseConfigured && db && siteContentDocRef) {
+      return onSnapshot(
+        siteContentDocRef,
+        (snap) => applyContent(resolveSiteContent(decodeSiteContentFromFirestore(snap.data()))),
+        handleError,
+      );
     }
 
-    const unsubscribe = onSnapshot(
-      siteContentDocRef,
-      (snapshot) => {
-        const decodedSiteContent = decodeSiteContentFromFirestore(snapshot.data());
-        const mergedSiteContent = resolveSiteContent(decodedSiteContent);
+    // Fall back to static JSON
+    fetch(`${import.meta.env.BASE_URL}siteContent.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load content (${res.status})`);
+        return res.json();
+      })
+      .then((data) => applyContent(resolveSiteContent(data)))
+      .catch(handleError);
 
-        setSiteContent(mergedSiteContent);
-        setHasCachedContent(true);
-        setLoadError('');
-        setIsLoading(false);
-
-        if (typeof window !== 'undefined') {
-          window.localStorage.setItem(
-            SITE_CONTENT_STORAGE_KEY,
-            JSON.stringify(mergedSiteContent),
-          );
-        }
-      },
-      (error) => {
-        setSiteContent((current) =>
-          hasCachedContentRef.current ? current : defaultSiteContent,
-        );
-        setLoadError(error.message);
-        setIsLoading(false);
-      },
-    );
-
-    return unsubscribe;
+    return undefined;
   }, []);
 
   const value = useMemo(
-    () => ({
-      hasCachedContent,
-      isLoading,
-      loadError,
-      siteContent,
-    }),
+    () => ({ hasCachedContent, isLoading, loadError, siteContent }),
     [hasCachedContent, isLoading, loadError, siteContent],
   );
 

@@ -11,21 +11,12 @@ import { defaultSiteContent } from '../lib/siteContent.js';
 import {
   auth,
   isFirebaseConfigured,
-  missingFirebaseEnvKeys,
   saveSiteContent,
   signInWithGoogle,
   signOutAdmin,
 } from '../lib/firebase.js';
 
 const MotionDiv = motion.div;
-
-const parseAuthorizedEmails = () =>
-  (import.meta.env.VITE_ADMIN_AUTHORIZED_EMAILS || '')
-    .split(',')
-    .map((entry) => entry.trim().toLowerCase())
-    .filter(Boolean);
-
-const authorizedEmails = parseAuthorizedEmails();
 
 const createTeamMember = () => ({
   name: 'New teammate',
@@ -57,26 +48,6 @@ const createLink = (label = 'New link', href = 'https://example.com') => ({
   label,
   href,
 });
-
-const isAuthorizedEmail = (email) => {
-  if (!email) {
-    return false;
-  }
-
-  const normalizedEmail = email.toLowerCase();
-
-  return authorizedEmails.some((entry) => {
-    if (entry === normalizedEmail) {
-      return true;
-    }
-
-    if (entry.startsWith('@')) {
-      return normalizedEmail.endsWith(entry);
-    }
-
-    return false;
-  });
-};
 
 const cloneValue = (value) => JSON.parse(JSON.stringify(value));
 
@@ -151,162 +122,83 @@ const ActionButton = ({ children, onClick, tone = 'secondary' }) => (
   </button>
 );
 
-const getFriendlyErrorMessage = (error) => {
-  const code = error?.code || '';
+const authorizedEmails = (import.meta.env.VITE_ADMIN_AUTHORIZED_EMAILS || '')
+  .split(',')
+  .map((e) => e.trim().toLowerCase())
+  .filter(Boolean);
 
-  if (code === 'permission-denied') {
-    return 'Save failed: Firestore denied the write. Check that this email is allowed in your live Firestore rules.';
-  }
-
-  if (code === 'unauthenticated') {
-    return 'Save failed: your sign-in session is no longer valid. Refresh the page and sign in again.';
-  }
-
-  if (code === 'unavailable') {
-    return 'Save failed: Firestore is temporarily unavailable. Try again in a moment.';
-  }
-
-  return error?.message || 'Something went wrong.';
+const isAuthorized = (email) => {
+  if (!email) return false;
+  const lower = email.toLowerCase();
+  return authorizedEmails.some(
+    (entry) => entry === lower || (entry.startsWith('@') && lower.endsWith(entry)),
+  );
 };
 
-const saveScopes = {
+const SAVE_SCOPES = {
   home: {
-    buttonLabel: 'Save homepage changes',
-    payload: (content) => ({
-      hero: content.hero,
-      home: content.home,
-      sponsors: content.sponsors,
-    }),
-    successMessage: 'Saved homepage changes.',
+    label: 'Save homepage',
+    pick: (c) => ({ hero: c.hero, home: c.home, sponsors: c.sponsors }),
   },
-  team: {
-    buttonLabel: 'Save team page changes',
-    payload: (content) => ({
-      team: content.team,
-    }),
-    successMessage: 'Saved team page changes.',
-  },
-  pastSeasons: {
-    buttonLabel: 'Save past seasons changes',
-    payload: (content) => ({
-      pastSeasons: content.pastSeasons,
-    }),
-    successMessage: 'Saved past seasons changes.',
-  },
-  sponsorships: {
-    buttonLabel: 'Save sponsorship changes',
-    payload: (content) => ({
-      sponsorships: content.sponsorships,
-    }),
-    successMessage: 'Saved sponsorship changes.',
-  },
+  team: { label: 'Save team page', pick: (c) => ({ team: c.team }) },
+  pastSeasons: { label: 'Save past seasons', pick: (c) => ({ pastSeasons: c.pastSeasons }) },
+  sponsorships: { label: 'Save sponsorships', pick: (c) => ({ sponsorships: c.sponsorships }) },
   footer: {
-    buttonLabel: 'Save footer changes',
-    payload: (content) => ({
-      theme: content.theme,
-      branding: content.branding,
-      footer: content.footer,
-    }),
-    successMessage: 'Saved footer, branding, and theme changes.',
+    label: 'Save footer',
+    pick: (c) => ({ theme: c.theme, branding: c.branding, footer: c.footer }),
   },
 };
 
 const Admin = () => {
   const { loadError, siteContent } = useSiteContent();
   const [user, setUser] = useState(null);
-  const [authChecked, setAuthChecked] = useState(!isFirebaseConfigured);
+  const [authReady, setAuthReady] = useState(!isFirebaseConfigured);
   const [draftContent, setDraftContent] = useState(cloneValue(defaultSiteContent));
   const [status, setStatus] = useState('');
-  const [saveError, setSaveError] = useState('');
-  const [isSigningIn, setIsSigningIn] = useState(false);
+  const [error, setError] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [activePage, setActivePage] = useState('home');
-  const activeSaveScope = saveScopes[activePage] || saveScopes.home;
 
-  const isAuthorized = useMemo(
-    () => isAuthorizedEmail(user?.email || ''),
-    [user],
-  );
+  const canEdit = useMemo(() => isAuthorized(user?.email), [user]);
+  const scope = SAVE_SCOPES[activePage] || SAVE_SCOPES.home;
 
-  useEffect(() => {
-    setDraftContent(cloneValue(siteContent));
-  }, [siteContent]);
+  useEffect(() => { setDraftContent(cloneValue(siteContent)); }, [siteContent]);
 
   useEffect(() => {
     if (!isFirebaseConfigured || !auth) {
-      setAuthChecked(true);
+      setAuthReady(true);
       return undefined;
     }
-
-    const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
-      setUser(nextUser);
-      setAuthChecked(true);
-
-      if (nextUser) {
-        setSaveError('');
-      }
-    });
-
-    return unsubscribe;
+    return onAuthStateChanged(auth, (u) => { setUser(u); setAuthReady(true); });
   }, []);
 
   const setField = (path, value) => {
-    setDraftContent((current) => updateIn(current, path, value));
+    setDraftContent((c) => updateIn(c, path, value));
     setStatus('');
-    setSaveError('');
+    setError('');
   };
 
   const addItem = (path, item) => {
-    setDraftContent((current) => insertInto(current, path, item));
+    setDraftContent((c) => insertInto(c, path, item));
     setStatus('');
-    setSaveError('');
+    setError('');
   };
 
   const removeItem = (path, index) => {
-    setDraftContent((current) => removeFrom(current, path, index));
+    setDraftContent((c) => removeFrom(c, path, index));
     setStatus('');
-    setSaveError('');
-  };
-
-  const handleSignIn = async () => {
-    setStatus('');
-    setSaveError('');
-    setIsSigningIn(true);
-
-    try {
-      await signInWithGoogle();
-      setSaveError('');
-    } catch (error) {
-      setSaveError(getFriendlyErrorMessage(error));
-    } finally {
-      setIsSigningIn(false);
-    }
-  };
-
-  const handleSignOut = async () => {
-    setStatus('');
-    setSaveError('');
-
-    try {
-      await signOutAdmin();
-      setSaveError('');
-    } catch (error) {
-      setSaveError(getFriendlyErrorMessage(error));
-    }
+    setError('');
   };
 
   const handleSave = async () => {
-    setStatus('');
-    setSaveError('');
     setIsSaving(true);
-
+    setStatus('');
+    setError('');
     try {
-      await saveSiteContent(activeSaveScope.payload(draftContent));
-      setStatus(
-        `${activeSaveScope.successMessage} The public site will update from Firestore.`,
-      );
-    } catch (error) {
-      setSaveError(getFriendlyErrorMessage(error));
+      await saveSiteContent(scope.pick(draftContent));
+      setStatus('Saved! The live site will update automatically.');
+    } catch (err) {
+      setError(err?.message || 'Save failed.');
     } finally {
       setIsSaving(false);
     }
@@ -1466,122 +1358,80 @@ const Admin = () => {
               Admin mode
             </p>
             <h1 className="mt-4 text-3xl font-bold text-sf-text sm:text-4xl">
-              Edit the live website directly
+              Edit the live website
             </h1>
             <p className="mt-4 text-base text-sf-muted sm:text-lg">
-              Click into the content blocks below, change copy, links, cards,
-              and images, then save the live Firestore document without editing
-              source code.
+              Sign in, edit content below, and save directly to the live site.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <ActionButton onClick={() => setDraftContent(cloneValue(siteContent))}>
-              Reset to live
-            </ActionButton>
-            <ActionButton onClick={handleSave} tone="primary">
-              {isSaving ? 'Saving...' : activeSaveScope.buttonLabel}
-            </ActionButton>
-          </div>
+          {canEdit ? (
+            <div className="flex flex-wrap gap-3">
+              <ActionButton onClick={() => setDraftContent(cloneValue(siteContent))}>
+                Reset to live
+              </ActionButton>
+              <ActionButton onClick={handleSave} tone="primary">
+                {isSaving ? 'Saving...' : scope.label}
+              </ActionButton>
+            </div>
+          ) : null}
         </div>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-3xl border border-sf-border bg-black/10 p-5 text-sm text-sf-muted">
-            <div className="space-y-3">
-              <p>
-                Firebase config:{' '}
-                <span className="font-semibold text-sf-text">
-                  {isFirebaseConfigured ? 'connected' : 'missing'}
-                </span>
+        <div className="mt-6 space-y-4">
+          {!isFirebaseConfigured ? (
+            <p className="rounded-2xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+              Firebase is not configured. Add VITE_FIREBASE_* env vars to enable saving.
+            </p>
+          ) : !authReady ? (
+            <p className="text-sm text-sf-muted">Checking session...</p>
+          ) : !user ? (
+            <ActionButton onClick={() => signInWithGoogle().catch((e) => setError(e.message))} tone="primary">
+              Sign in with Google
+            </ActionButton>
+          ) : !canEdit ? (
+            <div className="flex flex-wrap items-center gap-3">
+              <p className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                {user.email} is not on the authorized admin list.
               </p>
-              <p>
-                Authorized accounts:{' '}
-                <span className="font-semibold text-sf-text">
-                  {authorizedEmails.length
-                    ? authorizedEmails.join(', ')
-                    : 'none configured'}
-                </span>
-              </p>
-              {authChecked && user ? (
-                <p>
-                  Signed in as{' '}
-                  <span className="font-semibold text-sf-text">{user.email}</span>
-                </p>
-              ) : null}
-              <p>
-                Firestore document:{' '}
-                <code className="rounded bg-black/20 px-2 py-1 text-xs text-sf-text">
-                  siteContent/current
-                </code>
-              </p>
+              <ActionButton onClick={signOutAdmin}>Sign out</ActionButton>
             </div>
+          ) : (
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-100">
+                Signed in as {user.email}
+              </span>
+              <ActionButton onClick={signOutAdmin}>Sign out</ActionButton>
+              <Link
+                to="/"
+                className="rounded-xl border border-sf-border px-4 py-2 text-sm font-semibold text-sf-text transition hover:border-sf-orange-1 hover:text-sf-orange-1"
+              >
+                View public site
+              </Link>
+            </div>
+          )}
 
-            {loadError ? (
-              <p className="mt-4 rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-red-200">
-                Live content fallback active: {loadError}
-              </p>
-            ) : null}
+          {loadError ? (
+            <p className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+              Content load error: {loadError}
+            </p>
+          ) : null}
 
-            {!isFirebaseConfigured ? (
-              <p className="mt-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-amber-100">
-                Add the Firebase env vars before admin mode can sign in or save.
-                {missingFirebaseEnvKeys.length ? (
-                  <>
-                    {' '}Missing:{' '}
-                    {missingFirebaseEnvKeys.join(', ')}
-                  </>
-                ) : null}
-              </p>
-            ) : null}
+          {status ? (
+            <p className="rounded-2xl border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+              {status}
+            </p>
+          ) : null}
 
-            {status ? (
-              <p className="mt-4 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 text-emerald-100">
-                {status}
-              </p>
-            ) : null}
-
-            {saveError ? (
-              <p className="mt-4 rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-red-200">
-                {saveError}
-              </p>
-            ) : null}
-          </div>
-
-          <div className="rounded-3xl border border-sf-border bg-black/10 p-5">
-            {!isFirebaseConfigured ? null : !authChecked ? (
-              <p className="text-sm text-sf-muted">Checking session...</p>
-            ) : !user ? (
-              <ActionButton onClick={handleSignIn} tone="primary">
-                {isSigningIn ? 'Signing in...' : 'Sign in with Google'}
-              </ActionButton>
-            ) : !isAuthorized ? (
-              <div className="space-y-4">
-                <p className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
-                  This Google account is authenticated but not on the authorized
-                  admin list.
-                </p>
-                <ActionButton onClick={handleSignOut}>Sign out</ActionButton>
-              </div>
-            ) : (
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-100">
-                  Authorized and ready to edit
-                </span>
-                <ActionButton onClick={handleSignOut}>Sign out</ActionButton>
-                <Link
-                  to="/"
-                  className="rounded-xl border border-sf-border px-4 py-2 text-sm font-semibold text-sf-text transition hover:border-sf-orange-1 hover:text-sf-orange-1"
-                >
-                  View public homepage
-                </Link>
-              </div>
-            )}
-          </div>
+          {error ? (
+            <p className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+              {error}
+            </p>
+          ) : null}
         </div>
       </section>
 
-      {isFirebaseConfigured && user && isAuthorized ? (
+      {canEdit ? (
         <>
-          <div className="mt-8 flex flex-wrap gap-3">
+      <div className="mt-8 flex flex-wrap gap-3">
             {[
               ['home', 'Homepage'],
               ['team', 'Team page'],
