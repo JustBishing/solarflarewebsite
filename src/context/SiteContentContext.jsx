@@ -84,6 +84,7 @@ export const SiteContentProvider = ({ children }) => {
     const unsubscribe = onSnapshot(
       siteContentDocRef,
       (snapshot) => {
+        console.log('[DEBUG] onSnapshot fired, exists:', snapshot.exists(), 'data:', snapshot.data());
         const decodedSiteContent = decodeSiteContentFromFirestore(snapshot.data());
         const mergedSiteContent = resolveSiteContent(decodedSiteContent);
 
@@ -100,6 +101,7 @@ export const SiteContentProvider = ({ children }) => {
         }
       },
       (error) => {
+        console.error('[DEBUG] onSnapshot error:', error.code, error.message);
         setSiteContent((current) =>
           hasCachedContentRef.current ? current : defaultSiteContent,
         );
