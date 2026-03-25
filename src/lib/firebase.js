@@ -23,12 +23,12 @@ export const missingFirebaseEnvKeys = Object.entries(firebaseEnvMap)
   .map(([key]) => key);
 
 const firebaseConfig = {
-  apiKey: firebaseEnvMap.VITE_FIREBASE_API_KEY,
-  authDomain: firebaseEnvMap.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: firebaseEnvMap.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: firebaseEnvMap.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: firebaseEnvMap.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: firebaseEnvMap.VITE_FIREBASE_APP_ID,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 export const isFirebaseConfigured = missingFirebaseEnvKeys.length === 0;
