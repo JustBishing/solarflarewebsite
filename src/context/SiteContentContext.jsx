@@ -63,6 +63,7 @@ export const SiteContentProvider = ({ children }) => {
     };
 
     const handleError = (error) => {
+      console.error('[SiteContent] load error:', error.code || '', error.message);
       if (!hasCachedRef.current) setSiteContent(defaultSiteContent);
       setLoadError(error.message);
       setIsLoading(false);
@@ -70,9 +71,13 @@ export const SiteContentProvider = ({ children }) => {
 
     // Use Firestore when configured
     if (isFirebaseConfigured && db && siteContentDocRef) {
+      console.log('[SiteContent] using Firestore');
       return onSnapshot(
         siteContentDocRef,
-        (snap) => applyContent(resolveSiteContent(decodeSiteContentFromFirestore(snap.data()))),
+        (snap) => {
+          console.log('[SiteContent] snapshot received, exists:', snap.exists(), 'keys:', Object.keys(snap.data() || {}));
+          applyContent(resolveSiteContent(decodeSiteContentFromFirestore(snap.data())));
+        },
         handleError,
       );
     }
