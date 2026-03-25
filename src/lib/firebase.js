@@ -8,6 +8,11 @@ import {
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { encodeSiteContentForFirestore } from './siteContent.js';
 
+console.log({
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+});
+
 const firebaseEnvMap = {
   VITE_FIREBASE_API_KEY: import.meta.env.VITE_FIREBASE_API_KEY,
   VITE_FIREBASE_AUTH_DOMAIN: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
