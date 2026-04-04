@@ -101,11 +101,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="border-t border-sf-border py-6">
-        <div className="container text-center text-xs text-sf-muted">
-          © {new Date().getFullYear()} {footer.copyrightPrefix}
-        </div>
-      </div>
     </footer>
   );
 };
