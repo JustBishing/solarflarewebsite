@@ -25,16 +25,22 @@ const HeroGlow = () => {
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
+      // Center the band on the right half of the hero
+      const beamCX = w * 0.78;
+      const beamCY = h * 0.45;
+
       particles.current = Array.from({ length: PARTICLE_COUNT }, () => {
         const t = Math.random();
         const spread = (Math.random() - 0.5);
         const bandTightness = Math.random() < 0.8 ? 0.25 : 0.6;
-        const bx = (1 - t) + spread * bandTightness * 0.5;
-        const by = t + spread * bandTightness * 0.5;
+
+        // Diagonal offset from center point
+        const ox = (t - 0.5) * w * 0.7 + spread * bandTightness * w * 0.25;
+        const oy = (t - 0.5) * h * 0.9 + spread * bandTightness * h * 0.25;
 
         return {
-          x: bx * w,
-          y: by * h,
+          x: beamCX + ox * Math.cos(-Math.PI / 4.5) - oy * Math.sin(-Math.PI / 4.5) * 0.3,
+          y: beamCY + ox * Math.sin(-Math.PI / 4.5) + oy * Math.cos(-Math.PI / 4.5) * 0.3,
           vx: (Math.random() - 0.5) * 0.1,
           vy: (Math.random() - 0.5) * 0.1,
           size: Math.random() * 2.0 + 0.3,
@@ -50,15 +56,15 @@ const HeroGlow = () => {
       ctx.clearRect(0, 0, w, h);
 
       const breathe = 1 + Math.sin(time.current * 0.006) * 0.04;
-      const cx = w * 0.6;
-      const cy = h * 0.3;
+      const cx = w * 0.78;
+      const cy = h * 0.45;
       const angle = -Math.PI / 4.5;
 
-      // Strong diagonal beam glow
+      // Strong diagonal beam glow — centered right
       ctx.save();
       ctx.translate(cx, cy);
       ctx.rotate(angle);
-      const beamLen = w * 1.0 * breathe;
+      const beamLen = w * 0.9 * breathe;
       const beamWidth = h * 0.5 * breathe;
       const g1 = ctx.createRadialGradient(0, 0, 0, 0, 0, beamLen * 0.5);
       g1.addColorStop(0, 'rgba(255, 145, 77, 0.30)');
@@ -72,11 +78,11 @@ const HeroGlow = () => {
       ctx.fill();
       ctx.restore();
 
-      // Hot bright core along the beam
+      // Hot bright core
       ctx.save();
-      ctx.translate(cx + w * 0.02, cy - h * 0.02);
+      ctx.translate(cx, cy);
       ctx.rotate(angle);
-      const coreLen = w * 0.55 * breathe;
+      const coreLen = w * 0.5 * breathe;
       const coreW = h * 0.12 * breathe;
       const g2 = ctx.createRadialGradient(0, 0, 0, 0, 0, coreLen * 0.5);
       g2.addColorStop(0, 'rgba(255, 220, 190, 0.28)');
@@ -108,7 +114,7 @@ const HeroGlow = () => {
         const rx = dx * cosA - dy * sinA;
         const ry = dx * sinA + dy * cosA;
         const normDist = Math.sqrt(
-          (rx / (w * 0.5)) ** 2 + (ry / (h * 0.18)) ** 2
+          (rx / (w * 0.45)) ** 2 + (ry / (h * 0.18)) ** 2
         );
         const inBeam = Math.max(0, 1 - normDist);
 
