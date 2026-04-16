@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const PARTICLE_COUNT = 800;
+const PARTICLE_COUNT = 1500;
 
 const HeroGlow = () => {
   const canvasRef = useRef(null);
@@ -26,11 +26,9 @@ const HeroGlow = () => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       particles.current = Array.from({ length: PARTICLE_COUNT }, () => {
-        // Concentrate along the diagonal band (upper-right to lower-left)
         const t = Math.random();
         const spread = (Math.random() - 0.5);
-        // Tighter spread = denser band, wider = scattered dust
-        const bandTightness = Math.random() < 0.7 ? 0.35 : 0.8;
+        const bandTightness = Math.random() < 0.8 ? 0.25 : 0.6;
         const bx = (1 - t) + spread * bandTightness * 0.5;
         const by = t + spread * bandTightness * 0.5;
 
@@ -39,7 +37,7 @@ const HeroGlow = () => {
           y: by * h,
           vx: (Math.random() - 0.5) * 0.1,
           vy: (Math.random() - 0.5) * 0.1,
-          size: Math.random() * 1.2 + 0.2,
+          size: Math.random() * 2.0 + 0.3,
           phase: Math.random() * Math.PI * 2,
           speed: 0.001 + Math.random() * 0.002,
           drift: (Math.random() - 0.5) * 0.05,
@@ -51,19 +49,21 @@ const HeroGlow = () => {
       time.current += 1;
       ctx.clearRect(0, 0, w, h);
 
-      const breathe = 1 + Math.sin(time.current * 0.008) * 0.04;
-
-      // Subtle diagonal glow — very soft, not a visible circle
-      ctx.save();
+      const breathe = 1 + Math.sin(time.current * 0.006) * 0.04;
       const cx = w * 0.6;
       const cy = h * 0.3;
+      const angle = -Math.PI / 4.5;
+
+      // Strong diagonal beam glow
+      ctx.save();
       ctx.translate(cx, cy);
-      ctx.rotate(-Math.PI / 4.5);
-      const beamLen = w * 0.8 * breathe;
-      const beamWidth = h * 0.3 * breathe;
+      ctx.rotate(angle);
+      const beamLen = w * 1.0 * breathe;
+      const beamWidth = h * 0.5 * breathe;
       const g1 = ctx.createRadialGradient(0, 0, 0, 0, 0, beamLen * 0.5);
-      g1.addColorStop(0, 'rgba(255, 145, 77, 0.07)');
-      g1.addColorStop(0.4, 'rgba(255, 160, 100, 0.03)');
+      g1.addColorStop(0, 'rgba(255, 145, 77, 0.30)');
+      g1.addColorStop(0.25, 'rgba(255, 160, 100, 0.18)');
+      g1.addColorStop(0.5, 'rgba(255, 145, 77, 0.08)');
       g1.addColorStop(1, 'rgba(255, 145, 77, 0)');
       ctx.fillStyle = g1;
       ctx.scale(1, beamWidth / beamLen);
@@ -72,8 +72,25 @@ const HeroGlow = () => {
       ctx.fill();
       ctx.restore();
 
-      // Dust particles
-      const angle = -Math.PI / 4.5;
+      // Hot bright core along the beam
+      ctx.save();
+      ctx.translate(cx + w * 0.02, cy - h * 0.02);
+      ctx.rotate(angle);
+      const coreLen = w * 0.55 * breathe;
+      const coreW = h * 0.12 * breathe;
+      const g2 = ctx.createRadialGradient(0, 0, 0, 0, 0, coreLen * 0.5);
+      g2.addColorStop(0, 'rgba(255, 220, 190, 0.28)');
+      g2.addColorStop(0.3, 'rgba(255, 178, 122, 0.15)');
+      g2.addColorStop(0.7, 'rgba(255, 145, 77, 0.05)');
+      g2.addColorStop(1, 'rgba(255, 145, 77, 0)');
+      ctx.fillStyle = g2;
+      ctx.scale(1, coreW / coreLen);
+      ctx.beginPath();
+      ctx.arc(0, 0, coreLen * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // Particles
       const cosA = Math.cos(-angle);
       const sinA = Math.sin(-angle);
 
@@ -86,19 +103,18 @@ const HeroGlow = () => {
         if (p.y < -20) p.y = h + 20;
         if (p.y > h + 20) p.y = -20;
 
-        // Distance from beam center in rotated space
         const dx = p.x - cx;
         const dy = p.y - cy;
         const rx = dx * cosA - dy * sinA;
         const ry = dx * sinA + dy * cosA;
         const normDist = Math.sqrt(
-          (rx / (w * 0.4)) ** 2 + (ry / (h * 0.15)) ** 2
+          (rx / (w * 0.5)) ** 2 + (ry / (h * 0.18)) ** 2
         );
         const inBeam = Math.max(0, 1 - normDist);
 
         const flicker =
-          0.6 + Math.sin(time.current * p.speed * 4 + p.phase) * 0.4;
-        const alpha = (0.04 + inBeam * 0.8) * flicker;
+          0.55 + Math.sin(time.current * p.speed * 4 + p.phase) * 0.45;
+        const alpha = (0.05 + inBeam * inBeam * 0.95) * flicker;
 
         if (alpha < 0.015) continue;
 
