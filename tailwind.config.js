@@ -14,7 +14,7 @@ export default {
         'sf-muted': 'rgb(var(--sf-muted) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['"Exo 2"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"Rajdhani"', '"Exo 2"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['"Space Grotesk"', '"Exo 2"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       container: {

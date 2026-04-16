@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  font-family: 'Exo 2', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Rajdhani', 'Exo 2', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25,9 +26,9 @@ html {
 body {
   @apply bg-sf-bg text-sf-text selection:bg-sf-orange-1/80 selection:text-sf-bg;
   background-image:
-    radial-gradient(ellipse 60% 50% at 85% 0%, rgba(255, 145, 77, 0.28), transparent 60%),
-    radial-gradient(ellipse 55% 45% at 10% 15%, rgba(255, 178, 122, 0.18), transparent 65%),
-    radial-gradient(ellipse 70% 55% at 40% 110%, rgba(220, 38, 38, 0.20), transparent 70%);
+    radial-gradient(ellipse 60% 50% at 85% 0%, rgba(255, 145, 77, 0.14), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 10% 15%, rgba(255, 178, 122, 0.10), transparent 65%),
+    radial-gradient(ellipse 70% 55% at 40% 110%, rgba(220, 38, 38, 0.10), transparent 70%);
   background-attachment: fixed;
 }
 

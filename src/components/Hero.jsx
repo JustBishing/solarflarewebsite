@@ -24,9 +24,9 @@ const Hero = () => {
   return (
     <section className="relative overflow-hidden text-sf-text">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
-        <div className="absolute top-0 right-[-5%] h-[30vh] w-[30vh] rounded-full bg-sf-orange-1/25 blur-3xl animate-aura-drift" />
-        <div className="absolute top-1/2 left-[-5%] h-[22vh] w-[22vh] rounded-full bg-sf-orange-2/18 blur-3xl animate-aura-drift-slow" />
-        <div className="absolute bottom-[-10%] right-1/3 h-[24vh] w-[24vh] rounded-full bg-red-600/15 blur-3xl animate-aura-drift" />
+        <div className="absolute top-0 right-[-5%] h-[30vh] w-[30vh] rounded-full bg-sf-orange-1/12 blur-3xl animate-aura-drift" />
+        <div className="absolute top-1/2 left-[-5%] h-[22vh] w-[22vh] rounded-full bg-sf-orange-2/8 blur-3xl animate-aura-drift-slow" />
+        <div className="absolute bottom-[-10%] right-1/3 h-[24vh] w-[24vh] rounded-full bg-red-600/8 blur-3xl animate-aura-drift" />
       </div>
       <div
         aria-hidden="true"
@@ -55,7 +55,7 @@ const Hero = () => {
             {hero.eyebrow}
           </motion.p>
           <motion.h1
-            className="heading-display mt-10 text-5xl font-bold sm:text-6xl lg:text-7xl text-gradient-flare drop-shadow-[0_0_32px_rgba(255,255,255,0.18)]"
+            className="heading-display mt-10 text-5xl font-bold sm:text-6xl lg:text-7xl text-gradient-flare drop-shadow-[0_0_24px_rgba(255,255,255,0.10)]"
             style={{ lineHeight: 1.25 }}
             variants={itemVariants}
           >
