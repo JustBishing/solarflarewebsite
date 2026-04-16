@@ -8,6 +8,7 @@ import {
   useShouldReduceMotion,
 } from '../lib/motion.js';
 import { useSiteContent } from '../context/useSiteContent.js';
+import HeroGlow from './HeroGlow.jsx';
 
 const MotionLink = motion(Link);
 
@@ -23,6 +24,7 @@ const Hero = () => {
 
   return (
     <section className="relative overflow-hidden text-sf-text">
+      <HeroGlow />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
         <div className="absolute top-0 right-[-5%] h-[30vh] w-[30vh] rounded-full bg-sf-orange-1/12 blur-3xl animate-aura-drift" />
         <div className="absolute top-1/2 left-[-5%] h-[22vh] w-[22vh] rounded-full bg-sf-orange-2/8 blur-3xl animate-aura-drift-slow" />
