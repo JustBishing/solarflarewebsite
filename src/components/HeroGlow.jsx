@@ -25,28 +25,35 @@ const HeroGlow = () => {
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // Center the band on the right half of the hero
       const beamCX = w * 0.78;
       const beamCY = h * 0.45;
 
       particles.current = Array.from({ length: PARTICLE_COUNT }, () => {
-        const t = Math.random();
-        const spread = (Math.random() - 0.5);
-        const bandTightness = Math.random() < 0.8 ? 0.25 : 0.6;
+        // Use gaussian-like distribution for natural scatter
+        const randGauss = () => {
+          let u = 0, v = 0;
+          while (u === 0) u = Math.random();
+          while (v === 0) v = Math.random();
+          return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+        };
 
-        // Diagonal offset from center point
-        const ox = (t - 0.5) * w * 0.7 + spread * bandTightness * w * 0.25;
-        const oy = (t - 0.5) * h * 0.9 + spread * bandTightness * h * 0.25;
+        // Position along the beam axis with gaussian spread perpendicular
+        const along = (Math.random() - 0.5) * 1.2;
+        const perp = randGauss() * 0.18;
+
+        const angle = -Math.PI / 4.5;
+        const ax = along * w * 0.5;
+        const ay = perp * h * 0.5;
 
         return {
-          x: beamCX + ox * Math.cos(-Math.PI / 4.5) - oy * Math.sin(-Math.PI / 4.5) * 0.3,
-          y: beamCY + ox * Math.sin(-Math.PI / 4.5) + oy * Math.cos(-Math.PI / 4.5) * 0.3,
-          vx: (Math.random() - 0.5) * 0.1,
-          vy: (Math.random() - 0.5) * 0.1,
+          x: beamCX + ax * Math.cos(angle) - ay * Math.sin(angle),
+          y: beamCY + ax * Math.sin(angle) + ay * Math.cos(angle),
+          vx: (Math.random() - 0.5) * 0.12,
+          vy: (Math.random() - 0.5) * 0.12,
           size: Math.random() * 2.0 + 0.3,
           phase: Math.random() * Math.PI * 2,
           speed: 0.001 + Math.random() * 0.002,
-          drift: (Math.random() - 0.5) * 0.05,
+          drift: (Math.random() - 0.5) * 0.06,
         };
       });
     };
@@ -60,7 +67,7 @@ const HeroGlow = () => {
       const cy = h * 0.45;
       const angle = -Math.PI / 4.5;
 
-      // Strong diagonal beam glow — centered right
+      // Diagonal beam glow
       ctx.save();
       ctx.translate(cx, cy);
       ctx.rotate(angle);
