@@ -55,7 +55,8 @@ const Hero = () => {
             {hero.eyebrow}
           </motion.p>
           <motion.h1
-            className="heading-display mt-10 text-5xl font-bold leading-[1.15] sm:text-6xl lg:text-7xl text-gradient-flare drop-shadow-[0_0_32px_rgba(255,255,255,0.18)]"
+            className="heading-display mt-10 text-5xl font-bold sm:text-6xl lg:text-7xl text-gradient-flare drop-shadow-[0_0_32px_rgba(255,255,255,0.18)]"
+            style={{ lineHeight: 1.25 }}
             variants={itemVariants}
           >
             {hero.title}
