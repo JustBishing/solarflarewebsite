@@ -24,9 +24,9 @@ const Hero = () => {
   return (
     <section className="relative overflow-hidden text-sf-text">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
-        <div className="absolute -top-24 right-[-10%] h-[52vh] w-[52vh] rounded-full bg-sf-orange-1/40 blur-3xl animate-aura-drift" />
-        <div className="absolute top-1/3 left-[-10%] h-[40vh] w-[40vh] rounded-full bg-sf-orange-2/28 blur-3xl animate-aura-drift-slow" />
-        <div className="absolute bottom-[-20%] right-1/4 h-[40vh] w-[40vh] rounded-full bg-red-600/25 blur-3xl animate-aura-drift" />
+        <div className="absolute top-0 right-[-5%] h-[30vh] w-[30vh] rounded-full bg-sf-orange-1/25 blur-3xl animate-aura-drift" />
+        <div className="absolute top-1/2 left-[-5%] h-[22vh] w-[22vh] rounded-full bg-sf-orange-2/18 blur-3xl animate-aura-drift-slow" />
+        <div className="absolute bottom-[-10%] right-1/3 h-[24vh] w-[24vh] rounded-full bg-red-600/15 blur-3xl animate-aura-drift" />
       </div>
       <div
         aria-hidden="true"
@@ -48,26 +48,26 @@ const Hero = () => {
           animate="visible"
         >
           <motion.p
-            className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.35rem] text-sf-orange-2 backdrop-blur-sm sm:text-xs"
+            className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.35rem] text-white backdrop-blur-sm sm:text-xs"
             variants={itemVariants}
           >
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-sf-orange-2 shadow-[0_0_14px_rgba(248,146,33,0.9)]" />
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_14px_rgba(255,255,255,0.9)]" />
             {hero.eyebrow}
           </motion.p>
           <motion.h1
-            className="heading-display mt-6 text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl text-gradient-flare"
+            className="heading-display mt-10 text-5xl font-bold leading-[1.15] sm:text-6xl lg:text-7xl text-gradient-flare drop-shadow-[0_0_32px_rgba(255,255,255,0.18)]"
             variants={itemVariants}
           >
             {hero.title}
           </motion.h1>
           <motion.p
-            className="mt-6 max-w-2xl text-lg leading-relaxed text-sf-muted sm:text-xl"
+            className="mt-10 max-w-2xl text-lg leading-[1.8] text-sf-muted sm:text-xl"
             variants={itemVariants}
           >
             {hero.description}
           </motion.p>
           <motion.div
-            className="mt-10 flex flex-wrap gap-4"
+            className="mt-14 flex flex-wrap gap-4"
             variants={itemVariants}
           >
             <MotionLink

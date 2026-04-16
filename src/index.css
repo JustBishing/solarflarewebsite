@@ -10,12 +10,12 @@
   --sf-red: 220 38 38;
   --sf-orange1: 255 145 77;
   --sf-orange2: 255 178 122;
-  --sf-bg: 0 0 0;
-  --sf-surface: 14 14 14;
-  --sf-elevated: 20 20 20;
-  --sf-border: 38 38 38;
+  --sf-bg: 12 12 16;
+  --sf-surface: 23 23 28;
+  --sf-elevated: 31 31 37;
+  --sf-border: 47 47 56;
   --sf-text: 255 255 255;
-  --sf-muted: 200 200 200;
+  --sf-muted: 230 230 234;
 }
 
 html {
@@ -25,9 +25,9 @@ html {
 body {
   @apply bg-sf-bg text-sf-text selection:bg-sf-orange-1/80 selection:text-sf-bg;
   background-image:
-    radial-gradient(ellipse 60% 50% at 85% 0%, rgba(255, 145, 77, 0.22), transparent 60%),
-    radial-gradient(ellipse 55% 45% at 10% 15%, rgba(255, 178, 122, 0.14), transparent 65%),
-    radial-gradient(ellipse 70% 55% at 40% 110%, rgba(220, 38, 38, 0.18), transparent 70%);
+    radial-gradient(ellipse 60% 50% at 85% 0%, rgba(255, 145, 77, 0.28), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 10% 15%, rgba(255, 178, 122, 0.18), transparent 65%),
+    radial-gradient(ellipse 70% 55% at 40% 110%, rgba(220, 38, 38, 0.20), transparent 70%);
   background-attachment: fixed;
 }
 

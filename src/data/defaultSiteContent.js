@@ -3,12 +3,12 @@ const defaultSiteContent = {
     colors: {
       orange1: '#ff914d',
       orange2: '#ffb27a',
-      bg: '#000000',
-      surface: '#0E0E0E',
-      elevated: '#141414',
-      border: '#262626',
+      bg: '#0c0c10',
+      surface: '#17171c',
+      elevated: '#1f1f25',
+      border: '#2f2f38',
       text: '#FFFFFF',
-      muted: '#C8C8C8',
+      muted: '#E6E6EA',
     },
   },
   branding: {

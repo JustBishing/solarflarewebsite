@@ -58,9 +58,9 @@ const App = () => {
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
       >
-        <div className="absolute -top-32 right-[-10%] h-[60vh] w-[60vh] rounded-full bg-sf-orange-1/30 blur-3xl animate-aura-drift" />
-        <div className="absolute top-[28%] left-[-15%] h-[55vh] w-[55vh] rounded-full bg-sf-orange-2/18 blur-3xl animate-aura-drift-slow" />
-        <div className="absolute bottom-[-20%] left-[30%] h-[70vh] w-[70vh] rounded-full bg-red-600/20 blur-3xl animate-aura-drift" />
+        <div className="absolute -top-16 right-[-5%] h-[32vh] w-[32vh] rounded-full bg-sf-orange-1/18 blur-3xl animate-aura-drift" />
+        <div className="absolute top-[35%] left-[-8%] h-[28vh] w-[28vh] rounded-full bg-sf-orange-2/12 blur-3xl animate-aura-drift-slow" />
+        <div className="absolute bottom-[-10%] left-[35%] h-[34vh] w-[34vh] rounded-full bg-red-600/12 blur-3xl animate-aura-drift" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.65)_75%)]" />
       </div>
       <Header />
