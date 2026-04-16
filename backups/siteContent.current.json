@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-03-29T14:30:52.589Z",
+  "exportedAt": "2026-04-12T14:37:15.331Z",
   "source": "siteContent/current",
   "content": {
     "sponsorships": {
@@ -201,55 +201,48 @@
     "sponsors": [
       {
         "logo": "sponsorships/HAAS.png",
-        "name": "Gene Haas Foundation",
+        "contribution": "$2,000 Grant",
         "website": "https://ghaasfoundation.org/",
-        "contribution": "$2,000 grant"
+        "name": "Gene Haas Foundation"
       },
       {
-        "contribution": "$1,000 sponsorship",
-        "logo": "sponsorships/pantry.png",
+        "name": "Pantry Shelf",
         "website": "https://www.pantryshelf.com/",
-        "name": "Pantry Shelf"
+        "contribution": "$1,000 Sponsorship",
+        "logo": "sponsorships/pantry.png"
       },
       {
-        "website": "https://polymaker.com/",
         "name": "Polymaker",
-        "logo": "sponsorships/polymaker.png",
-        "contribution": ""
+        "website": "https://polymaker.com/",
+        "contribution": "200$ Credit",
+        "logo": "sponsorships/polymaker.png"
       },
       {
-        "website": "https://us.misumi-ec.com/?gad_source=1&gad_campaignid=350961273&gbraid=0AAAAADtMMx8sNgD0U0kmwkUof_4Y-0Q2p&gclid=Cj0KCQjwpv7NBhCzARIsADkIfWx5D7rHbo_R9aFy7gTgjExBklqeTk5P4h-RFSqREJ9tCo4uO66eisAaAsZ0EALw_wcB",
-        "name": "Misumi",
         "logo": "sponsorships/Misumi.png",
-        "contribution": ""
+        "contribution": "30% Discount",
+        "website": "https://us.misumi-ec.com/?gad_source=1&gad_campaignid=350961273&gbraid=0AAAAADtMMx8sNgD0U0kmwkUof_4Y-0Q2p&gclid=Cj0KCQjwpv7NBhCzARIsADkIfWx5D7rHbo_R9aFy7gTgjExBklqeTk5P4h-RFSqREJ9tCo4uO66eisAaAsZ0EALw_wcB",
+        "name": "Misumi"
       },
       {
+        "contribution": "30% Discount",
         "logo": "sponsorships/CNC Madness.png",
         "name": "CNC Madness",
-        "website": "https://cncmadness.com/",
-        "contribution": ""
+        "website": "https://cncmadness.com/"
       },
       {
         "website": "https://www.wphospital.org/",
         "name": "White Plains Hospital",
         "logo": "sponsorships/WhitePlainsHospital.png",
-        "contribution": "$200 sponsorship"
+        "contribution": "$200 Sponsorship"
       },
       {
-        "contribution": "$100 credit",
         "website": "https://artofproblemsolving.com/",
         "name": "Art of Problem Solving",
-        "logo": "sponsorships/AOPS.png"
+        "logo": "sponsorships/AOPS.png",
+        "contribution": "$100 Credit"
       }
     ],
     "home": {
-      "sponsors": {
-        "title": "Thanks to Our Sponsors",
-        "description": "We’re grateful for the partners who fuel our builds, scrimmages, and community events. Their support keeps Solar Flare blazing forward.",
-        "ctaDescription": "Interested in partnering with Solar Flare? Explore our sponsorship tiers to learn how your organization can make an impact during the 2024-2025 Into the Deep season.",
-        "ctaLabel": "View sponsorships",
-        "ctaLink": "/sponsorships"
-      },
       "about": {
         "title": "About Solar Flare",
         "paragraphs": [
@@ -261,12 +254,12 @@
       },
       "highlights": {
         "title": "Season Highlights",
-        "description": "Turning our first season Into the Deep into an unforgettable run with hardware breakthroughs, award recognition, and alliances that keep us learning.",
+        "description": "Turning our first season Decode into an unforgettable run with hardware breakthroughs, award recognition, and alliances that keep us learning.",
         "items": [
           {
-            "event": "Albany Academy Qualifier",
-            "summary": "5th Place Alliance Partner and Think Award 2nd Place.",
-            "date": "Jan 17, 2026"
+            "summary": "5th Place Alliance Partner and Think Award 1sr Place.",
+            "date": "Jan 17, 2026",
+            "event": "Albany Academy Qualifier"
           },
           {
             "event": "Peekskill Qualifier",
@@ -274,16 +267,23 @@
             "summary": "Winning Alliance Captain, Inspire Award 2nd Place, and Qualified for the Regional Championship."
           },
           {
+            "event": "MVCC Excelsior Regional Championship",
             "date": "Mar 7-8, 2026",
-            "summary": "Winning Alliance Partner alongside Team 10949 M.O.B., Innovate Award 1st Place, and Qualified for the FIRST World Championship in Houston, Texas.",
-            "event": "MVCC Excelsior Regional Championship"
+            "summary": "Winning Alliance Partner alongside Team 10949 M.O.B., Innovate Award 1st Place, and Qualified for the FIRST World Championship in Houston, Texas."
           },
           {
-            "summary": "",
-            "date": "Season Stats",
-            "event": "Decode"
+            "event": "Decode",
+            "summary": "We achieved the tenth-highest score in the world, the best score in all of NY, and a #1 ranking in NY and #29 overall. We've qualified for Worlds, and can't wait to see what comes next.\n\n",
+            "date": "Season Stats"
           }
         ]
+      },
+      "sponsors": {
+        "title": "Thanks to Our Sponsors",
+        "description": "We’re grateful for the partners who fuel our builds, scrimmages, and community events. Their support keeps Solar Flare blazing forward.",
+        "ctaLabel": "View sponsorships",
+        "ctaLink": "/sponsorships",
+        "ctaDescription": "Interested in partnering with Solar Flare? Explore our sponsorship tiers to learn how your organization can make an impact during the 2025-2026 Decode season."
       }
     }
   }
