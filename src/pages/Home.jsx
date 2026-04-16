@@ -65,13 +65,13 @@ const Home = () => {
       >
         <MotionDiv variants={listVariants} className="space-y-8">
           <SponsorGrid sponsors={sponsors} />
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-sf-border bg-sf-elevated px-6 py-6 shadow-[0_28px_46px_-32px_rgba(0,0,0,0.65)]">
+          <div className="glass-panel flex flex-wrap items-center justify-between gap-4 px-6 py-6">
             <p className="max-w-2xl text-sm text-sf-muted">
               {home.sponsors.ctaDescription}
             </p>
             <Link
               to={home.sponsors.ctaLink}
-              className="rounded-xl border border-sf-orange-1 px-5 py-2 text-sm font-semibold text-sf-orange-1 transition hover:bg-sf-orange-1 hover:text-sf-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+              className="btn-ghost !py-2 !px-5 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
             >
               {home.sponsors.ctaLabel}
             </Link>

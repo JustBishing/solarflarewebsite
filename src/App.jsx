@@ -8,6 +8,7 @@ import Team from './pages/Team.jsx';
 import PastSeasons from './pages/PastSeasons.jsx';
 import Sponsorships from './pages/Sponsorships.jsx';
 import Admin from './pages/Admin.jsx';
+import Branding from './pages/Branding.jsx';
 import RouteTransition from './components/RouteTransition.jsx';
 import { useShouldReduceMotion } from './lib/motion.js';
 import Fireworks from './components/Fireworks.jsx';
@@ -52,7 +53,16 @@ const App = () => {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-sf-bg text-sf-text">
+    <div className="relative flex min-h-screen flex-col text-sf-text">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+      >
+        <div className="absolute -top-32 right-[-10%] h-[60vh] w-[60vh] rounded-full bg-sf-orange-1/30 blur-3xl animate-aura-drift" />
+        <div className="absolute top-[28%] left-[-15%] h-[55vh] w-[55vh] rounded-full bg-sf-orange-2/18 blur-3xl animate-aura-drift-slow" />
+        <div className="absolute bottom-[-20%] left-[30%] h-[70vh] w-[70vh] rounded-full bg-red-600/20 blur-3xl animate-aura-drift" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.65)_75%)]" />
+      </div>
       <Header />
       <Fireworks />
       <ScrollToTop />
@@ -65,6 +75,7 @@ const App = () => {
               <Route path="/past-seasons" element={<PastSeasons />} />
               <Route path="/sponsorships" element={<Sponsorships />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/branding" element={<Branding />} />
             </Routes>
           </RouteTransition>
         </AnimatePresence>

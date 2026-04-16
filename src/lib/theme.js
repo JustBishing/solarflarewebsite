@@ -1,12 +1,12 @@
 export const defaultThemeColors = {
-  orange1: '#EA5020',
-  orange2: '#F89221',
-  bg: '#0B101E',
-  surface: '#141A2D',
-  elevated: '#1C2339',
-  border: '#2A3350',
-  text: '#F5F7FF',
-  muted: '#C4C8E0',
+  orange1: '#ff914d',
+  orange2: '#ffb27a',
+  bg: '#000000',
+  surface: '#0E0E0E',
+  elevated: '#141414',
+  border: '#262626',
+  text: '#FFFFFF',
+  muted: '#C8C8C8',
 };
 
 const hexToRgbValue = (hex) => {
@@ -23,17 +23,16 @@ const hexToRgbValue = (hex) => {
   return `${red} ${green} ${blue}`;
 };
 
-export const applyThemeColors = (themeColors = {}) => {
+export const applyThemeColors = () => {
   if (typeof document === 'undefined') {
     return;
   }
 
   const root = document.documentElement;
 
-  Object.entries(defaultThemeColors).forEach(([key, fallbackHex]) => {
-    const rgbValue = hexToRgbValue(themeColors[key] || fallbackHex)
-      || hexToRgbValue(fallbackHex);
-
-    root.style.setProperty(`--sf-${key}`, rgbValue);
+  // Brand palette is locked in code. Firestore theme overrides are ignored
+  // so stale saved values can't reintroduce off-brand (e.g. blue) colors.
+  Object.entries(defaultThemeColors).forEach(([key, hex]) => {
+    root.style.setProperty(`--sf-${key}`, hexToRgbValue(hex));
   });
 };

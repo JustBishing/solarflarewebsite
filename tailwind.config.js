@@ -15,6 +15,7 @@ export default {
       },
       fontFamily: {
         sans: ['"Exo 2"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', '"Exo 2"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       container: {
         center: true,
@@ -26,6 +27,22 @@ export default {
       },
       boxShadow: {
         'soft-lg': '0 20px 45px -25px rgba(0,0,0,0.35)',
+        glow: '0 0 0 1px rgba(255,145,77,0.35), 0 28px 60px -24px rgba(255,145,77,0.45)',
+        'glow-sm': '0 0 24px -4px rgba(255,178,122,0.35)',
+      },
+      keyframes: {
+        'aura-drift': {
+          '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)' },
+          '50%': { transform: 'translate3d(2%, -3%, 0) scale(1.08)' },
+        },
+        'aura-drift-slow': {
+          '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)' },
+          '50%': { transform: 'translate3d(-3%, 2%, 0) scale(1.12)' },
+        },
+      },
+      animation: {
+        'aura-drift': 'aura-drift 14s ease-in-out infinite',
+        'aura-drift-slow': 'aura-drift-slow 22s ease-in-out infinite',
       },
     },
   },

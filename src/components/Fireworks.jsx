@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useShouldReduceMotion } from '../lib/motion.js';
 
-const FIREWORK_COLORS = ['#EA5020', '#F89221', '#FF7A3D', '#FFB15C', '#FFCB7A'];
+const FIREWORK_COLORS = ['#ff914d', '#ffb27a', '#ffa566', '#ffc799', '#ffd9b3'];
 const EXPLOSION_DURATION = 4;
 
 const Fireworks = () => {

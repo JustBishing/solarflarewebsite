@@ -24,11 +24,11 @@ const SponsorGrid = ({ sponsors, className = '' }) => {
             href={sponsor.website}
             target={sponsor.website ? '_blank' : undefined}
             rel={sponsor.website ? 'noreferrer' : undefined}
-            className="flex flex-col items-center rounded-2xl border border-sf-border bg-sf-surface p-6 text-center shadow-[0_24px_40px_-32px_rgba(0,0,0,0.6)] transition-shadow"
+            className="glass-card flex flex-col items-center p-6 text-center"
             variants={resolveVariant(fadeInUp, shouldReduceMotion)}
             {...hoverProps}
           >
-            <div className="flex min-h-[7rem] w-full items-center justify-center rounded-xl bg-black/10 p-4">
+            <div className="flex min-h-[7rem] w-full items-center justify-center rounded-xl bg-white/[0.03] p-4">
               <img
                 src={resolveSiteAssetUrl(sponsor.logo)}
                 alt={`${sponsor.name} logo`}

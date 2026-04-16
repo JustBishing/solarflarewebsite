@@ -43,7 +43,7 @@ const Sponsorships = () => {
               href={sponsorships.intro.primaryCtaLink}
               target="_blank"
               rel="noreferrer"
-              className="rounded-xl bg-sf-orange-1 px-6 py-3 text-base font-semibold text-sf-bg shadow-sm transition hover:bg-[#ff6a2e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+              className="btn-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
               whileTap={scaleTap}
               {...hoverProps}
             >
@@ -51,7 +51,7 @@ const Sponsorships = () => {
             </MotionAnchor>
             <MotionAnchor
               href={sponsorships.intro.secondaryCtaLink}
-              className="rounded-xl border border-sf-orange-1 px-6 py-3 text-base font-semibold text-sf-orange-1 transition hover:bg-sf-orange-1 hover:text-sf-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+              className="btn-ghost focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
               whileTap={scaleTap}
               {...hoverProps}
             >

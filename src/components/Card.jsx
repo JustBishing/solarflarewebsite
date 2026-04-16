@@ -21,21 +21,24 @@ const Card = ({
 
   return (
     <MotionComponent
-      className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-sf-border bg-sf-surface shadow-[0_28px_48px_-30px_rgba(0,0,0,0.65)] transition-shadow ${className}`}
+      className={`glass-card group flex h-full flex-col overflow-hidden ${className}`}
       variants={resolveVariant(fadeInUp, shouldReduceMotion)}
       {...hoverProps}
       whileTap={scaleTap}
     >
-      <span className="h-1 w-full bg-sf-orange-1" />
+      <span
+        aria-hidden="true"
+        className="h-[2px] w-full bg-gradient-to-r from-sf-orange-1 via-sf-orange-2 to-transparent"
+      />
       <div className="flex flex-1 flex-col p-6 sm:p-8">
         <div>
           {subtitle ? (
-            <p className="text-sm font-semibold uppercase tracking-[0.15rem] text-sf-orange-1/90">
+            <p className="text-xs font-semibold uppercase tracking-[0.22rem] text-sf-orange-2">
               {subtitle}
             </p>
           ) : null}
           {title ? (
-            <h3 className="mt-3 text-xl font-semibold text-sf-text sm:text-2xl">
+            <h3 className="heading-display mt-3 text-xl font-semibold text-sf-text sm:text-2xl">
               {title}
             </h3>
           ) : null}

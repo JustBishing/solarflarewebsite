@@ -9,17 +9,21 @@ const Footer = () => {
   const logoSrc = resolveSiteAssetUrl(branding.logoSrc, 'logo.png');
 
   return (
-    <footer className="bg-sf-elevated text-sf-text">
-      <div className="container grid gap-10 py-12 sm:grid-cols-[1.5fr_1fr]">
+    <footer className="relative border-t border-white/10 bg-sf-bg/60 text-sf-text backdrop-blur-md">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sf-orange-2/70 to-transparent"
+      />
+      <div className="container grid gap-10 py-14 sm:grid-cols-[1.5fr_1fr]">
         <div>
           <div className="flex items-center gap-3 text-lg font-semibold">
             <img
               src={logoSrc}
               alt={branding.logoAlt}
-              className="h-10 w-auto"
+              className="h-10 w-auto drop-shadow-[0_0_14px_rgba(248,146,33,0.35)]"
               loading="lazy"
             />
-            <span>{branding.siteName}</span>
+            <span className="heading-display tracking-tight">{branding.siteName}</span>
           </div>
           <p className="mt-4 max-w-xl text-sm text-sf-muted">
             {footer.description}
@@ -35,7 +39,7 @@ const Footer = () => {
               <li>
                 <a
                   href={`mailto:${footer.email}`}
-                  className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
                 >
                   {footer.email}
                 </a>
@@ -46,7 +50,7 @@ const Footer = () => {
                     href={social.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                    className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
                   >
                     {social.label}
                   </a>
@@ -60,7 +64,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/"
-                  className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
                 >
                   Home
                 </Link>
@@ -68,7 +72,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/team"
-                  className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
                 >
                   Team
                 </Link>
@@ -76,7 +80,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/sponsorships"
-                  className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
                 >
                   Sponsorships
                 </Link>
@@ -84,15 +88,23 @@ const Footer = () => {
               <li>
                 <Link
                   to="/past-seasons"
-                  className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
                 >
                   Past Seasons
                 </Link>
               </li>
               <li>
                 <Link
+                  to="/branding"
+                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                >
+                  Branding
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/admin"
-                  className="transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
                 >
                   Admin
                 </Link>

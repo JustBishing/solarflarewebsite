@@ -49,10 +49,10 @@ const Team = () => {
 
       <Section title={team.connect.title}>
         <MotionDiv
-          className="flex flex-wrap items-center gap-4 rounded-2xl border border-sf-border bg-sf-elevated px-6 py-6 text-sm text-sf-text shadow-[0_28px_46px_-32px_rgba(0,0,0,0.65)]"
+          className="glass-panel flex flex-wrap items-center gap-4 px-6 py-6 text-sm text-sf-text"
           variants={textVariants}
         >
-          <span className="font-semibold uppercase tracking-[0.3rem] text-sf-orange-1">
+          <span className="heading-display font-semibold uppercase tracking-[0.3rem] text-sf-orange-2">
             {team.connect.label}
           </span>
           {team.connect.links.map((link) => (
@@ -61,7 +61,7 @@ const Team = () => {
               href={link.href}
               target={link.href.startsWith('http') ? '_blank' : undefined}
               rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-              className="rounded-full border border-sf-border px-4 py-2 transition hover:border-sf-orange-1 hover:bg-sf-orange-1 hover:text-sf-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+              className="rounded-full border border-white/15 bg-white/[0.03] px-4 py-2 transition hover:border-sf-orange-2 hover:bg-sf-orange-1 hover:text-sf-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
             >
               {link.label}
             </a>
@@ -74,7 +74,7 @@ const Team = () => {
         description={team.apply.description}
       >
         <MotionDiv
-          className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-sf-border bg-sf-elevated px-6 py-6 shadow-[0_28px_46px_-32px_rgba(0,0,0,0.65)]"
+          className="glass-panel flex flex-wrap items-center justify-between gap-4 px-6 py-6"
           variants={textVariants}
         >
           <p className="max-w-2xl text-sm text-sf-muted">
@@ -86,7 +86,7 @@ const Team = () => {
             to={team.apply.buttonLink}
             target="_blank"
             rel="noreferrer"
-            className="rounded-xl bg-sf-orange-1 px-5 py-3 text-sm font-semibold text-sf-bg transition hover:bg-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+            className="btn-primary text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
           >
             {team.apply.buttonLabel}
           </Link>

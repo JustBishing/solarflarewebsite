@@ -42,15 +42,15 @@ const Header = () => {
   const headerAnimate = useMemo(() => {
     if (scrolled) {
       return {
-        backgroundColor: 'rgba(5, 5, 5, 0.9)',
-        boxShadow: '0 20px 40px -32px rgba(0,0,0,0.85)',
-        backdropFilter: 'blur(10px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.78)',
+        boxShadow: '0 20px 40px -32px rgba(0,0,0,0.85), 0 1px 0 0 rgba(234,80,32,0.25)',
+        backdropFilter: 'blur(14px)',
       };
     }
     return {
-      backgroundColor: 'rgba(5, 5, 5, 0)',
+      backgroundColor: 'rgba(0, 0, 0, 0.3)',
       boxShadow: '0 0 0 rgba(0,0,0,0)',
-      backdropFilter: 'blur(0px)',
+      backdropFilter: 'blur(6px)',
     };
   }, [scrolled]);
 
@@ -68,14 +68,14 @@ const Header = () => {
       }
     >
       <div className="container flex h-20 items-center justify-between gap-6">
-        <Link to="/" className="flex items-center gap-3 text-lg font-semibold text-sf-text">
+        <Link to="/" className="group flex items-center gap-3 text-lg font-semibold text-sf-text">
           <img
             src={logoSrc}
             alt={branding.logoAlt}
-            className="h-10 w-auto"
+            className="h-10 w-auto drop-shadow-[0_0_14px_rgba(248,146,33,0.35)] transition-transform group-hover:scale-105"
             loading="lazy"
           />
-          <span className="hidden sm:inline-block">{branding.siteName}</span>
+          <span className="heading-display hidden tracking-tight sm:inline-block">{branding.siteName}</span>
         </Link>
         <nav className="hidden items-center gap-1 text-sm font-semibold sm:flex">
           {navItems.map((item) => (
@@ -84,9 +84,9 @@ const Header = () => {
               to={item.to}
               end={item.end}
               className={({ isActive }) =>
-                `rounded-full px-4 py-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-1 ${
+                `rounded-full px-4 py-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2 ${
                   isActive
-                    ? 'text-sf-orange-1'
+                    ? 'text-sf-orange-2'
                     : 'text-sf-muted hover:text-sf-text'
                 }`
               }
@@ -96,7 +96,7 @@ const Header = () => {
                   {item.label}
                   <span
                     aria-hidden="true"
-                    className={`mt-1 h-0.5 w-8 rounded-full bg-sf-orange-1 transition-all ${
+                    className={`mt-1 h-0.5 w-8 rounded-full bg-gradient-to-r from-sf-orange-1 to-sf-orange-2 shadow-[0_0_12px_rgba(248,146,33,0.6)] transition-all ${
                       isActive ? 'opacity-100' : 'opacity-0'
                     }`}
                   />

@@ -24,14 +24,14 @@ const Section = ({
       <div className="container max-w-6xl">
         <MotionDiv variants={resolveVariant(fadeIn, shouldReduceMotion)} className="mb-8 max-w-2xl">
           {eyebrow ? (
-            <p className="text-sm font-semibold uppercase tracking-[0.2rem] text-sf-orange-1">
+            <p className="text-sm font-semibold uppercase tracking-[0.3rem] text-sf-orange-2">
               {eyebrow}
             </p>
           ) : null}
-          <h2 className="mt-4 text-3xl font-bold leading-tight text-sf-text sm:text-4xl">
+          <h2 className="heading-display mt-4 text-3xl font-bold leading-tight text-sf-text sm:text-5xl">
             {title}
           </h2>
-          <div className="mt-3 h-0.5 w-16 bg-sf-orange-1" />
+          <div className="mt-4 h-[2px] w-20 rounded-full bg-gradient-to-r from-sf-orange-1 via-sf-orange-2 to-transparent" />
           {description ? (
             <p className="mt-6 text-base text-sf-muted sm:text-lg">
               {description}

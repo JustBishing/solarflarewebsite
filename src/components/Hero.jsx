@@ -23,12 +23,24 @@ const Hero = () => {
 
   return (
     <section className="relative overflow-hidden text-sf-text">
-      <div className="absolute inset-0 -z-30 bg-sf-bg" />
-      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_right,rgba(234,80,32,0.4),transparent_55%),radial-gradient(circle_at_bottom_left,rgba(32,46,90,0.8),transparent_60%)]" />
-      <div className="absolute inset-0 -z-20 opacity-60 mix-blend-screen bg-[conic-gradient(from_120deg_at_50%_50%,rgba(248,146,33,0.25),transparent_50%)]" />
-      <div className="absolute inset-0 -z-20 bg-[linear-gradient(120deg,rgba(9,13,26,0.4),transparent)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
+        <div className="absolute -top-24 right-[-10%] h-[52vh] w-[52vh] rounded-full bg-sf-orange-1/40 blur-3xl animate-aura-drift" />
+        <div className="absolute top-1/3 left-[-10%] h-[40vh] w-[40vh] rounded-full bg-sf-orange-2/28 blur-3xl animate-aura-drift-slow" />
+        <div className="absolute bottom-[-20%] right-1/4 h-[40vh] w-[40vh] rounded-full bg-red-600/25 blur-3xl animate-aura-drift" />
+      </div>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 opacity-[0.14] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.75) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.75) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
+          maskImage:
+            'radial-gradient(ellipse at center, black 40%, transparent 75%)',
+        }}
+      />
 
-      <div className="container flex min-h-[72vh] flex-col justify-center py-24 sm:py-32">
+      <div className="container flex min-h-[78vh] flex-col justify-center py-24 sm:py-32">
         <motion.div
           className="max-w-3xl"
           variants={containerVariants}
@@ -36,30 +48,31 @@ const Hero = () => {
           animate="visible"
         >
           <motion.p
-            className="text-xs font-semibold uppercase tracking-[0.4rem] text-sf-muted/80 sm:text-sm"
+            className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.35rem] text-sf-orange-2 backdrop-blur-sm sm:text-xs"
             variants={itemVariants}
           >
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-sf-orange-2 shadow-[0_0_14px_rgba(248,146,33,0.9)]" />
             {hero.eyebrow}
           </motion.p>
           <motion.h1
-            className="mt-6 text-4xl font-extrabold leading-tight text-sf-text sm:text-5xl lg:text-6xl"
+            className="heading-display mt-6 text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl text-gradient-flare"
             variants={itemVariants}
           >
             {hero.title}
           </motion.h1>
           <motion.p
-            className="mt-6 text-lg text-sf-muted sm:text-xl"
+            className="mt-6 max-w-2xl text-lg leading-relaxed text-sf-muted sm:text-xl"
             variants={itemVariants}
           >
             {hero.description}
           </motion.p>
           <motion.div
-            className="mt-8 flex flex-wrap gap-4"
+            className="mt-10 flex flex-wrap gap-4"
             variants={itemVariants}
           >
             <MotionLink
               to={hero.primaryCtaLink}
-              className="rounded-xl bg-sf-orange-1 px-6 py-3 text-base font-semibold text-sf-bg shadow-[0_20px_38px_-18px_rgba(234,80,32,0.65)] transition hover:bg-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+              className="btn-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
               whileTap={scaleTap}
               {...hoverPrimary}
             >
@@ -67,7 +80,7 @@ const Hero = () => {
             </MotionLink>
             <MotionLink
               to={hero.secondaryCtaLink}
-              className="rounded-xl border border-sf-border/80 px-6 py-3 text-base font-semibold text-sf-text transition hover:border-sf-orange-1 hover:text-sf-orange-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+              className="btn-ghost focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
               whileTap={scaleTap}
               {...hoverSecondary}
             >
@@ -75,13 +88,13 @@ const Hero = () => {
             </MotionLink>
           </motion.div>
           <motion.div
-            className="mt-10 grid gap-4 text-sm text-sf-muted sm:grid-cols-2"
+            className="mt-12 grid gap-4 text-sm text-sf-muted sm:grid-cols-2"
             variants={itemVariants}
           >
             {hero.stats.map((stat) => (
               <div
                 key={stat.label}
-                className="flex items-center gap-3 rounded-xl border border-sf-border/80 bg-sf-surface/70 px-4 py-3 backdrop-blur-sm"
+                className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-md"
               >
                 <span
                   className={`inline-flex h-2.5 w-2.5 shrink-0 rounded-full ${
