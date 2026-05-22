@@ -20,8 +20,8 @@ const defaultSiteContent = {
     logoSrc: 'logo.png',
   },
   hero: {
-    eyebrow: 'FTC Team #25707 · Into the Deep',
-    title: 'Lighting the future of FTC innovation.',
+    eyebrow: 'FTC Team #25707 · DECODE',
+    title: 'Lighting the future of FTC innovation',
     description:
       'Solar Flare Robotics is an FTC team from the NY-Excelsior region, building advanced robots, mentoring peers, and expanding STEM access across our community. We are fiscally sponsored by Hack Club, so every contribution is tax-deductible.',
     primaryCtaLabel: 'Meet the team',
@@ -31,7 +31,7 @@ const defaultSiteContent = {
     stats: [
       {
         label:
-          '2024-25 Excelsior Finalist Alliance Captain & Design Award winners.',
+          '2025-26 Excelsior Winning Alliance Partner & Innovate Award winners.',
         accent: 'orange',
       },
       {
@@ -45,7 +45,7 @@ const defaultSiteContent = {
     about: {
       title: 'About Solar Flare',
       description:
-        'Solar Flare Robotics is a first-year FIRST Tech Challenge team pushing Into the Deep with bold ideas and community impact.',
+        'Solar Flare Robotics is a second-year FIRST Tech Challenge team pushing Decode with bold ideas and community impact.',
       paragraphs: [
         'We are FTC Team #25707, a crew of determined students from Edgemont Jr./Sr. High School and the broader NY-Excelsior region. Our team formed to explore the intersection of creativity and engineering, challenging ourselves to design smarter robots every match.',
         'FIRST Tech Challenge gives us the space to prototype, iterate, and solve real-world problems together. Through the program we hone programming, CAD, machining, and leadership skills that extend far beyond the field.',
@@ -55,36 +55,30 @@ const defaultSiteContent = {
     highlights: {
       title: 'Season Highlights',
       description:
-        'Turning our first season Into the Deep into an unforgettable run with hardware breakthroughs, award recognition, and alliances that keep us learning.',
+        'Turning our second season Decode into an unforgettable run with hardware breakthroughs, award recognition, and alliances that keep us learning.',
       items: [
         {
-          date: 'Dec 7, 2024',
-          event: 'John Jay Qualifier',
-          summary: '3rd Place Alliance Partner and Control Award 2nd Place.',
+          date: 'Jan 17, 2026',
+          event: 'Albany Academy Qualifier',
+          summary: '5th Place Alliance Partner and Think Award 1st Place.',
         },
         {
-          date: 'Feb 8, 2025',
+          date: 'Jan 31, 2026',
           event: 'Peekskill Qualifier',
           summary:
-            'Finalist Alliance Partner, Connect Award 2nd Place, and ticket to the Regional Championship.',
+            'Winning Alliance Captain, Inspire Award 2nd Place, and Qualified for the Regional Championship.',
         },
         {
-          date: 'Feb 9, 2025',
-          event: 'Corning Inc. Qualifier',
+          date: 'Mar 7-8, 2026',
+          event: 'MVCC Excelsior Regional Championship',
           summary:
-            'Semifinalist Alliance Captain, 4th in qualification matches, and Design Award winner.',
-        },
-        {
-          date: 'Mar 8, 2025',
-          event: 'MVCC Utica Championship',
-          summary:
-            'Ranked 3rd with a 7-1-0 record and captained the Finalist Alliance alongside Team 16700 JAYBOTS.',
+            'Winning Alliance Partner alongside Team 10949 M.O.B., Innovate Award 1st Place, and Qualified for the FIRST World Championship in Houston, Texas.',
         },
         {
           date: 'Season Stats',
-          event: 'Into the Deep',
+          event: 'Decode',
           summary:
-            '164.49 npOPR (#2 in Excelsior, #3 in NY), plus one of only ten teams worldwide to land a 7-sample autonomous.',
+            '#10 highest score in the world (3/8/26) and #1 OPR in New York. At the FIRST World Championship we were the 1st pick of a 5th-place divisional alliance, closing the season ranked #75 EPA and #99 OPR worldwide.',
         },
       ],
     },
@@ -93,7 +87,7 @@ const defaultSiteContent = {
       description:
         'We’re grateful for the partners who fuel our builds, scrimmages, and community events. Their support keeps Solar Flare blazing forward.',
       ctaDescription:
-        'Interested in partnering with Solar Flare? Explore our sponsorship tiers to learn how your organization can make an impact during the 2024-2025 Into the Deep season.',
+        'Interested in partnering with Solar Flare? Explore our sponsorship tiers to learn how your organization can make an impact during the 2025-2026 Decode season.',
       ctaLabel: 'View sponsorships',
       ctaLink: '/sponsorships',
     },
@@ -112,40 +106,40 @@ const defaultSiteContent = {
       title: 'Meet the squad',
       members: [
         {
-          name: 'Tristan',
+          name: 'Tristan Li',
           role: 'Captain & Founder',
-          bio: 'Tristan is a freshman at Edgemont Jr./Sr. High School who leads strategy, robot programming, and outreach after two seasons of FTC experience.',
+          bio: 'Tristan is a sophomore at Edgemont Jr./Sr. High School, who leads CAD, hardware, and outreach, while also helping with programming. He is also our main driver.',
           photo: 'members/Tristan.png',
         },
         {
-          name: 'Arick',
-          role: 'Co-founder & Programmer',
-          bio: 'Arick brings three years of Python and Java experience to Solar Flare and focuses on the software stack that powers our competition robot.',
+          name: 'Arick Khanna',
+          role: 'Software Lead',
+          bio: 'Arick brings three years of Python and Java experience to Solar Flare and focuses on auto and teleop software. He is also our secondary driver.',
           photo: 'members/Arick.png',
         },
         {
-          name: 'Vivaan',
-          role: 'Outreach & Mechanics',
-          bio: 'Vivaan loves blending storytelling and engineering, lending CAD skills, fabrication support, and community outreach to grow STEM access.',
-          photo: 'https://placehold.co/320x320/000000/FFFFFF?text=Vivaan',
+          name: 'Arjun Khanna',
+          role: 'Hardware',
+          bio: 'Arjun Khanna does most of the robot assembly and wiring on the team.',
+          photo: 'members/Arjun Khanna.png',
         },
         {
-          name: 'Dani',
-          role: 'Programmer',
-          bio: 'Dani prototypes controls logic, drawing from game development in Unity and ongoing studies in advanced Java and C# coursework.',
+          name: 'Dani Nayal',
+          role: 'Computer Vision',
+          bio: 'Dani is a dedicated 10th grader focused on developing computer vision models for object tracking and Apriltag-based localization.',
           photo: 'members/Dani.png',
         },
         {
-          name: 'Ryan',
-          role: 'Build Lead',
-          bio: 'Ryan is a builder at heart who translates design ideas into reliable hardware and iterates quickly between matches.',
+          name: 'Ryan Ma',
+          role: 'Hardware & Manufacturing',
+          bio: 'Ryan helps with robot assembly and wiring, as well as operating our CNC router to cut wood and aluminum parts.',
           photo: 'members/Ryan.png',
         },
         {
-          name: 'Arjun',
-          role: 'Programming & Mechanics',
-          bio: 'Arjun competes in USACO, loves solving technical challenges, and supports Solar Flare with autonomous code and mechanical upgrades.',
-          photo: 'members/Arjun Gupta.png',
+          name: 'Rishi',
+          role: 'Outreach & Fundraising',
+          bio: "Rishi leads our team's fundraising as well as organizing outreach initiatives throughout our community.",
+          photo: 'members/Rishi.png',
         },
       ],
     },
@@ -191,6 +185,19 @@ const defaultSiteContent = {
       description:
         'A running log of our major seasons, what defined them, and the moments we want to preserve.',
       seasons: [
+        {
+          year: '2025-2026',
+          title: 'Decode',
+          summary:
+            'Our second season took Solar Flare to the FIRST World Championship in Houston, capped by a regional championship win and statistically our strongest year yet.',
+          highlights: [
+            '#10 highest score in the world (3/8/26).',
+            '#1 OPR in New York.',
+            'Winning Alliance Partner and Innovate Award 1st Place at the MVCC Excelsior Regional Championship.',
+            'Divisional 5th-place alliance as the 1st overall pick at the FIRST World Championship.',
+            'Closed the season ranked #75 EPA and #99 OPR worldwide.',
+          ],
+        },
         {
           year: '2024-2025',
           title: 'Into the Deep',
@@ -268,44 +275,44 @@ const defaultSiteContent = {
   sponsors: [
     {
       name: 'Gene Haas Foundation',
-      contribution: '$2,000 grant',
+      contribution: '$2,000 Grant',
       website: 'https://ghaasfoundation.org/',
       logo: 'sponsorships/HAAS.png',
     },
     {
       name: 'Pantry Shelf',
-      contribution: '$1,000 sponsorship',
+      contribution: '$1,000 Sponsorship',
       website: 'https://www.pantryshelf.com/',
       logo: 'sponsorships/pantry.png',
     },
     {
       name: 'Polymaker',
-      contribution: '',
+      contribution: '$200 Credit',
       website: 'https://polymaker.com/',
       logo: 'sponsorships/polymaker.png',
     },
     {
       name: 'Misumi',
-      contribution: '',
+      contribution: '30% Discount',
       website:
         'https://us.misumi-ec.com/?gad_source=1&gad_campaignid=350961273&gbraid=0AAAAADtMMx8sNgD0U0kmwkUof_4Y-0Q2p&gclid=Cj0KCQjwpv7NBhCzARIsADkIfWx5D7rHbo_R9aFy7gTgjExBklqeTk5P4h-RFSqREJ9tCo4uO66eisAaAsZ0EALw_wcB',
       logo: 'sponsorships/Misumi.png',
     },
     {
       name: 'CNC Madness',
-      contribution: '',
+      contribution: '30% Discount',
       website: 'https://cncmadness.com/',
       logo: 'sponsorships/CNC Madness.png',
     },
     {
       name: 'White Plains Hospital',
-      contribution: '$200 sponsorship',
+      contribution: '$200 Sponsorship',
       website: 'https://www.wphospital.org/',
       logo: 'sponsorships/WhitePlainsHospital.png',
     },
     {
       name: 'Art of Problem Solving',
-      contribution: '$100 credit',
+      contribution: '$100 Credit',
       website: 'https://artofproblemsolving.com/',
       logo: 'sponsorships/AOPS.png',
     },
