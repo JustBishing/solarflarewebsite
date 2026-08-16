@@ -2,6 +2,18 @@ import { Link } from 'react-router-dom';
 import { useSiteContent } from '../context/useSiteContent.js';
 import { resolveSiteAssetUrl } from '../lib/assets.js';
 
+const quickLinks = [
+  { label: 'Home', to: '/' },
+  { label: 'Team', to: '/team' },
+  { label: 'Sponsorships', to: '/sponsorships' },
+  { label: 'Past Seasons', to: '/past-seasons' },
+  { label: 'Branding', to: '/branding' },
+  { label: 'Admin', to: '/admin' },
+];
+
+const linkClass =
+  'text-sm text-sf-muted/70 transition hover:text-sf-orange-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40';
+
 const Footer = () => {
   const {
     siteContent: { branding, footer },
@@ -9,108 +21,78 @@ const Footer = () => {
   const logoSrc = resolveSiteAssetUrl(branding.logoSrc, 'logo.png');
 
   return (
-    <footer className="relative border-t border-white/10 bg-sf-bg/60 text-sf-text backdrop-blur-md">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-sf-bg/70 text-sf-text backdrop-blur-md">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sf-orange-2/70 to-transparent"
       />
-      <div className="container grid gap-10 py-14 sm:grid-cols-[1.5fr_1fr]">
+
+      {/* Team number as a base watermark, echoing the hero. */}
+      <span
+        aria-hidden="true"
+        className="heading-hero pointer-events-none absolute -bottom-10 right-4 hidden select-none font-black leading-none text-white/[0.03] lg:block"
+        style={{ fontSize: 'clamp(8rem, 14vw, 13rem)' }}
+      >
+        {branding.teamNumber}
+      </span>
+
+      <div className="container relative grid gap-12 py-16 sm:grid-cols-[1.6fr_1fr_1fr]">
         <div>
-          <div className="flex items-center gap-3 text-lg font-semibold">
+          <div className="flex items-center gap-3">
             <img
               src={logoSrc}
               alt={branding.logoAlt}
-              className="h-10 w-auto drop-shadow-[0_0_14px_rgba(248,146,33,0.35)]"
+              className="h-10 w-auto drop-shadow-[0_0_14px_rgba(255,145,77,0.35)]"
               loading="lazy"
             />
-            <span className="heading-display tracking-tight">{branding.siteName}</span>
+            <span className="heading-display text-base font-bold uppercase tracking-tight">
+              {branding.siteName}
+            </span>
           </div>
-          <p className="mt-4 max-w-xl text-sm text-sf-muted">
+          <p className="mt-5 max-w-md text-sm leading-relaxed text-sf-muted/80">
             {footer.description}
           </p>
-          <p className="mt-6 text-sm text-sf-muted/80">
+          <p className="mt-5 max-w-md text-sm leading-relaxed text-sf-muted/55">
             {footer.sponsorNote}
           </p>
         </div>
-        <div className="grid gap-6 text-sm">
-          <div>
-            <h3 className="text-base font-semibold text-sf-text">{footer.contactTitle}</h3>
-            <ul className="mt-3 space-y-2">
-              <li>
+
+        <div>
+          <h3 className="label-mono text-sf-orange-2">{footer.contactTitle}</h3>
+          <ul className="mt-4 space-y-3">
+            <li>
+              <a href={`mailto:${footer.email}`} className={linkClass}>
+                {footer.email}
+              </a>
+            </li>
+            {footer.socials.map((social) => (
+              <li key={`${social.label}-${social.href}`}>
                 <a
-                  href={`mailto:${footer.email}`}
-                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={linkClass}
                 >
-                  {footer.email}
+                  {social.label}
                 </a>
               </li>
-              {footer.socials.map((social) => (
-                <li key={`${social.label}-${social.href}`}>
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
-                  >
-                    {social.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-base font-semibold text-sf-text">{footer.quickLinksTitle}</h3>
-            <ul className="mt-3 space-y-2">
-              <li>
-                <Link
-                  to="/"
-                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
-                >
-                  Home
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="label-mono text-sf-orange-2">
+            {footer.quickLinksTitle}
+          </h3>
+          <ul className="mt-4 space-y-3">
+            {quickLinks.map((link) => (
+              <li key={link.to}>
+                <Link to={link.to} className={linkClass}>
+                  {link.label}
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/team"
-                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
-                >
-                  Team
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/sponsorships"
-                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
-                >
-                  Sponsorships
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/past-seasons"
-                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
-                >
-                  Past Seasons
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/branding"
-                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
-                >
-                  Branding
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/admin"
-                  className="transition hover:text-sf-orange-2 hover:drop-shadow-[0_0_8px_rgba(248,146,33,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
-                >
-                  Admin
-                </Link>
-              </li>
-            </ul>
-          </div>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>

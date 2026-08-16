@@ -8,9 +8,15 @@ import {
   useShouldReduceMotion,
 } from '../lib/motion.js';
 
+/**
+ * The old card led with a gradient strip on every instance, which is what
+ * made stacked sections read as one repeating object. Hierarchy now comes
+ * from the mono eyebrow and the display title instead.
+ */
 const Card = ({
   title,
   subtitle,
+  eyebrow,
   children,
   className = '',
   as = 'article',
@@ -26,25 +32,22 @@ const Card = ({
       {...hoverProps}
       whileTap={scaleTap}
     >
-      <span
-        aria-hidden="true"
-        className="h-[2px] w-full bg-gradient-to-r from-sf-orange-1 via-sf-orange-2 to-transparent"
-      />
       <div className="flex flex-1 flex-col p-6 sm:p-8">
-        <div>
+        <div className="flex items-baseline justify-between gap-4">
           {subtitle ? (
-            <p className="text-xs font-semibold uppercase tracking-[0.22rem] text-sf-orange-2">
-              {subtitle}
-            </p>
+            <p className="label-mono text-sf-orange-2">{subtitle}</p>
           ) : null}
-          {title ? (
-            <h3 className="heading-display mt-3 text-xl font-semibold text-sf-text sm:text-2xl">
-              {title}
-            </h3>
+          {eyebrow ? (
+            <p className="label-mono shrink-0 text-white/30">{eyebrow}</p>
           ) : null}
         </div>
+        {title ? (
+          <h3 className="heading-display mt-3 text-xl font-bold text-sf-text transition-colors group-hover:text-sf-orange-2 sm:text-2xl">
+            {title}
+          </h3>
+        ) : null}
         {children ? (
-          <div className="mt-4 text-base leading-relaxed text-sf-muted">
+          <div className="mt-4 text-base leading-relaxed text-sf-muted/90">
             {children}
           </div>
         ) : null}
@@ -56,6 +59,7 @@ const Card = ({
 Card.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  eyebrow: PropTypes.string,
   children: PropTypes.node,
   className: PropTypes.string,
   as: PropTypes.string,

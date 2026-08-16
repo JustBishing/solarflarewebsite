@@ -32,17 +32,31 @@ const palette = [
     usage: 'Highlights, gradient end, glow',
   },
   {
+    name: 'Ember',
+    token: 'sf-ember',
+    hex: '#ff6a2a',
+    rgb: '255, 106, 42',
+    usage: 'Data emphasis — headline stat numerals',
+  },
+  {
     name: 'Ignition Black',
     token: 'sf-bg',
-    hex: '#000000',
-    rgb: '0, 0, 0',
+    hex: '#0c0c10',
+    rgb: '12, 12, 16',
     usage: 'Base background',
+  },
+  {
+    name: 'Ember Band',
+    token: 'sf-band',
+    hex: '#141010',
+    rgb: '20, 16, 16',
+    usage: 'Warm band behind angled sections',
   },
   {
     name: 'Carbon',
     token: 'sf-surface',
-    hex: '#0E0E0E',
-    rgb: '14, 14, 14',
+    hex: '#17171c',
+    rgb: '23, 23, 28',
     usage: 'Card / panel surface',
   },
   {
@@ -56,18 +70,25 @@ const palette = [
 
 const fonts = [
   {
-    family: 'Space Grotesk',
-    role: 'Display — headings, wordmark, card titles',
+    family: 'Archivo',
+    role: 'Display — headings, wordmark, stat numerals',
     sample: 'Solar Flare Robotics',
-    className: 'heading-display',
-    weights: '500 · 600 · 700',
+    className: 'heading-display font-extrabold',
+    weights: '600 · 700 · 800 · 900',
   },
   {
-    family: 'Exo 2',
-    role: 'Body — paragraphs, UI, buttons, navigation',
+    family: 'Rajdhani',
+    role: 'Body — paragraphs, UI, buttons',
     sample: 'Building robots. Fueling the next generation of innovators.',
     className: 'font-sans',
-    weights: '400 · 500 · 600 · 700 · 800',
+    weights: '400 · 500 · 600 · 700',
+  },
+  {
+    family: 'JetBrains Mono',
+    role: 'Data — ranks, dates, eyebrows, navigation labels',
+    sample: '#10 HIGHEST SCORE IN THE WORLD',
+    className: 'label-mono !text-base !tracking-[0.18em]',
+    weights: '400 · 500 · 700',
   },
 ];
 

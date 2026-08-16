@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
-import Card from '../components/Card.jsx';
 import Section from '../components/Section.jsx';
 import SponsorGrid from '../components/SponsorGrid.jsx';
+import StatBlock from '../components/StatBlock.jsx';
+import GhostWordmark from '../components/GhostWordmark.jsx';
+import ArcDivider from '../components/ArcDivider.jsx';
 import { useSiteContent } from '../context/useSiteContent.js';
 import {
   fadeInUp,
@@ -21,24 +23,27 @@ const Sponsorships = () => {
   } = useSiteContent();
   const textVariants = resolveVariant(fadeInUp, shouldReduceMotion);
   const listVariants = resolveVariant(staggerChildren, shouldReduceMotion);
-  const hoverProps = shouldReduceMotion
-    ? {}
-    : { whileHover: { scale: 1.02 } };
+  const hoverProps = shouldReduceMotion ? {} : { whileHover: { scale: 1.02 } };
 
   return (
     <>
       <Section
+        variant="split"
+        railLabel="Support"
+        eyebrow="Partner with us"
         title={sponsorships.intro.title}
         description={sponsorships.intro.description}
+        className="relative"
       >
+        <GhostWordmark text="Support" />
         <MotionDiv
-          className="space-y-5 text-base leading-relaxed text-sf-muted sm:text-lg"
+          className="relative space-y-6 text-base leading-relaxed text-sf-muted sm:text-lg"
           variants={textVariants}
         >
           {sponsorships.intro.paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 pt-2">
             <MotionAnchor
               href={sponsorships.intro.primaryCtaLink}
               target="_blank"
@@ -61,31 +66,65 @@ const Sponsorships = () => {
         </MotionDiv>
       </Section>
 
-      <Section title={sponsorships.tiers.title}>
+      {/* Tiers ascend by amount, so the numbering tracks a real order. */}
+      <Section
+        variant="wide"
+        band="angled"
+        railLabel="Tiers"
+        title={sponsorships.tiers.title}
+      >
         <MotionDiv
-          className="grid gap-6 md:grid-cols-2"
+          className="divide-y divide-white/[0.07]"
           variants={listVariants}
         >
-          {sponsorships.tiers.items.map((tier) => (
-            <Card key={tier.title} title={tier.title} subtitle={tier.amount}>
-              <ul className="space-y-2 text-sm leading-relaxed text-sf-muted sm:text-base">
+          {sponsorships.tiers.items.map((tier, position) => (
+            <motion.article
+              key={tier.title}
+              className="grid gap-6 py-9 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-14"
+              variants={resolveVariant(fadeInUp, shouldReduceMotion)}
+            >
+              <div>
+                <div className="mb-4 flex items-baseline gap-3">
+                  <span className="label-mono text-sf-orange-1/60">
+                    {String(position + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="heading-display text-lg font-bold uppercase tracking-wide text-sf-text">
+                    {tier.title}
+                  </h3>
+                </div>
+                <StatBlock
+                  value={tier.amount}
+                  label="Per season"
+                  accent={position === sponsorships.tiers.items.length - 1}
+                />
+              </div>
+              <ul className="grid content-center gap-3">
                 {tier.benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-2">
-                    <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-sf-orange-1" aria-hidden="true" />
-                    <span>{benefit}</span>
+                  <li key={benefit} className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="mt-[0.5rem] inline-block h-1.5 w-1.5 shrink-0 rotate-45 bg-sf-orange-1/80"
+                    />
+                    <span className="text-base leading-relaxed text-sf-muted/85">
+                      {benefit}
+                    </span>
                   </li>
                 ))}
               </ul>
-            </Card>
+            </motion.article>
           ))}
         </MotionDiv>
       </Section>
 
+      <ArcDivider />
+
       <Section
+        variant="wide"
+        railLabel="Partners"
         title={sponsorships.currentSponsors.title}
         description={sponsorships.currentSponsors.description}
       >
-        <MotionDiv variants={listVariants} className="space-y-8">
+        <MotionDiv variants={listVariants}>
           <SponsorGrid sponsors={sponsors} />
         </MotionDiv>
       </Section>

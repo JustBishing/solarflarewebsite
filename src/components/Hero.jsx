@@ -9,13 +9,15 @@ import {
 } from '../lib/motion.js';
 import { useSiteContent } from '../context/useSiteContent.js';
 import HeroGlow from './HeroGlow.jsx';
+import KineticHeading from './KineticHeading.jsx';
+import ScrollBadge from './ScrollBadge.jsx';
 
 const MotionLink = motion(Link);
 
 const Hero = () => {
   const shouldReduceMotion = useShouldReduceMotion();
   const {
-    siteContent: { hero },
+    siteContent: { hero, branding },
   } = useSiteContent();
   const containerVariants = resolveVariant(staggerChildren, shouldReduceMotion);
   const itemVariants = resolveVariant(fadeInUp, shouldReduceMotion);
@@ -42,35 +44,48 @@ const Hero = () => {
         }}
       />
 
-      <div className="container flex min-h-[78vh] flex-col justify-center py-24 sm:py-32">
+      {/* Oversized team number filling the empty right half of the hero. */}
+      <span
+        aria-hidden="true"
+        className="heading-hero pointer-events-none absolute right-[-2%] top-1/2 hidden -translate-y-1/2 select-none font-black leading-none text-white/[0.04] xl:block"
+        style={{ fontSize: 'clamp(12rem, 22vw, 22rem)' }}
+      >
+        {branding.teamNumber}
+      </span>
+
+      <div className="container relative flex min-h-[80vh] flex-col justify-center py-24 sm:py-28">
         <motion.div
-          className="max-w-3xl"
+          className="max-w-4xl"
           variants={containerVariants}
           initial={shouldReduceMotion ? 'visible' : 'hidden'}
           animate="visible"
         >
           <motion.p
-            className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.35rem] text-white backdrop-blur-sm sm:text-xs"
+            className="label-mono inline-flex items-center gap-3 text-sf-orange-2"
             variants={itemVariants}
           >
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_14px_rgba(255,255,255,0.9)]" />
+            <span className="inline-block h-1.5 w-1.5 rotate-45 bg-sf-orange-1 shadow-[0_0_14px_rgba(255,145,77,0.9)]" />
             {hero.eyebrow}
           </motion.p>
-          <motion.h1
-            className="heading-display mt-10 text-5xl font-bold sm:text-6xl lg:text-7xl text-gradient-flare drop-shadow-[0_0_24px_rgba(255,255,255,0.10)]"
-            style={{ lineHeight: 1.25 }}
-            variants={itemVariants}
-          >
-            {hero.title}
-          </motion.h1>
+
+          <KineticHeading
+            text={hero.title}
+            className="mt-8"
+            style={{
+              fontSize: 'clamp(2.75rem, 7.2vw, 5.5rem)',
+              lineHeight: 1.06,
+            }}
+          />
+
           <motion.p
-            className="mt-10 max-w-2xl text-lg leading-[1.8] text-sf-muted sm:text-xl"
+            className="mt-8 max-w-xl text-lg leading-[1.75] text-sf-muted"
             variants={itemVariants}
           >
             {hero.description}
           </motion.p>
+
           <motion.div
-            className="mt-14 flex flex-wrap gap-4"
+            className="mt-10 flex flex-wrap gap-4"
             variants={itemVariants}
           >
             <MotionLink
@@ -90,26 +105,31 @@ const Hero = () => {
               {hero.secondaryCtaLabel}
             </MotionLink>
           </motion.div>
-          <motion.div
-            className="mt-12 grid gap-4 text-sm text-sf-muted sm:grid-cols-2"
-            variants={itemVariants}
-          >
+        </motion.div>
+
+        <motion.div
+          className="mt-16 flex flex-col gap-8 border-t border-white/10 pt-8 lg:flex-row lg:items-center lg:justify-between"
+          variants={itemVariants}
+          initial={shouldReduceMotion ? 'visible' : 'hidden'}
+          animate="visible"
+        >
+          <div className="grid max-w-3xl gap-x-10 gap-y-4 sm:grid-cols-2">
             {hero.stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-md"
-              >
+              <div key={stat.label} className="flex items-start gap-3">
                 <span
-                  className={`inline-flex h-2.5 w-2.5 shrink-0 rounded-full ${
+                  className={`mt-1.5 inline-flex h-1.5 w-1.5 shrink-0 rotate-45 ${
                     stat.accent === 'orange'
-                      ? 'bg-sf-orange-1 shadow-[0_0_12px_rgba(234,80,32,0.75)]'
-                      : 'bg-white/80'
+                      ? 'bg-sf-orange-1 shadow-[0_0_12px_rgba(255,145,77,0.75)]'
+                      : 'bg-white/70'
                   }`}
                 />
-                <span>{stat.label}</span>
+                <span className="text-sm leading-relaxed text-sf-muted/80">
+                  {stat.label}
+                </span>
               </div>
             ))}
-          </motion.div>
+          </div>
+          <ScrollBadge className="shrink-0 self-center lg:self-auto" />
         </motion.div>
       </div>
     </section>

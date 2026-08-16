@@ -1,7 +1,9 @@
 export const defaultThemeColors = {
   orange1: '#ff914d',
   orange2: '#ffb27a',
+  ember: '#ff6a2a',
   bg: '#0c0c10',
+  band: '#141010',
   surface: '#17171c',
   elevated: '#1f1f25',
   border: '#2f2f38',

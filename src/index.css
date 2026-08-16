@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  font-family: 'Rajdhani', 'Exo 2', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Rajdhani', ui-sans-serif, system-ui, sans-serif;
   font-weight: 500;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -11,16 +11,23 @@
   --sf-red: 220 38 38;
   --sf-orange1: 255 145 77;
   --sf-orange2: 255 178 122;
+  --sf-ember: 255 106 42;
   --sf-bg: 12 12 16;
+  --sf-band: 20 16 16;
   --sf-surface: 23 23 28;
   --sf-elevated: 31 31 37;
   --sf-border: 47 47 56;
   --sf-text: 255 255 255;
   --sf-muted: 230 230 234;
+  /* Shear angle shared by every angled band so edges stay parallel. */
+  --sf-shear: 2.2vw;
 }
 
 html {
   background-color: rgb(var(--sf-bg));
+  /* `clip` rather than `hidden`: hidden would make the root a scroll
+     container and break the sticky heading in Section's split variant. */
+  overflow-x: clip;
 }
 
 body {
@@ -37,9 +44,25 @@ a {
 }
 
 @layer components {
+  /* ---- Type roles -------------------------------------------------- */
+
   .heading-display {
-    font-family: 'Space Grotesk', 'Exo 2', ui-sans-serif, system-ui, sans-serif;
-    letter-spacing: -0.015em;
+    font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+    font-stretch: 112%;
+    letter-spacing: -0.02em;
+  }
+
+  /* Display type at hero scale needs tighter tracking than at h2 scale. */
+  .heading-hero {
+    @apply heading-display;
+    font-stretch: 118%;
+    letter-spacing: -0.035em;
+  }
+
+  /* Telemetry face: ranks, dates, scores, rail labels. Data only. */
+  .label-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    @apply text-[0.68rem] font-medium uppercase tracking-[0.28em];
   }
 
   .text-gradient-flare {
@@ -54,6 +77,20 @@ a {
     background-clip: text;
     color: transparent;
   }
+
+  /* Accent link inside body copy — Overclock's inline-highlight move. */
+  .link-ember {
+    @apply font-semibold text-sf-orange-2 transition;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 145, 77, 0.35);
+    text-underline-offset: 0.22em;
+  }
+  .link-ember:hover {
+    text-decoration-color: rgb(var(--sf-orange1));
+    color: rgb(var(--sf-orange1));
+  }
+
+  /* ---- Surfaces ---------------------------------------------------- */
 
   .glass-panel {
     @apply relative rounded-2xl border border-white/10 bg-sf-surface/60 backdrop-blur-md;
@@ -74,6 +111,27 @@ a {
       0 0 42px -8px rgba(255, 178, 122, 0.4);
   }
 
+  /* ---- Angled bands ------------------------------------------------ */
+  /* A warm band sheared off-axis. Padding compensates for the clip so
+     content never collides with the diagonal edge. */
+
+  .band-angled {
+    background-color: rgb(var(--sf-band));
+    clip-path: polygon(0 var(--sf-shear), 100% 0, 100% calc(100% - var(--sf-shear)), 0 100%);
+    padding-top: calc(var(--sf-shear) + 1rem);
+    padding-bottom: calc(var(--sf-shear) + 1rem);
+  }
+
+  /* Mirrored shear, so consecutive bands chevron instead of running parallel. */
+  .band-angled-alt {
+    background-color: rgb(var(--sf-band));
+    clip-path: polygon(0 0, 100% var(--sf-shear), 100% 100%, 0 calc(100% - var(--sf-shear)));
+    padding-top: calc(var(--sf-shear) + 1rem);
+    padding-bottom: calc(var(--sf-shear) + 1rem);
+  }
+
+  /* ---- Buttons ----------------------------------------------------- */
+
   .btn-primary {
     @apply inline-flex items-center justify-center rounded-xl px-6 py-3 text-base font-semibold text-sf-bg transition;
     background-image: linear-gradient(135deg, rgb(var(--sf-orange2)) 0%, rgb(var(--sf-orange1)) 100%);
@@ -90,5 +148,34 @@ a {
 
   .btn-ghost {
     @apply inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/[0.02] px-6 py-3 text-base font-semibold text-sf-text backdrop-blur-sm transition hover:border-sf-orange-2/70 hover:text-sf-orange-2;
+  }
+}
+
+@layer utilities {
+  /* Edge-fade for the marquee so words dissolve rather than clip. */
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  }
+
+  .writing-vertical {
+    writing-mode: vertical-rl;
+  }
+}
+
+/* Touch devices get no hover, so the roster bio stays open by default. */
+@media (hover: none) {
+  .team-bio {
+    max-height: 14rem;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-track,
+  .animate-badge-spin,
+  .animate-aura-drift,
+  .animate-aura-drift-slow {
+    animation: none !important;
   }
 }

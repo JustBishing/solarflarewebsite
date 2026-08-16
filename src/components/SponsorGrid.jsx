@@ -2,45 +2,48 @@ import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import {
   fadeInUp,
-  hoverLift,
   resolveVariant,
   useShouldReduceMotion,
 } from '../lib/motion.js';
 import { resolveSiteAssetUrl } from '../lib/assets.js';
 
+/**
+ * Logo wall rather than a grid of cards. Tiles share hairline borders so
+ * the sponsors read as one set; the contribution line only surfaces the
+ * amount, which is the part a prospective sponsor is scanning for.
+ */
 const SponsorGrid = ({ sponsors, className = '' }) => {
   const shouldReduceMotion = useShouldReduceMotion();
 
   return (
     <div
-      className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-4 ${className}`}
+      className={`grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/[0.07] sm:grid-cols-3 lg:grid-cols-4 ${className}`}
     >
       {sponsors.map((sponsor) => {
         const MotionTag = sponsor.website ? motion.a : motion.div;
-        const hoverProps = shouldReduceMotion ? {} : { whileHover: hoverLift };
+
         return (
           <MotionTag
             key={sponsor.name}
             href={sponsor.website}
             target={sponsor.website ? '_blank' : undefined}
             rel={sponsor.website ? 'noreferrer' : undefined}
-            className="glass-card flex flex-col items-center p-6 text-center"
+            className="group flex flex-col items-center justify-between gap-5 bg-sf-bg p-6 text-center transition-colors duration-300 hover:bg-sf-elevated focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sf-orange-2 sm:p-8"
             variants={resolveVariant(fadeInUp, shouldReduceMotion)}
-            {...hoverProps}
           >
-            <div className="flex min-h-[7rem] w-full items-center justify-center rounded-xl bg-white/[0.03] p-4">
+            <div className="flex min-h-[6rem] w-full items-center justify-center">
               <img
                 src={resolveSiteAssetUrl(sponsor.logo)}
                 alt={`${sponsor.name} logo`}
-                className="h-24 w-full object-contain"
+                className="max-h-20 w-full object-contain opacity-75 transition-all duration-300 group-hover:opacity-100"
                 loading="lazy"
               />
             </div>
-            <div className="mt-4">
-              <p className="text-base font-semibold text-sf-text">
+            <div>
+              <p className="heading-display text-sm font-semibold text-sf-text">
                 {sponsor.name}
               </p>
-              <p className="mt-1 text-sm text-sf-muted">
+              <p className="label-mono mt-2 text-white/40">
                 {sponsor.contribution}
               </p>
             </div>

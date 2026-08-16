@@ -75,19 +75,21 @@ const Header = () => {
             className="h-10 w-auto drop-shadow-[0_0_14px_rgba(248,146,33,0.35)] transition-transform group-hover:scale-105"
             loading="lazy"
           />
-          <span className="heading-display hidden tracking-tight sm:inline-block">{branding.siteName}</span>
+          <span className="heading-display hidden text-base font-bold uppercase tracking-tight sm:inline-block">
+            {branding.siteName}
+          </span>
         </Link>
-        <nav className="hidden items-center gap-1 text-sm font-semibold sm:flex">
+        <nav className="hidden items-center gap-2 sm:flex">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               end={item.end}
               className={({ isActive }) =>
-                `rounded-full px-4 py-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2 ${
+                `label-mono rounded-full px-4 py-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2 ${
                   isActive
                     ? 'text-sf-orange-2'
-                    : 'text-sf-muted hover:text-sf-text'
+                    : 'text-sf-muted/70 hover:text-sf-text'
                 }`
               }
             >
@@ -96,7 +98,7 @@ const Header = () => {
                   {item.label}
                   <span
                     aria-hidden="true"
-                    className={`mt-1 h-0.5 w-8 rounded-full bg-gradient-to-r from-sf-orange-1 to-sf-orange-2 shadow-[0_0_12px_rgba(248,146,33,0.6)] transition-all ${
+                    className={`mt-1.5 h-px w-full bg-gradient-to-r from-sf-orange-1 to-sf-orange-2 shadow-[0_0_12px_rgba(255,145,77,0.6)] transition-opacity ${
                       isActive ? 'opacity-100' : 'opacity-0'
                     }`}
                   />

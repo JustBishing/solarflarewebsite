@@ -52,6 +52,36 @@ const defaultSiteContent = {
         'Solar Flare is fiscally sponsored by Hack Club, a 501(c)(3) organization. That partnership means every donation is tax-deductible and directly funds parts, upgrades, tools, and outreach that sustain our mission.',
       ],
     },
+    record: {
+      eyebrow: 'Season Record',
+      title: 'Where we finished',
+      titleAccent: 'the Decode season',
+      description:
+        'Every number below is a competition result from the 2025-26 Decode season, not a projection.',
+      stats: [
+        {
+          value: '#10',
+          label: 'Highest score in the world',
+          caption: 'Set 3 / 8 / 26',
+          accent: true,
+        },
+        {
+          value: '#1',
+          label: 'OPR in New York',
+          caption: 'Decode season',
+        },
+        {
+          value: '1st',
+          label: 'Pick of a 5th-place divisional alliance',
+          caption: 'FIRST World Championship',
+        },
+        {
+          value: '#75',
+          label: 'EPA worldwide',
+          caption: 'At season close',
+        },
+      ],
+    },
     highlights: {
       title: 'Season Highlights',
       description:
