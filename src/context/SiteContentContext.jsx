@@ -43,7 +43,9 @@ export const SiteContentProvider = ({ children }) => {
   const [loadError, setLoadError] = useState('');
 
   useEffect(() => { hasCachedRef.current = hasCachedContent; }, [hasCachedContent]);
-  useEffect(() => { applyThemeColors(siteContent.theme?.colors); }, [siteContent]);
+  // Takes no argument on purpose: the palette is locked in theme.js and any
+  // stored theme colours are ignored.
+  useEffect(() => { applyThemeColors(); }, []);
 
   useEffect(() => {
     const favicon = document.querySelector('link[rel="icon"]');
