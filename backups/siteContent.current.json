@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-05-17T14:53:09.317Z",
+  "exportedAt": "2026-08-09T14:29:41.168Z",
   "source": "siteContent/current",
   "content": {
     "sponsorships": {
@@ -117,87 +117,6 @@
         "surface": "#38445c"
       }
     },
-    "team": {
-      "intro": {
-        "title": "A team of dedicated individuals",
-        "description": "Solar Flare is made up of builders, programmers, storytellers, and leaders who show up ready to learn at every workshop and match.",
-        "paragraphs": [
-          "We rally around a shared love of robotics, combining diverse skill sets in code, mechanical design, outreach, and match strategy. That collaboration helps us iterate quickly and deliver reliable performance on the field.",
-          "Beyond competitions we mentor younger students, speak at community events, and advocate for equitable access to STEM. Solar Flare is proof that when driven students work together, we can build more than robots-we build opportunities."
-        ]
-      },
-      "connect": {
-        "title": "Connect with us",
-        "label": "Follow",
-        "links": [
-          {
-            "label": "Instagram",
-            "href": "https://instagram.com/solarflarerobotics"
-          },
-          {
-            "label": "YouTube",
-            "href": "https://www.youtube.com/@solarflarerobotics"
-          },
-          {
-            "label": "Email",
-            "href": "mailto:team@solarflarerobotics.org"
-          }
-        ]
-      },
-      "roster": {
-        "title": "Meet the squad",
-        "members": [
-          {
-            "name": "Tristan Li",
-            "photo": "https://placehold.co/320x320/EA5020/FFFFFF?text=Tristan",
-            "bio": "Tristan is a sophomore at Edgemont Jr./Sr. High School, who leads CAD, hardware, and outreach, while also helping with programming. He is also our main driver.",
-            "role": "Captain & Founder"
-          },
-          {
-            "bio": "Arick brings three years of Python and Java experience to Solar Flare and focuses on auto and teleop software. He is also our secondary driver.",
-            "role": "software lead",
-            "photo": "https://placehold.co/320x320/F89221/FFFFFF?text=Arick",
-            "name": "Arick Khanna"
-          },
-          {
-            "role": "Hardware",
-            "bio": "Arjun Khanna does most of the robot assembly and wiring on the team.",
-            "photo": "https://placehold.co/320x320/000000/FFFFFF?text=Arjun K",
-            "name": "Arjun Khanna"
-          },
-          {
-            "role": "Computer vision",
-            "bio": "Dani is a dedicated 10th grader focused on developing computer vision models for object tracking and Apriltag-based localization.",
-            "photo": "https://placehold.co/320x320/EA5020/FFFFFF?text=Dani",
-            "name": "Dani Nayal"
-          },
-          {
-            "name": "Ryan Ma",
-            "photo": "https://placehold.co/320x320/F89221/FFFFFF?text=Ryan",
-            "role": "Hardware & manufacturing",
-            "bio": "Ryan helps with robot assembly and wiring, as well as operating our CNC router to cut wood and aluminum parts."
-          },
-          {
-            "role": "Documentation & Outreach",
-            "bio": "Arjun Gupta is a freshman who leads documentation for our team's engineering portfolio and organizes outreach initiatives throughout the community.",
-            "photo": "https://placehold.co/320x320/000000/FFFFFF?text=Arjun",
-            "name": "Arjun Gupta"
-          },
-          {
-            "name": "Rishi",
-            "role": "Outreach & fundraising",
-            "bio": "Rishi leads our team's fundraising as well as organizing outreach initiatives throughout our community.",
-            "photo": "https://placehold.co/320x320/EA5020/FFFFFF?text=Rishi"
-          }
-        ]
-      },
-      "apply": {
-        "buttonLink": "https://docs.google.com/forms/d/e/1FAIpQLSddJdvq9qldA5Velh1F4SKJrOyt0YPKk1tst5hpR22xhks9IA/viewform?usp=dialog",
-        "description": "Interested in building, programming, outreach, or strategy? Fill out our interest form and we will follow up about the next steps.",
-        "title": "Apply to join Solar Flare",
-        "buttonLabel": "Apply now"
-      }
-    },
     "sponsors": [
       {
         "logo": "sponsorships/HAAS.png",
@@ -242,6 +161,81 @@
         "contribution": "$100 Credit"
       }
     ],
+    "team": {
+      "intro": {
+        "title": "A team of dedicated individuals",
+        "description": "Solar Flare is made up of builders, programmers, storytellers, and leaders who show up ready to learn at every workshop and match.",
+        "paragraphs": [
+          "We rally around a shared love of robotics, combining diverse skill sets in code, mechanical design, outreach, and match strategy. That collaboration helps us iterate quickly and deliver reliable performance on the field.",
+          "Beyond competitions we mentor younger students, speak at community events, and advocate for equitable access to STEM. Solar Flare is proof that when driven students work together, we can build more than robots-we build opportunities."
+        ]
+      },
+      "connect": {
+        "title": "Connect with us",
+        "label": "Follow",
+        "links": [
+          {
+            "label": "Instagram",
+            "href": "https://instagram.com/solarflarerobotics"
+          },
+          {
+            "label": "YouTube",
+            "href": "https://www.youtube.com/@solarflarerobotics"
+          },
+          {
+            "label": "Email",
+            "href": "mailto:team@solarflarerobotics.org"
+          }
+        ]
+      },
+      "apply": {
+        "buttonLink": "https://docs.google.com/forms/d/e/1FAIpQLSddJdvq9qldA5Velh1F4SKJrOyt0YPKk1tst5hpR22xhks9IA/viewform?usp=dialog",
+        "description": "Interested in building, programming, outreach, or strategy? Fill out our interest form and we will follow up about the next steps.",
+        "title": "Apply to join Solar Flare",
+        "buttonLabel": "Apply now"
+      },
+      "roster": {
+        "title": "Meet the squad",
+        "members": [
+          {
+            "name": "Tristan Li",
+            "bio": "Tristan is a sophomore at Edgemont Jr./Sr. High School, who leads CAD, hardware, and outreach, while also helping with programming. He is also our main driver.",
+            "role": "Captain & Founder",
+            "photo": "members/Tristan.png"
+          },
+          {
+            "role": "software lead",
+            "photo": "members/Arick.png",
+            "name": "Arick Khanna",
+            "bio": "Arick brings three years of Python and Java experience to Solar Flare and focuses on auto and teleop software. He is also our secondary driver."
+          },
+          {
+            "name": "Arjun Khanna",
+            "bio": "Arjun Khanna does most of the robot assembly and wiring on the team.",
+            "role": "Hardware",
+            "photo": "members/Arjun Khanna.png"
+          },
+          {
+            "role": "Computer vision",
+            "photo": "members/Dani.png",
+            "name": "Dani Nayal",
+            "bio": "Dani is a dedicated 10th grader focused on developing computer vision models for object tracking and Apriltag-based localization."
+          },
+          {
+            "name": "Ryan Ma",
+            "bio": "Ryan helps with robot assembly and wiring, as well as operating our CNC router to cut wood and aluminum parts.",
+            "role": "Hardware & manufacturing",
+            "photo": "members/Ryan.png"
+          },
+          {
+            "name": "Rishi",
+            "bio": "Rishi leads our team's fundraising as well as organizing outreach initiatives throughout our community.",
+            "role": "Outreach & fundraising",
+            "photo": "members/Rishi.png"
+          }
+        ]
+      }
+    },
     "home": {
       "about": {
         "title": "About Solar Flare",
@@ -252,38 +246,38 @@
         ],
         "description": "Solar Flare Robotics is a second-year FIRST Tech Challenge team pushing Decode with bold ideas and community impact."
       },
-      "highlights": {
-        "title": "Season Highlights",
-        "description": "Turning our first season Decode into an unforgettable run with hardware breakthroughs, award recognition, and alliances that keep us learning.",
-        "items": [
-          {
-            "summary": "5th Place Alliance Partner and Think Award 1sr Place.",
-            "date": "Jan 17, 2026",
-            "event": "Albany Academy Qualifier"
-          },
-          {
-            "event": "Peekskill Qualifier",
-            "date": "Jan 31, 2026",
-            "summary": "Winning Alliance Captain, Inspire Award 2nd Place, and Qualified for the Regional Championship."
-          },
-          {
-            "event": "MVCC Excelsior Regional Championship",
-            "date": "Mar 7-8, 2026",
-            "summary": "Winning Alliance Partner alongside Team 10949 M.O.B., Innovate Award 1st Place, and Qualified for the FIRST World Championship in Houston, Texas."
-          },
-          {
-            "event": "Decode",
-            "summary": "We achieved the tenth-highest score in the world, the best score in all of NY, and a #1 ranking in NY and #29 overall. We've qualified for Worlds, and can't wait to see what comes next.\n\n",
-            "date": "Season Stats"
-          }
-        ]
-      },
       "sponsors": {
         "title": "Thanks to Our Sponsors",
         "description": "We’re grateful for the partners who fuel our builds, scrimmages, and community events. Their support keeps Solar Flare blazing forward.",
         "ctaLabel": "View sponsorships",
         "ctaLink": "/sponsorships",
         "ctaDescription": "Interested in partnering with Solar Flare? Explore our sponsorship tiers to learn how your organization can make an impact during the 2025-2026 Decode season."
+      },
+      "highlights": {
+        "title": "Season Highlights",
+        "description": "Turning our first season Decode into an unforgettable run with hardware breakthroughs, award recognition, and alliances that keep us learning.",
+        "items": [
+          {
+            "date": "Jan 17, 2026",
+            "summary": "5th Place Alliance Partner and Think Award 1sr Place.",
+            "event": "Albany Academy Qualifier"
+          },
+          {
+            "date": "Jan 31, 2026",
+            "summary": "Winning Alliance Captain, Inspire Award 2nd Place, and Qualified for the Regional Championship.",
+            "event": "Peekskill Qualifier"
+          },
+          {
+            "summary": "Winning Alliance Partner alongside Team 10949 M.O.B., Innovate Award 1st Place, and Qualified for the FIRST World Championship in Houston, Texas.",
+            "event": "MVCC Excelsior Regional Championship",
+            "date": "Mar 7-8, 2026"
+          },
+          {
+            "date": "Season Stats",
+            "event": "Decode",
+            "summary": "#10 highest score in the world and #1 OPR in New York. At the FIRST World Championship we were the 1st pick of a 5th-place divisional alliance, closing the season ranked #75 EPA and #99 OPR worldwide."
+          }
+        ]
       }
     }
   }
