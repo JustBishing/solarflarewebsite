@@ -3,3 +3,6 @@
 .env
 .env.local
 .env.*.local
+
+# Build output — CI builds from source via .github/workflows/deploy-pages.yml
+/dist

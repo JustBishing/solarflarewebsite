@@ -8,14 +8,12 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "vite build && npx shx cp dist/index.html dist/404.html && gh-pages -d dist",
     "backup:content": "node scripts/export-firestore-content.mjs"
   },
   "dependencies": {
     "firebase": "^12.11.0",
     "firebase-admin": "^13.7.0",
     "framer-motion": "^12.23.24",
-    "gh-pages": "^6.3.0",
     "prop-types": "^15.8.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
