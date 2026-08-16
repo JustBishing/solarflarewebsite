@@ -36,12 +36,10 @@ const Home = () => {
     <>
       <Hero />
 
-      {/* branding.season is deliberately not shown here: the stored value
-          still reads "Into the Deep" while this season's results are from
-          Decode, and the ticker sits directly above the record band. */}
       <Marquee
         items={[
           `FTC TEAM ${branding.teamNumber}`,
+          branding.season,
           'NY-EXCELSIOR',
           'WORLD CHAMPIONSHIP QUALIFIER',
           'EDGEMONT JR./SR. HIGH SCHOOL',
