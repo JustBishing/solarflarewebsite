@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-08-09T14:29:41.168Z",
+  "exportedAt": "2026-08-16T14:17:17.640Z",
   "source": "siteContent/current",
   "content": {
     "sponsorships": {
@@ -96,14 +96,6 @@
       ],
       "title": "Lighting the future of FTC innovation",
       "eyebrow": "FTC Team #25707 · DECODE"
-    },
-    "branding": {
-      "siteName": "Solar Flare Robotics",
-      "teamNumber": "25707",
-      "season": "Into the Deep",
-      "region": "NY-Excelsior region",
-      "logoAlt": "Solar Flare Robotics logo",
-      "logoSrc": "logo.png"
     },
     "theme": {
       "colors": {
@@ -279,6 +271,14 @@
           }
         ]
       }
+    },
+    "branding": {
+      "siteName": "Solar Flare Robotics",
+      "teamNumber": "25707",
+      "region": "NY-Excelsior region",
+      "logoAlt": "Solar Flare Robotics logo",
+      "logoSrc": "logo.png",
+      "season": "Decode"
     }
   }
 }
