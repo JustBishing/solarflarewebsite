@@ -14,7 +14,7 @@ const defaultSiteContent = {
   branding: {
     siteName: 'Solar Flare Robotics',
     teamNumber: '25707',
-    season: 'Into the Deep',
+    season: 'Decode',
     region: 'NY-Excelsior region',
     logoAlt: 'Solar Flare Robotics logo',
     logoSrc: 'logo.png',

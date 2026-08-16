@@ -1356,6 +1356,24 @@ const Admin = () => {
             className="text-sf-muted"
           />
           <AdminEditableField
+            value={draftContent.branding.teamNumber}
+            onChange={(value) => setField(['branding', 'teamNumber'], value)}
+            size="label"
+            className="text-sf-orange-1"
+          />
+          <AdminEditableField
+            value={draftContent.branding.season}
+            onChange={(value) => setField(['branding', 'season'], value)}
+            size="label"
+            className="text-sf-orange-1"
+          />
+          <AdminEditableField
+            value={draftContent.branding.region}
+            onChange={(value) => setField(['branding', 'region'], value)}
+            size="label"
+            className="text-sf-orange-1"
+          />
+          <AdminEditableField
             value={draftContent.footer.description}
             onChange={(value) => setField(['footer', 'description'], value)}
             multiline
