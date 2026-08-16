@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import Section from '../components/Section.jsx';
-import Card from '../components/Card.jsx';
+import GhostWordmark from '../components/GhostWordmark.jsx';
 import { useSiteContent } from '../context/useSiteContent.js';
 import {
   fadeInUp,
@@ -18,15 +18,21 @@ const PastSeasons = () => {
   } = useSiteContent();
   const textVariants = resolveVariant(fadeInUp, shouldReduceMotion);
   const listVariants = resolveVariant(staggerChildren, shouldReduceMotion);
+  const seasons = pastSeasons.archive.seasons;
 
   return (
     <>
       <Section
+        variant="split"
+        railLabel="Archive"
+        eyebrow="History"
         title={pastSeasons.intro.title}
         description={pastSeasons.intro.description}
+        className="relative"
       >
+        <GhostWordmark text="Seasons" />
         <MotionDiv
-          className="space-y-4 text-base leading-relaxed text-sf-muted sm:text-lg"
+          className="relative space-y-5 text-base leading-relaxed text-sf-muted sm:text-lg"
           variants={textVariants}
         >
           {pastSeasons.intro.paragraphs.map((paragraph) => (
@@ -35,33 +41,59 @@ const PastSeasons = () => {
         </MotionDiv>
       </Section>
 
+      {/* Seasons are chronological, so the spine and its numbers carry
+          real ordering rather than decoration. */}
       <Section
+        variant="wide"
+        band="angled"
+        railLabel="Timeline"
         title={pastSeasons.archive.title}
         description={pastSeasons.archive.description}
       >
-        <MotionDiv className="grid gap-6 md:grid-cols-2" variants={listVariants}>
-          {pastSeasons.archive.seasons.map((season, index) => (
-            <Card
-              key={`${season.title}-${index}`}
-              title={season.title}
-              subtitle={season.year}
-            >
-              <div className="space-y-4">
-                <p>{season.summary}</p>
-                <ul className="space-y-2 text-sm leading-relaxed text-sf-muted sm:text-base">
+        <MotionDiv variants={listVariants} className="relative">
+          <span
+            aria-hidden="true"
+            className="absolute left-[7px] top-2 hidden h-[calc(100%-1rem)] w-px bg-gradient-to-b from-sf-orange-1/50 via-white/10 to-transparent sm:block"
+          />
+          <div className="space-y-12">
+            {seasons.map((season, position) => (
+              <motion.article
+                key={`${season.title}-${position}`}
+                className="group relative sm:pl-12"
+                variants={resolveVariant(fadeInUp, shouldReduceMotion)}
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute left-0 top-2 hidden h-[15px] w-[15px] rotate-45 border border-sf-orange-1/60 bg-sf-bg transition-colors duration-300 group-hover:bg-sf-orange-1 sm:block"
+                />
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <span className="label-mono text-sf-orange-1/60">
+                    {String(seasons.length - position).padStart(2, '0')}
+                  </span>
+                  <span className="label-mono text-white/40">{season.year}</span>
+                </div>
+                <h3 className="heading-display mt-3 text-2xl font-bold text-sf-text sm:text-3xl">
+                  {season.title}
+                </h3>
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-sf-muted/90">
+                  {season.summary}
+                </p>
+                <ul className="mt-5 grid gap-x-10 gap-y-3 sm:grid-cols-2">
                   {season.highlights.map((highlight) => (
-                    <li key={highlight} className="flex items-start gap-2">
+                    <li key={highlight} className="flex items-start gap-3">
                       <span
-                        className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-sf-orange-1"
                         aria-hidden="true"
+                        className="mt-[0.55rem] inline-block h-1.5 w-1.5 shrink-0 rotate-45 bg-sf-orange-1/80"
                       />
-                      <span>{highlight}</span>
+                      <span className="text-sm leading-relaxed text-sf-muted/80">
+                        {highlight}
+                      </span>
                     </li>
                   ))}
                 </ul>
-              </div>
-            </Card>
-          ))}
+              </motion.article>
+            ))}
+          </div>
         </MotionDiv>
       </Section>
     </>

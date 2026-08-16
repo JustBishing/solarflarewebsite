@@ -6,7 +6,9 @@ export default {
       colors: {
         'sf-orange-1': 'rgb(var(--sf-orange1) / <alpha-value>)',
         'sf-orange-2': 'rgb(var(--sf-orange2) / <alpha-value>)',
+        'sf-ember': 'rgb(var(--sf-ember) / <alpha-value>)',
         'sf-bg': 'rgb(var(--sf-bg) / <alpha-value>)',
+        'sf-band': 'rgb(var(--sf-band) / <alpha-value>)',
         'sf-surface': 'rgb(var(--sf-surface) / <alpha-value>)',
         'sf-elevated': 'rgb(var(--sf-elevated) / <alpha-value>)',
         'sf-border': 'rgb(var(--sf-border) / <alpha-value>)',
@@ -14,8 +16,9 @@ export default {
         'sf-muted': 'rgb(var(--sf-muted) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['"Rajdhani"', '"Exo 2"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Space Grotesk"', '"Exo 2"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"Rajdhani"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Archivo"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       container: {
         center: true,
@@ -39,10 +42,20 @@ export default {
           '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)' },
           '50%': { transform: 'translate3d(-3%, 2%, 0) scale(1.12)' },
         },
+        'marquee-track': {
+          from: { transform: 'translate3d(0,0,0)' },
+          to: { transform: 'translate3d(-50%,0,0)' },
+        },
+        'badge-spin': {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
       },
       animation: {
         'aura-drift': 'aura-drift 14s ease-in-out infinite',
         'aura-drift-slow': 'aura-drift-slow 22s ease-in-out infinite',
+        'marquee-track': 'marquee-track 42s linear infinite',
+        'badge-spin': 'badge-spin 18s linear infinite',
       },
     },
   },
