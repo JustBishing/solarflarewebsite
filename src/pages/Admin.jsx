@@ -38,6 +38,13 @@ const createAchievement = () => ({
   summary: 'Describe what happened.',
 });
 
+const createRecordStat = () => ({
+  value: '#1',
+  label: 'New result',
+  caption: '',
+  accent: false,
+});
+
 const createTier = () => ({
   title: 'New tier',
   amount: '$0',
@@ -365,6 +372,101 @@ const Admin = () => {
             }
           >
             Add paragraph
+          </ActionButton>
+        </div>
+      </AdminEditorSection>
+
+      <AdminEditorSection
+        title={draftContent.home.record.title}
+        description={draftContent.home.record.description}
+      >
+        <div className="space-y-4 rounded-[2rem] border border-sf-border bg-sf-bg p-8">
+          <AdminEditableField
+            value={draftContent.home.record.eyebrow}
+            onChange={(value) => setField(['home', 'record', 'eyebrow'], value)}
+            size="label"
+            className="text-sf-orange-1"
+          />
+          <AdminEditableField
+            value={draftContent.home.record.title}
+            onChange={(value) => setField(['home', 'record', 'title'], value)}
+            size="title"
+          />
+          <AdminEditableField
+            value={draftContent.home.record.titleAccent}
+            onChange={(value) =>
+              setField(['home', 'record', 'titleAccent'], value)
+            }
+            size="title"
+            className="text-sf-orange-2"
+          />
+          <AdminEditableField
+            value={draftContent.home.record.description}
+            onChange={(value) =>
+              setField(['home', 'record', 'description'], value)
+            }
+            multiline
+            className="text-sf-muted"
+          />
+          <div className="grid gap-4 md:grid-cols-2">
+            {draftContent.home.record.stats.map((stat, index) => (
+              <div
+                key={`record-stat-${index}`}
+                className="rounded-2xl border border-sf-border bg-sf-surface p-5"
+              >
+                <AdminEditableField
+                  value={stat.value}
+                  onChange={(value) =>
+                    setField(['home', 'record', 'stats', index, 'value'], value)
+                  }
+                  className="text-3xl font-bold"
+                />
+                <AdminEditableField
+                  value={stat.label}
+                  onChange={(value) =>
+                    setField(['home', 'record', 'stats', index, 'label'], value)
+                  }
+                  className="mt-2 text-base"
+                />
+                <AdminEditableField
+                  value={stat.caption}
+                  onChange={(value) =>
+                    setField(
+                      ['home', 'record', 'stats', index, 'caption'],
+                      value,
+                    )
+                  }
+                  size="label"
+                  className="mt-2 text-sf-muted"
+                />
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <ActionButton
+                    onClick={() =>
+                      setField(
+                        ['home', 'record', 'stats', index, 'accent'],
+                        !stat.accent,
+                      )
+                    }
+                  >
+                    {stat.accent ? 'Highlighted in ember' : 'Highlight in ember'}
+                  </ActionButton>
+                  <ActionButton
+                    onClick={() =>
+                      removeItem(['home', 'record', 'stats'], index)
+                    }
+                  >
+                    Remove result
+                  </ActionButton>
+                </div>
+              </div>
+            ))}
+          </div>
+          <ActionButton
+            onClick={() =>
+              addItem(['home', 'record', 'stats'], createRecordStat())
+            }
+          >
+            Add result
           </ActionButton>
         </div>
       </AdminEditorSection>
