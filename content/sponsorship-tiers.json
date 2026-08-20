@@ -1,0 +1,48 @@
+{
+  "_comment": "Content patch applied to siteContent/current by scripts/import-firestore-content.mjs. Every benefit here is a byproduct of something the team already produces — no new artifact, no recurring commitment, no event to organise. Escalation is by prominence, not by workload.",
+  "patch": {
+    "sponsorships": {
+      "tiers": {
+        "title": "Sponsorship tiers",
+        "items": [
+          {
+            "title": "Bronze",
+            "amount": "$250",
+            "benefits": [
+              "Logo on our website sponsorship wall",
+              "Thank-you post naming you across our social media",
+              "Logo in our season engineering portfolio, read by FIRST judges"
+            ]
+          },
+          {
+            "title": "Silver",
+            "amount": "$500",
+            "benefits": [
+              "All Bronze benefits",
+              "Logo on the pit banner we display at every competition",
+              "A dedicated social post about your support, with photos from the season"
+            ]
+          },
+          {
+            "title": "Gold",
+            "amount": "$1,000",
+            "benefits": [
+              "All Silver benefits",
+              "Logo on the robot and on the team shirts we wear all season",
+              "Standing invitation to any competition, with a pit tour and a look at the robot"
+            ]
+          },
+          {
+            "title": "Platinum",
+            "amount": "$2,500+",
+            "benefits": [
+              "All Gold benefits",
+              "Presenting sponsor — named first and largest everywhere we list sponsors",
+              "An end-of-season email with our results, photos, and where your money went"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -264,7 +264,8 @@ const defaultSiteContent = {
           amount: '$250',
           benefits: [
             'Logo on our website sponsorship wall',
-            'Thank-you shoutout on social media',
+            'Thank-you post naming you across our social media',
+            'Logo in our season engineering portfolio, read by FIRST judges',
           ],
         },
         {
@@ -272,8 +273,8 @@ const defaultSiteContent = {
           amount: '$500',
           benefits: [
             'All Bronze benefits',
-            'Logo placement on the robot chassis',
-            'Signed team poster and match updates',
+            'Logo on the pit banner we display at every competition',
+            'A dedicated social post about your support, with photos from the season',
           ],
         },
         {
@@ -281,8 +282,8 @@ const defaultSiteContent = {
           amount: '$1,000',
           benefits: [
             'All Silver benefits',
-            'Logo on team shirts and pit banners',
-            'Dedicated social media feature and newsletter highlight',
+            'Logo on the robot and on the team shirts we wear all season',
+            'Standing invitation to any competition, with a pit tour and a look at the robot',
           ],
         },
         {
@@ -290,8 +291,8 @@ const defaultSiteContent = {
           amount: '$2,500+',
           benefits: [
             'All Gold benefits',
-            'Team demo day for your company or community',
-            'Custom presentation on how your support impacted our season',
+            'Presenting sponsor — named first and largest everywhere we list sponsors',
+            'An end-of-season email with our results, photos, and where your money went',
           ],
         },
       ],

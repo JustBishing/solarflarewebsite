@@ -20,7 +20,7 @@
     "logoSrc": "logo.png"
   },
   "hero": {
-    "eyebrow": "FTC Team #25707 · Into the Deep",
+    "eyebrow": "FTC Team #25707 \u00b7 Into the Deep",
     "title": "Lighting the future of FTC innovation.",
     "description": "Solar Flare Robotics is an FTC team from the NY-Excelsior region, building advanced robots, mentoring peers, and expanding STEM access across our community. We are fiscally sponsored by Hack Club, so every contribution is tax-deductible.",
     "primaryCtaLabel": "Meet the team",
@@ -33,7 +33,7 @@
         "accent": "orange"
       },
       {
-        "label": "Fiscally sponsored by Hack Club Bank · donations stay tax-deductible.",
+        "label": "Fiscally sponsored by Hack Club Bank \u00b7 donations stay tax-deductible.",
         "accent": "light"
       }
     ]
@@ -81,7 +81,7 @@
     },
     "sponsors": {
       "title": "Thanks to Our Sponsors",
-      "description": "We’re grateful for the partners who fuel our builds, scrimmages, and community events. Their support keeps Solar Flare blazing forward.",
+      "description": "We\u2019re grateful for the partners who fuel our builds, scrimmages, and community events. Their support keeps Solar Flare blazing forward.",
       "ctaDescription": "Interested in partnering with Solar Flare? Explore our sponsorship tiers to learn how your organization can make an impact during the 2024-2025 Into the Deep season.",
       "ctaLabel": "View sponsorships",
       "ctaLink": "/sponsorships"
@@ -209,7 +209,8 @@
           "amount": "$250",
           "benefits": [
             "Logo on our website sponsorship wall",
-            "Thank-you shoutout on social media"
+            "Thank-you post naming you across our social media",
+            "Logo in our season engineering portfolio, read by FIRST judges"
           ]
         },
         {
@@ -217,8 +218,8 @@
           "amount": "$500",
           "benefits": [
             "All Bronze benefits",
-            "Logo placement on the robot chassis",
-            "Signed team poster and match updates"
+            "Logo on the pit banner we display at every competition",
+            "A dedicated social post about your support, with photos from the season"
           ]
         },
         {
@@ -226,8 +227,8 @@
           "amount": "$1,000",
           "benefits": [
             "All Silver benefits",
-            "Logo on team shirts and pit banners",
-            "Dedicated social media feature and newsletter highlight"
+            "Logo on the robot and on the team shirts we wear all season",
+            "Standing invitation to any competition, with a pit tour and a look at the robot"
           ]
         },
         {
@@ -235,8 +236,8 @@
           "amount": "$2,500+",
           "benefits": [
             "All Gold benefits",
-            "Team demo day for your company or community",
-            "Custom presentation on how your support impacted our season"
+            "Presenting sponsor \u2014 named first and largest everywhere we list sponsors",
+            "An end-of-season email with our results, photos, and where your money went"
           ]
         }
       ]

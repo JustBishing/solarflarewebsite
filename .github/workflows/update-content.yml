@@ -1,0 +1,74 @@
+name: Update Firestore Content
+
+# Manual only. Applies a reviewed JSON patch from content/ to
+# siteContent/current, so live copy changes are diffable in git instead of
+# being typed into the admin UI. The service-account key stays a GitHub
+# secret — it is never needed on anyone's laptop.
+on:
+  workflow_dispatch:
+    inputs:
+      patch:
+        description: Patch file to apply
+        required: true
+        default: content/sponsorship-tiers.json
+        type: string
+      mode:
+        description: dry-run prints the diff; apply writes it
+        required: true
+        default: dry-run
+        type: choice
+        options:
+          - dry-run
+          - apply
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: firestore-content
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Always snapshot the current document first, so an unwanted apply can be
+      # reversed from the run artifact.
+      - name: Back up current content
+        run: npm run backup:content
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: Upload backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: siteContent-before-${{ github.run_id }}
+          path: backups/siteContent.current.json
+          retention-days: 90
+
+      - name: Show diff
+        run: node scripts/import-firestore-content.mjs "${{ inputs.patch }}"
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: Apply patch
+        if: inputs.mode == 'apply'
+        run: node scripts/import-firestore-content.mjs "${{ inputs.patch }}" --apply
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
