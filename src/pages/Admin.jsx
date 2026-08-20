@@ -398,6 +398,82 @@ const Admin = () => {
         </div>
       </AdminEditorSection>
 
+      {/* Photography. Both blocks degrade to nothing if an image path is
+          blanked, so an editor can remove a photo without leaving a broken
+          frame on the homepage. */}
+      <AdminEditorSection
+        title="Homepage photo band"
+        description="The full-width competition photo under the marquee."
+      >
+        <div className="space-y-4 rounded-[2rem] border border-sf-border bg-sf-bg p-8">
+          <AdminImageField
+            label="Image path"
+            size="large"
+            value={draftContent.home.showcase.image}
+            onChange={(value) => setField(['home', 'showcase', 'image'], value)}
+          />
+          <AdminEditableField
+            value={draftContent.home.showcase.imageAlt}
+            onChange={(value) => setField(['home', 'showcase', 'imageAlt'], value)}
+            multiline
+            className="text-sf-muted"
+          />
+          <AdminEditableField
+            value={draftContent.home.showcase.caption}
+            onChange={(value) => setField(['home', 'showcase', 'caption'], value)}
+            multiline
+            className="text-sf-muted"
+          />
+        </div>
+      </AdminEditorSection>
+
+      <AdminEditorSection
+        title={draftContent.home.robot.title}
+        description={draftContent.home.robot.description}
+      >
+        <div className="space-y-4 rounded-[2rem] border border-sf-border bg-sf-bg p-8">
+          <AdminEditableField
+            value={draftContent.home.robot.eyebrow}
+            onChange={(value) => setField(['home', 'robot', 'eyebrow'], value)}
+            className="label-mono text-sf-orange-2"
+          />
+          <AdminEditableField
+            value={draftContent.home.robot.title}
+            onChange={(value) => setField(['home', 'robot', 'title'], value)}
+            className="text-2xl font-semibold"
+          />
+          <AdminEditableField
+            value={draftContent.home.robot.titleAccent}
+            onChange={(value) => setField(['home', 'robot', 'titleAccent'], value)}
+            className="text-2xl font-semibold text-sf-orange-2"
+          />
+          <AdminEditableField
+            value={draftContent.home.robot.description}
+            onChange={(value) => setField(['home', 'robot', 'description'], value)}
+            multiline
+            className="text-sf-muted"
+          />
+          <AdminImageField
+            label="Robot photo"
+            size="large"
+            value={draftContent.home.robot.image}
+            onChange={(value) => setField(['home', 'robot', 'image'], value)}
+          />
+          <AdminEditableField
+            value={draftContent.home.robot.imageAlt}
+            onChange={(value) => setField(['home', 'robot', 'imageAlt'], value)}
+            multiline
+            className="text-sf-muted"
+          />
+          <AdminEditableField
+            value={draftContent.home.robot.caption}
+            onChange={(value) => setField(['home', 'robot', 'caption'], value)}
+            multiline
+            className="text-sf-muted"
+          />
+        </div>
+      </AdminEditorSection>
+
       <AdminEditorSection
         title={draftContent.home.record.title}
         description={draftContent.home.record.description}

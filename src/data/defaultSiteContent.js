@@ -52,6 +52,29 @@ const defaultSiteContent = {
         'Solar Flare is fiscally sponsored by Hack Club, a 501(c)(3) organization. That partnership means every donation is tax-deductible and directly funds parts, upgrades, tools, and outreach that sustain our mission.',
       ],
     },
+    // Photography, finally. The site ran on type and logos alone; a match
+    // photograph and a close-up of the robot carry more weight with a sponsor
+    // than another paragraph does.
+    showcase: {
+      image: 'photos/worlds-field.webp',
+      imageAlt:
+        'Solar Flare Robotics competing at the FIRST World Championship in Houston, with team 25707 on the field during a qualification match.',
+      // Left empty deliberately. The scoreboard visible in this frame is
+      // mid-match and does not reflect the final result, so any caption
+      // quoting it would be wrong. The photograph stands on its own.
+      caption: '',
+    },
+    robot: {
+      eyebrow: 'The robot',
+      title: 'Designed, wired, and driven',
+      titleAccent: 'by students',
+      description:
+        'Every subsystem on our Decode robot was specified, built, and tuned in-house across the season.',
+      image: 'photos/robot.webp',
+      imageAlt:
+        'Close-up of FTC team 25707\'s Decode robot showing the intake, carbon-fibre chassis plate, drivetrain, and a Limelight vision camera.',
+      caption: 'Limelight vision, custom carbon-fibre plate, and a six-wheel drivetrain.',
+    },
     record: {
       eyebrow: 'Season Record',
       title: 'Where we finished',

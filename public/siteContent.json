@@ -268,6 +268,20 @@
           "summary": "#10 highest score in the world and #1 OPR in New York. At the FIRST World Championship we were the 1st pick of a 5th-place divisional alliance, closing the season ranked #75 EPA and #99 OPR worldwide."
         }
       ]
+    },
+    "showcase": {
+      "image": "photos/worlds-field.webp",
+      "imageAlt": "Solar Flare Robotics competing at the FIRST World Championship in Houston, with team 25707 on the field during a qualification match.",
+      "caption": ""
+    },
+    "robot": {
+      "eyebrow": "The robot",
+      "title": "Designed, wired, and driven",
+      "titleAccent": "by students",
+      "description": "Every subsystem on our Decode robot was specified, built, and tuned in-house across the season.",
+      "image": "photos/robot.webp",
+      "imageAlt": "Close-up of FTC team 25707's Decode robot showing the intake, carbon-fibre chassis plate, drivetrain, and a Limelight vision camera.",
+      "caption": "Limelight vision, custom carbon-fibre plate, and a six-wheel drivetrain."
     }
   },
   "branding": {

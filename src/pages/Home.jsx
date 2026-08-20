@@ -6,8 +6,10 @@ import SponsorGrid from '../components/SponsorGrid.jsx';
 import Marquee from '../components/Marquee.jsx';
 import GhostWordmark from '../components/GhostWordmark.jsx';
 import ArcDivider from '../components/ArcDivider.jsx';
+import ImageBand from '../components/ImageBand.jsx';
 import StatBlock from '../components/StatBlock.jsx';
 import { useSiteContent } from '../context/useSiteContent.js';
+import { resolveSiteAssetUrl } from '../lib/assets.js';
 import {
   fadeInUp,
   resolveVariant,
@@ -44,6 +46,13 @@ const Home = () => {
           'WORLD CHAMPIONSHIP QUALIFIER',
           'EDGEMONT JR./SR. HIGH SCHOOL',
         ]}
+      />
+
+      <ImageBand
+        src={home.showcase?.image}
+        alt={home.showcase?.imageAlt}
+        caption={home.showcase?.caption}
+        priority
       />
 
       <Section
@@ -89,6 +98,38 @@ const Home = () => {
           ))}
         </MotionDiv>
       </Section>
+
+      {home.robot?.image ? (
+        <Section
+          variant="split"
+          railLabel="Machine"
+          eyebrow={home.robot.eyebrow}
+          title={home.robot.title}
+          titleAccent={home.robot.titleAccent}
+          description={home.robot.description}
+        >
+          <MotionDiv variants={textVariants}>
+            <figure className="m-0">
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-black">
+                <img
+                  src={resolveSiteAssetUrl(home.robot.image)}
+                  alt={home.robot.imageAlt}
+                  width="1500"
+                  height="1317"
+                  className="h-auto w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              {home.robot.caption ? (
+                <figcaption className="label-mono mt-4 leading-[1.7] text-sf-muted/85">
+                  {home.robot.caption}
+                </figcaption>
+              ) : null}
+            </figure>
+          </MotionDiv>
+        </Section>
+      ) : null}
 
       <ArcDivider />
 
