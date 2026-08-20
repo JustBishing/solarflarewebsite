@@ -44,13 +44,12 @@ work your friend raised. Status: `[x]` done on branch · `[ ]` not started ·
 
 ## 2. Still open from the critique
 
-- [ ] **OG share image** (`/og-cover.png`, 1200×630). Referenced but not yet
-      created — without it, links unfurl with no picture.
+- [x] **OG share image** — `/og-cover.jpg`, 1200×630, live.
 - [ ] **Admin draft-clobbering.** `Admin.jsx` resets the whole draft on every
       Firestore snapshot, so two people editing at once silently overwrite each
       other. Needs dirty-state tracking + a `beforeunload` guard.
-- [ ] **`public/siteContent.json` is a stale 2024-25 snapshot** (includes an
-      ex-member) and is the live fallback. Regenerate or delete.
+- [x] **`public/siteContent.json`** regenerated from live content — no longer a
+      2024-25 snapshot with an ex-member in it.
 - [ ] **Rajdhani as body face.** A condensed display face set for every
       paragraph on the site — the main reason the copy reads as UI chrome.
       Wants a real text face.
@@ -62,19 +61,23 @@ work your friend raised. Status: `[x]` done on branch · `[ ]` not started ·
       editorial rail only exists above 1536px. Either commit to these or cut
       them — right now they cost code and deliver nothing.
 
-## 3. Content fixes — live content is in Firestore, so these are yours
+## 3. Content fixes — DONE, applied to Firestore
 
-Fixed in `defaultSiteContent.js` + `public/siteContent.json`, but the live site
-reads Firestore. Edit these in `/admin`:
+Applied via `gh workflow run update-content.yml` (patches in `content/`):
 
-- [!] `"Think Award 1sr Place"` → `1st` (Home → Season Highlights → Albany Academy)
-- [!] `"200$ CREDIT"` → `"$200 CREDIT"` (sponsor wall)
-- [!] `"our first season Decode"` → `"our second season"` (Home → Season
-      Highlights). Contradicts the About section and `/past-seasons` today.
-- [!] Footer states the Hack Club 501(c)(3) line twice — `footer.description`
-      and `footer.sponsorNote` duplicate it verbatim. Trim one.
-- [!] Sponsorship copy still pitches the 2025-26 Decode season, which closed in
-      March. Re-point at the upcoming season.
+- [x] `"Think Award 1sr Place"` → `1st`
+- [x] `"200$ CREDIT"` → `"$200 CREDIT"`
+- [x] `"our first season Decode"` → `"our second season"` — Decode is season 2
+- [x] Footer no longer prints the Hack Club 501(c)(3) line twice
+- [x] Sponsorship tiers rewritten to deliverable benefits
+      (`content/sponsorship-tiers.json`)
+- [ ] Sponsorship copy still pitches the 2025-26 Decode season, which closed in
+      March. Re-point at the upcoming season when you know the dates.
+
+To change live copy from now on: edit or add a patch under `content/`, then
+`gh workflow run update-content.yml -f patch=content/<file>.json -f mode=dry-run`,
+check the diff, re-run with `mode=apply`. Every run snapshots the document first
+and keeps it as a 90-day artifact.
 
 ## 4. Your friend's feedback — design/content, needs decisions
 
