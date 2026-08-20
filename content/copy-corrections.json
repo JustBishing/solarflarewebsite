@@ -1,0 +1,81 @@
+{
+  "_comment": "Copy corrections applied to siteContent/current. Arrays are sent whole because a merge write replaces an array rather than merging into it, so these were generated from the live document to keep every untouched entry byte-identical.",
+  "patch": {
+    "home": {
+      "highlights": {
+        "title": "Season Highlights",
+        "description": "Turning our second season Decode into an unforgettable run with hardware breakthroughs, award recognition, and alliances that keep us learning.",
+        "items": [
+          {
+            "date": "Jan 17, 2026",
+            "summary": "5th Place Alliance Partner and Think Award 1st Place.",
+            "event": "Albany Academy Qualifier"
+          },
+          {
+            "date": "Jan 31, 2026",
+            "summary": "Winning Alliance Captain, Inspire Award 2nd Place, and Qualified for the Regional Championship.",
+            "event": "Peekskill Qualifier"
+          },
+          {
+            "summary": "Winning Alliance Partner alongside Team 10949 M.O.B., Innovate Award 1st Place, and Qualified for the FIRST World Championship in Houston, Texas.",
+            "event": "MVCC Excelsior Regional Championship",
+            "date": "Mar 7-8, 2026"
+          },
+          {
+            "date": "Season Stats",
+            "event": "Decode",
+            "summary": "#10 highest score in the world and #1 OPR in New York. At the FIRST World Championship we were the 1st pick of a 5th-place divisional alliance, closing the season ranked #75 EPA and #99 OPR worldwide."
+          }
+        ]
+      }
+    },
+    "sponsors": [
+      {
+        "logo": "sponsorships/HAAS.png",
+        "contribution": "$2,000 Grant",
+        "website": "https://ghaasfoundation.org/",
+        "name": "Gene Haas Foundation"
+      },
+      {
+        "name": "Pantry Shelf",
+        "website": "https://www.pantryshelf.com/",
+        "contribution": "$1,000 Sponsorship",
+        "logo": "sponsorships/pantry.png"
+      },
+      {
+        "name": "Polymaker",
+        "website": "https://polymaker.com/",
+        "contribution": "$200 Credit",
+        "logo": "sponsorships/polymaker.png"
+      },
+      {
+        "logo": "sponsorships/Misumi.png",
+        "contribution": "30% Discount",
+        "website": "https://us.misumi-ec.com/?gad_source=1&gad_campaignid=350961273&gbraid=0AAAAADtMMx8sNgD0U0kmwkUof_4Y-0Q2p&gclid=Cj0KCQjwpv7NBhCzARIsADkIfWx5D7rHbo_R9aFy7gTgjExBklqeTk5P4h-RFSqREJ9tCo4uO66eisAaAsZ0EALw_wcB",
+        "name": "Misumi"
+      },
+      {
+        "contribution": "30% Discount",
+        "logo": "sponsorships/CNC Madness.png",
+        "name": "CNC Madness",
+        "website": "https://cncmadness.com/"
+      },
+      {
+        "website": "https://www.wphospital.org/",
+        "name": "White Plains Hospital",
+        "logo": "sponsorships/WhitePlainsHospital.png",
+        "contribution": "$200 Sponsorship"
+      },
+      {
+        "website": "https://artofproblemsolving.com/",
+        "name": "Art of Problem Solving",
+        "logo": "sponsorships/AOPS.png",
+        "contribution": "$100 Credit"
+      }
+    ],
+    "footer": {
+      "description": "FTC Team #25707 - Solar Flare Robotics, proudly representing the NY-Excelsior region.",
+      "sponsorNote": "Fiscally sponsored by Hack Club (501(c)(3)), making every donation tax-deductible."
+    }
+  }
+}
