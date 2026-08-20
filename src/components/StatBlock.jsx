@@ -24,17 +24,30 @@ const VALUE_PATTERN = /^(\D*?)(\d[\d,]*)(.*)$/;
 const StatBlock = ({ value, label, caption, accent = false }) => {
   const shouldReduceMotion = useShouldReduceMotion();
   const match = VALUE_PATTERN.exec(value);
+  // Ranks ("#10", "1st") fit beside their label at hero scale. Currency tiers
+  // ("$2,500+") do not — at that size they overrun a 20rem column and land on
+  // top of the neighbouring copy, so they step down a size and stack instead.
+  // The values come from Firestore, so the step has to hold for longer amounts
+  // an editor might type later, not just the ones on the page today.
+  const isWide = value.length > 3;
+  const valueFontSize = !isWide
+    ? 'clamp(3.25rem, 7vw, 5.5rem)'
+    : value.length > 7
+      ? 'clamp(2rem, 4vw, 2.75rem)'
+      : 'clamp(2.75rem, 5.5vw, 4rem)';
 
   return (
     <MotionDiv
-      className="flex items-center gap-4 sm:gap-5"
+      className={`flex gap-3 sm:gap-5 ${
+        isWide ? 'flex-col items-start' : 'items-center gap-4'
+      }`}
       variants={resolveVariant(fadeInUp, shouldReduceMotion)}
     >
       <span
-        className={`heading-hero shrink-0 font-black leading-[0.82] tabular-nums ${
+        className={`heading-hero min-w-0 max-w-full shrink-0 font-black leading-[0.82] tabular-nums ${
           accent ? 'text-sf-ember' : 'text-sf-text'
         }`}
-        style={{ fontSize: 'clamp(3.25rem, 7vw, 5.5rem)' }}
+        style={{ fontSize: valueFontSize }}
       >
         {match ? (
           <>
@@ -48,7 +61,13 @@ const StatBlock = ({ value, label, caption, accent = false }) => {
           value
         )}
       </span>
-      <span className="flex min-w-0 flex-col gap-1.5 border-l border-white/10 pl-4 sm:pl-5">
+      <span
+        className={`flex min-w-0 flex-col gap-1.5 ${
+          isWide
+            ? 'border-t border-white/10 pt-3'
+            : 'border-l border-white/10 pl-4 sm:pl-5'
+        }`}
+      >
         <span className="label-mono leading-[1.7] text-sf-muted/85">{label}</span>
         {caption ? (
           <span className="label-mono text-[0.6rem] text-white/35">{caption}</span>
