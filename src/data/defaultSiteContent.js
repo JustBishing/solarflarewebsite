@@ -128,6 +128,12 @@ const defaultSiteContent = {
             'Winning Alliance Partner alongside Team 10949 M.O.B., Innovate Award 1st Place, and Qualified for the FIRST World Championship in Houston, Texas.',
         },
         {
+          date: 'Apr 29 - May 2, 2026',
+          event: 'FIRST World Championship',
+          summary:
+            'Our first trip to Worlds, competing in the Ross Division in Houston, Texas.',
+        },
+        {
           date: 'Season Stats',
           event: 'Decode',
           summary:

@@ -1,0 +1,36 @@
+{
+  "_comment": "Adds the World Championship to the season timeline. It previously ended at \"Qualified for the FIRST World Championship\", so the timeline never recorded that the team actually went.",
+  "patch": {
+    "home": {
+      "highlights": {
+        "items": [
+          {
+            "event": "Albany Academy Qualifier",
+            "summary": "5th Place Alliance Partner and Think Award 1st Place.",
+            "date": "Jan 17, 2026"
+          },
+          {
+            "summary": "Winning Alliance Captain, Inspire Award 2nd Place, and Qualified for the Regional Championship.",
+            "date": "Jan 31, 2026",
+            "event": "Peekskill Qualifier"
+          },
+          {
+            "summary": "Winning Alliance Partner alongside Team 10949 M.O.B., Innovate Award 1st Place, and Qualified for the FIRST World Championship in Houston, Texas.",
+            "date": "Mar 7-8, 2026",
+            "event": "MVCC Excelsior Regional Championship"
+          },
+          {
+            "date": "Apr 29 - May 2, 2026",
+            "event": "FIRST World Championship",
+            "summary": "Our first trip to Worlds, competing in the Ross Division in Houston, Texas."
+          },
+          {
+            "event": "Decode",
+            "date": "Season Stats",
+            "summary": "#10 highest score in the world and #1 OPR in New York. At the FIRST World Championship we were the 1st pick of a 5th-place divisional alliance, closing the season ranked #75 EPA and #99 OPR worldwide."
+          }
+        ]
+      }
+    }
+  }
+}
