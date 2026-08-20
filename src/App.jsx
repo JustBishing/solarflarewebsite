@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Header from './components/Header.jsx';
@@ -7,12 +7,17 @@ import Home from './pages/Home.jsx';
 import Team from './pages/Team.jsx';
 import PastSeasons from './pages/PastSeasons.jsx';
 import Sponsorships from './pages/Sponsorships.jsx';
-import Admin from './pages/Admin.jsx';
-import Branding from './pages/Branding.jsx';
 import RouteTransition from './components/RouteTransition.jsx';
 import { useShouldReduceMotion } from './lib/motion.js';
+import usePageMeta from './lib/usePageMeta.js';
 import Fireworks from './components/Fireworks.jsx';
 import { useSiteContent } from './context/useSiteContent.js';
+
+// Internal routes, split out of the main bundle. /admin alone pulls in a
+// 1555-line editor and @firebase/auth, neither of which a visitor should pay
+// for to read the sponsorship tiers.
+const Admin = lazy(() => import('./pages/Admin.jsx'));
+const Branding = lazy(() => import('./pages/Branding.jsx'));
 
 const ScrollToTop = () => {
   const location = useLocation();
@@ -28,9 +33,17 @@ const ScrollToTop = () => {
   return null;
 };
 
+const RouteFallback = () => (
+  <div className="container flex min-h-[50vh] items-center justify-center">
+    <p className="label-mono text-sf-muted/85">Loading…</p>
+  </div>
+);
+
 const App = () => {
   const location = useLocation();
   const { hasCachedContent, isLoading } = useSiteContent();
+
+  usePageMeta();
 
   if (isLoading && !hasCachedContent) {
     return (
@@ -54,6 +67,12 @@ const App = () => {
 
   return (
     <div className="relative flex min-h-screen flex-col text-sf-text">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-xl focus:bg-sf-orange-1 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-sf-bg"
+      >
+        Skip to main content
+      </a>
       <div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
@@ -66,17 +85,22 @@ const App = () => {
       <Header />
       <Fireworks />
       <ScrollToTop />
-      <main className="relative z-40 flex flex-1 flex-col pt-20 sm:pt-24">
+      <main
+        id="main"
+        className="relative z-40 flex flex-1 flex-col pt-20 sm:pt-24"
+      >
         <AnimatePresence mode="wait" initial={false}>
           <RouteTransition key={location.pathname}>
-            <Routes location={location}>
-              <Route path="/" element={<Home />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/past-seasons" element={<PastSeasons />} />
-              <Route path="/sponsorships" element={<Sponsorships />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/branding" element={<Branding />} />
-            </Routes>
+            <Suspense fallback={<RouteFallback />}>
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="/team" element={<Team />} />
+                <Route path="/past-seasons" element={<PastSeasons />} />
+                <Route path="/sponsorships" element={<Sponsorships />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/branding" element={<Branding />} />
+              </Routes>
+            </Suspense>
           </RouteTransition>
         </AnimatePresence>
       </main>

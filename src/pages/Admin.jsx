@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import AdminEditableField from '../components/admin/AdminEditableField.jsx';
@@ -8,13 +7,14 @@ import AdminEditableUrlField from '../components/admin/AdminEditableUrlField.jsx
 import AdminEditorSection from '../components/admin/AdminEditorSection.jsx';
 import { useSiteContent } from '../context/useSiteContent.js';
 import { defaultSiteContent } from '../lib/siteContent.js';
+import { isFirebaseConfigured } from '../lib/firebase.js';
 import {
   auth,
-  isFirebaseConfigured,
+  onAuthStateChanged,
   saveSiteContent,
   signInWithGoogle,
   signOutAdmin,
-} from '../lib/firebase.js';
+} from '../lib/firebaseAuth.js';
 
 const MotionDiv = motion.div;
 
@@ -129,17 +129,19 @@ const ActionButton = ({ children, onClick, tone = 'secondary' }) => (
   </button>
 );
 
-const authorizedEmails = (import.meta.env.VITE_ADMIN_AUTHORIZED_EMAILS || '')
-  .split(',')
-  .map((e) => e.trim().toLowerCase())
-  .filter(Boolean);
+/**
+ * Build-time SHA-256 hashes of the admin allowlist (see vite.config.js), so the
+ * addresses themselves never ship to the client. This gates the admin *UI*
+ * only — the Firestore security rules are what actually authorize a write.
+ *
+ * The old check also honoured bare "@domain" entries, which handed the editor
+ * to every Google account on the domain. Exact addresses only now.
+ */
+const ADMIN_EMAIL_HASHES = __ADMIN_EMAIL_HASHES__;
 
-const isAuthorized = (email) => {
-  if (!email) return false;
-  const lower = email.toLowerCase();
-  return authorizedEmails.some(
-    (entry) => entry === lower || (entry.startsWith('@') && lower.endsWith(entry)),
-  );
+const sha256Hex = async (value) => {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+  return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, '0')).join('');
 };
 
 const SAVE_SCOPES = {
@@ -168,7 +170,7 @@ const Admin = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [activePage, setActivePage] = useState('home');
 
-  const canEdit = useMemo(() => isAuthorized(user?.email), [user]);
+  const [canEdit, setCanEdit] = useState(false);
   const scope = SAVE_SCOPES[activePage] || SAVE_SCOPES.home;
 
   useEffect(() => { setDraftContent(cloneValue(siteContent)); }, [siteContent]);
@@ -180,6 +182,24 @@ const Admin = () => {
     }
     return onAuthStateChanged(auth, (u) => { setUser(u); setAuthReady(true); });
   }, []);
+
+  // Hash comparison is async (Web Crypto), so authorization lands a tick after
+  // the user does. Default closed until it resolves.
+  useEffect(() => {
+    const email = user?.email?.trim().toLowerCase();
+
+    if (!email || ADMIN_EMAIL_HASHES.length === 0) {
+      setCanEdit(false);
+      return undefined;
+    }
+
+    let active = true;
+    sha256Hex(email).then((hash) => {
+      if (active) setCanEdit(ADMIN_EMAIL_HASHES.includes(hash));
+    });
+
+    return () => { active = false; };
+  }, [user]);
 
   const setField = (path, value) => {
     setDraftContent((c) => updateIn(c, path, value));

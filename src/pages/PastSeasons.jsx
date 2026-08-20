@@ -23,6 +23,7 @@ const PastSeasons = () => {
   return (
     <>
       <Section
+        headingLevel="h1"
         variant="split"
         railLabel="Archive"
         eyebrow="History"
@@ -67,10 +68,10 @@ const PastSeasons = () => {
                   className="absolute left-0 top-2 hidden h-[15px] w-[15px] rotate-45 border border-sf-orange-1/60 bg-sf-bg transition-colors duration-300 group-hover:bg-sf-orange-1 sm:block"
                 />
                 <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                  <span className="label-mono text-sf-orange-1/60">
+                  <span className="label-mono text-sf-orange-1/90">
                     {String(seasons.length - position).padStart(2, '0')}
                   </span>
-                  <span className="label-mono text-white/40">{season.year}</span>
+                  <span className="label-mono text-white/65">{season.year}</span>
                 </div>
                 <h3 className="heading-display mt-3 text-2xl font-bold text-sf-text sm:text-3xl">
                   {season.title}

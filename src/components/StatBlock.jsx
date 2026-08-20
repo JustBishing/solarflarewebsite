@@ -51,7 +51,7 @@ const StatBlock = ({ value, label, caption, accent = false }) => {
       >
         {match ? (
           <>
-            <span className={accent ? 'text-sf-ember/55' : 'text-white/35'}>
+            <span className={accent ? 'text-sf-ember/85' : 'text-white/60'}>
               {match[1]}
             </span>
             {match[2]}
@@ -70,7 +70,7 @@ const StatBlock = ({ value, label, caption, accent = false }) => {
       >
         <span className="label-mono leading-[1.7] text-sf-muted/85">{label}</span>
         {caption ? (
-          <span className="label-mono text-[0.6rem] text-white/35">{caption}</span>
+          <span className="label-mono text-[0.6rem] text-white/60">{caption}</span>
         ) : null}
       </span>
     </MotionDiv>

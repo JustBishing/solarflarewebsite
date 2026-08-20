@@ -44,6 +44,7 @@ const Section = ({
   band = 'none',
   railLabel,
   index,
+  headingLevel = 'h2',
 }) => {
   const shouldReduceMotion = useShouldReduceMotion();
   const layout = VARIANTS[variant] ?? VARIANTS.default;
@@ -59,7 +60,7 @@ const Section = ({
         <p className="label-mono mb-5 text-sf-orange-2">{eyebrow}</p>
       ) : null}
       <KineticHeading
-        as="h2"
+        as={headingLevel}
         lines={headingLines}
         trigger="view"
         className="text-3xl leading-[1.08] sm:text-5xl"
@@ -106,6 +107,12 @@ Section.propTypes = {
   band: PropTypes.oneOf(['none', 'angled', 'angled-alt']),
   railLabel: PropTypes.string,
   index: PropTypes.string,
+  /**
+   * The heading element for the section title. Every Section rendered h2, so
+   * /team, /past-seasons and /sponsorships had no h1 at all — the first
+   * section on a page should pass "h1".
+   */
+  headingLevel: PropTypes.oneOf(['h1', 'h2']),
 };
 
 export default Section;

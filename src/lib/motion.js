@@ -34,7 +34,6 @@ export const resolveVariant = (variant, shouldReduceMotion) =>
 
 export const scaleTap = { scale: 0.98 };
 
-export const hoverLift = { y: -2 };
 
 export const viewportConfig = (shouldReduceMotion) => ({
   once: true,

@@ -25,6 +25,7 @@ const Team = () => {
   return (
     <>
       <Section
+        headingLevel="h1"
         variant="split"
         railLabel="About"
         eyebrow="The Roster"

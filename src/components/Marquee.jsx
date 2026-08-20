@@ -16,7 +16,7 @@ const Marquee = ({ items, className = '' }) => {
       <div className="animate-marquee-track flex shrink-0 items-center gap-8 pr-8">
         {sequence.map((item, index) => (
           <div key={`${item}-${index}`} className="flex shrink-0 items-center gap-8">
-            <span className="label-mono whitespace-nowrap text-sf-muted/55">
+            <span className="label-mono whitespace-nowrap text-sf-muted/80">
               {item}
             </span>
             <span

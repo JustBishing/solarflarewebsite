@@ -28,6 +28,7 @@ const Sponsorships = () => {
   return (
     <>
       <Section
+        headingLevel="h1"
         variant="split"
         railLabel="Support"
         eyebrow="Partner with us"
@@ -85,7 +86,7 @@ const Sponsorships = () => {
             >
               <div>
                 <div className="mb-4 flex items-baseline gap-3">
-                  <span className="label-mono text-sf-orange-1/60">
+                  <span className="label-mono text-sf-orange-1/90">
                     {String(position + 1).padStart(2, '0')}
                   </span>
                   <h3 className="heading-display text-lg font-bold uppercase tracking-wide text-sf-text">
@@ -98,19 +99,38 @@ const Sponsorships = () => {
                   accent={position === sponsorships.tiers.items.length - 1}
                 />
               </div>
-              <ul className="grid content-center gap-3">
-                {tier.benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-[0.5rem] inline-block h-1.5 w-1.5 shrink-0 rotate-45 bg-sf-orange-1/80"
-                    />
-                    <span className="text-base leading-relaxed text-sf-muted/85">
-                      {benefit}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              {/* content-start, not content-center: centring floated a
+                  two-bullet tier above its own price. */}
+              <div className="grid content-start gap-5">
+                <ul className="grid gap-3">
+                  {tier.benefits.map((benefit) => (
+                    <li key={benefit} className="flex items-start gap-3">
+                      <span
+                        aria-hidden="true"
+                        className="mt-[0.5rem] inline-block h-1.5 w-1.5 shrink-0 rotate-45 bg-sf-orange-1/80"
+                      />
+                      <span className="text-base leading-relaxed text-sf-muted/85">
+                        {benefit}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                {/* Every tier gets its own way to act. The page used to carry a
+                    single button at the very top, so deciding on Gold halfway
+                    down meant scrolling a full page back up to do anything. */}
+                {sponsorships.intro.primaryCtaLink ? (
+                  <MotionAnchor
+                    href={sponsorships.intro.primaryCtaLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-ghost justify-self-start focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2"
+                    whileTap={scaleTap}
+                    {...hoverProps}
+                  >
+                    {`Become a ${tier.title} sponsor`}
+                  </MotionAnchor>
+                ) : null}
+              </div>
             </motion.article>
           ))}
         </MotionDiv>

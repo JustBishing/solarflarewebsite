@@ -2,26 +2,26 @@ import defaultSiteContent from '../data/defaultSiteContent.js';
 
 const FIRESTORE_ARRAY_MARKER = '__sf_firestore_array__';
 const sponsorLogoByName = {
-  'Art of Problem Solving': 'sponsorships/AOPS.png',
-  'CNC Madness': 'sponsorships/CNC Madness.png',
-  'Gene Haas Foundation': 'sponsorships/HAAS.png',
-  Misumi: 'sponsorships/Misumi.png',
-  'Pantry Shelf': 'sponsorships/pantry.png',
-  Polymaker: 'sponsorships/polymaker.png',
-  'White Plains Hospital': 'sponsorships/WhitePlainsHospital.png',
+  'Art of Problem Solving': 'sponsorships/AOPS.webp',
+  'CNC Madness': 'sponsorships/CNC Madness.webp',
+  'Gene Haas Foundation': 'sponsorships/HAAS.webp',
+  Misumi: 'sponsorships/Misumi.webp',
+  'Pantry Shelf': 'sponsorships/pantry.webp',
+  Polymaker: 'sponsorships/polymaker.webp',
+  'White Plains Hospital': 'sponsorships/WhitePlainsHospital.webp',
 };
 const memberPhotoByName = {
-  Arick: 'members/Arick.png',
-  'Arick Khanna': 'members/Arick.png',
-  'Arjun Gupta': 'members/Arjun Gupta.png',
-  'Arjun Khanna': 'members/Arjun Khanna.png',
-  Dani: 'members/Dani.png',
-  'Dani Nayal': 'members/Dani.png',
-  Rishi: 'members/Rishi.png',
-  Ryan: 'members/Ryan.png',
-  'Ryan Ma': 'members/Ryan.png',
-  Tristan: 'members/Tristan.png',
-  'Tristan Li': 'members/Tristan.png',
+  Arick: 'members/Arick.webp',
+  'Arick Khanna': 'members/Arick.webp',
+  'Arjun Gupta': 'members/Arjun Gupta.webp',
+  'Arjun Khanna': 'members/Arjun Khanna.webp',
+  Dani: 'members/Dani.webp',
+  'Dani Nayal': 'members/Dani.webp',
+  Rishi: 'members/Rishi.webp',
+  Ryan: 'members/Ryan.webp',
+  'Ryan Ma': 'members/Ryan.webp',
+  Tristan: 'members/Tristan.webp',
+  'Tristan Li': 'members/Tristan.webp',
 };
 
 const isPlainObject = (value) =>
@@ -49,6 +49,33 @@ const mergeSiteContent = (baseValue, overrideValue) => {
   return result;
 };
 
+/**
+ * Asset paths: the name maps above are a *fallback*, not an override.
+ *
+ * They used to be applied unconditionally, which quietly discarded whatever an
+ * editor had saved — Admin presented an editable photo/logo field, accepted the
+ * change, wrote it to Firestore, and then the site rendered the hardcoded path
+ * anyway. The field was decorative. Stored values win now; the map only fills
+ * in a blank or a leftover placehold.co URL.
+ */
+const isUsableAssetPath = (value) =>
+  typeof value === 'string' && value.trim() !== '' && !value.includes('placehold.co');
+
+/**
+ * Stored content still points at the pre-optimisation PNGs, which no longer
+ * exist. Rewrite those known paths to the WebP that replaced them, and leave
+ * anything else alone.
+ */
+const migrateLegacyAssetPath = (value) =>
+  typeof value === 'string'
+    ? value.replace(/^(\/?(?:members|sponsorships)\/[^?#]+)\.png$/i, '$1.webp')
+    : value;
+
+const resolveAssetPath = (stored, fallback) => {
+  const migrated = migrateLegacyAssetPath(stored);
+  return isUsableAssetPath(migrated) ? migrated : fallback;
+};
+
 const normalizeSponsorLogos = (content) => {
   if (!Array.isArray(content?.sponsors)) {
     return content;
@@ -57,16 +84,9 @@ const normalizeSponsorLogos = (content) => {
   return {
     ...content,
     sponsors: content.sponsors.map((sponsor) => {
-      const mappedLogo = sponsorLogoByName[sponsor?.name];
+      const logo = resolveAssetPath(sponsor?.logo, sponsorLogoByName[sponsor?.name]);
 
-      if (!mappedLogo) {
-        return sponsor;
-      }
-
-      return {
-        ...sponsor,
-        logo: mappedLogo,
-      };
+      return logo && logo !== sponsor?.logo ? { ...sponsor, logo } : sponsor;
     }),
   };
 };
@@ -83,17 +103,11 @@ const normalizeMemberPhotos = (content) => {
       roster: {
         ...content.team.roster,
         members: content.team.roster.members.map((member) => {
-          const mappedPhoto = memberPhotoByName[member?.name]
-            || (member?.name === 'Arjun' ? 'members/Arjun Gupta.png' : null);
+          const fallback = memberPhotoByName[member?.name]
+            || (member?.name === 'Arjun' ? 'members/Arjun Gupta.webp' : undefined);
+          const photo = resolveAssetPath(member?.photo, fallback);
 
-          if (!mappedPhoto) {
-            return member;
-          }
-
-          return {
-            ...member,
-            photo: mappedPhoto,
-          };
+          return photo && photo !== member?.photo ? { ...member, photo } : member;
         }),
       },
     },

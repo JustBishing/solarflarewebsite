@@ -13,6 +13,7 @@ const HeroGlow = () => {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let w, h;
+    let running = false;
 
     const init = () => {
       const rect = canvas.parentElement.getBoundingClientRect();
@@ -137,16 +138,70 @@ const HeroGlow = () => {
         ctx.fill();
       }
 
+      rafId.current = running ? requestAnimationFrame(draw) : null;
+    };
+
+    const start = () => {
+      if (running) return;
+      running = true;
       rafId.current = requestAnimationFrame(draw);
     };
 
+    const stop = () => {
+      running = false;
+      if (rafId.current !== null) cancelAnimationFrame(rafId.current);
+      rafId.current = null;
+    };
+
+    /** One frame, no follow-up — the still image for reduced-motion users. */
+    const drawStill = () => {
+      stop();
+      draw();
+    };
+
+    // This was an unconditional 1500-particle rAF loop: it ignored
+    // prefers-reduced-motion entirely (while Fireworks honoured it), and it
+    // kept running when scrolled past or when the tab was hidden.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let onScreen = true;
+
+    const sync = () => {
+      if (reduceMotion.matches) {
+        stop();
+        drawStill();
+        return;
+      }
+      if (onScreen && !document.hidden) start();
+      else stop();
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        onScreen = entry.isIntersecting;
+        sync();
+      },
+      { threshold: 0 },
+    );
+
+    const onResize = () => {
+      init();
+      if (reduceMotion.matches) drawStill();
+    };
+
     init();
-    window.addEventListener('resize', init);
-    rafId.current = requestAnimationFrame(draw);
+    observer.observe(canvas);
+    window.addEventListener('resize', onResize);
+    document.addEventListener('visibilitychange', sync);
+    reduceMotion.addEventListener('change', sync);
+    sync();
 
     return () => {
-      window.removeEventListener('resize', init);
-      if (rafId.current) cancelAnimationFrame(rafId.current);
+      observer.disconnect();
+      window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', sync);
+      reduceMotion.removeEventListener('change', sync);
+      stop();
     };
   }, []);
 

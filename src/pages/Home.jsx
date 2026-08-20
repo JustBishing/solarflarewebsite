@@ -106,11 +106,11 @@ const Home = () => {
               className="group grid gap-3 py-7 md:grid-cols-[4rem_minmax(0,14rem)_minmax(0,1fr)] md:items-baseline md:gap-8"
               variants={resolveVariant(fadeInUp, shouldReduceMotion)}
             >
-              <span className="label-mono text-sf-orange-1/60">
+              <span className="label-mono text-sf-orange-1/90">
                 {String(position + 1).padStart(2, '0')}
               </span>
               <div>
-                <p className="label-mono text-white/40">{item.date}</p>
+                <p className="label-mono text-white/65">{item.date}</p>
                 <h3 className="heading-display mt-2 text-xl font-bold text-sf-text transition-colors group-hover:text-sf-orange-2 sm:text-2xl">
                   {item.event}
                 </h3>

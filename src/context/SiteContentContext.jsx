@@ -11,6 +11,7 @@ import { resolveSiteAssetUrl } from '../lib/assets.js';
 import { applyThemeColors } from '../lib/theme.js';
 
 const CACHE_KEY = 'solarflare.siteContent.v1';
+const CONTENT_TIMEOUT_MS = 6000;
 
 const getCached = () => {
   try {
@@ -56,7 +57,10 @@ export const SiteContentProvider = ({ children }) => {
 
   // Load content: Firestore (live) or static JSON (fallback)
   useEffect(() => {
+    let settled = false;
+
     const applyContent = (content) => {
+      settled = true;
       setSiteContent(content);
       setHasCachedContent(true);
       setLoadError('');
@@ -65,23 +69,34 @@ export const SiteContentProvider = ({ children }) => {
     };
 
     const handleError = (error) => {
-      console.error('[SiteContent] load error:', error.code || '', error.message);
+      settled = true;
       if (!hasCachedRef.current) setSiteContent(defaultSiteContent);
       setLoadError(error.message);
       setIsLoading(false);
     };
 
+    // A slow-but-not-failing Firestore never calls either callback, and the
+    // app gates its entire render on isLoading — so without this the site sits
+    // on "Loading live content..." indefinitely. The bundled defaults are
+    // already in memory; showing them beats showing a spinner forever.
+    const timeout = window.setTimeout(() => {
+      if (settled || hasCachedRef.current) return;
+      setIsLoading(false);
+    }, CONTENT_TIMEOUT_MS);
+
+    const stop = (unsubscribe) => () => {
+      window.clearTimeout(timeout);
+      if (typeof unsubscribe === 'function') unsubscribe();
+    };
+
     // Use Firestore when configured
     if (isFirebaseConfigured && db && siteContentDocRef) {
-      console.log('[SiteContent] using Firestore');
-      return onSnapshot(
+      const unsubscribe = onSnapshot(
         siteContentDocRef,
-        (snap) => {
-          console.log('[SiteContent] snapshot received, exists:', snap.exists(), 'keys:', Object.keys(snap.data() || {}));
-          applyContent(resolveSiteContent(decodeSiteContentFromFirestore(snap.data())));
-        },
+        (snap) => applyContent(resolveSiteContent(decodeSiteContentFromFirestore(snap.data()))),
         handleError,
       );
+      return stop(unsubscribe);
     }
 
     // Fall back to static JSON
@@ -93,7 +108,7 @@ export const SiteContentProvider = ({ children }) => {
       .then((data) => applyContent(resolveSiteContent(data)))
       .catch(handleError);
 
-    return undefined;
+    return stop();
   }, []);
 
   const value = useMemo(

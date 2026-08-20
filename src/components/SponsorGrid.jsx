@@ -43,7 +43,7 @@ const SponsorGrid = ({ sponsors, className = '' }) => {
               <p className="heading-display text-sm font-semibold text-sf-text">
                 {sponsor.name}
               </p>
-              <p className="label-mono mt-2 text-white/40">
+              <p className="label-mono mt-2 text-white/65">
                 {sponsor.contribution}
               </p>
             </div>

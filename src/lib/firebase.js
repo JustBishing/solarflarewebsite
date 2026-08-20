@@ -1,16 +1,19 @@
 import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-} from 'firebase/auth';
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
-import { encodeSiteContentForFirestore } from './siteContent.js';
+import { doc, getFirestore } from 'firebase/firestore';
+
+/**
+ * App + Firestore only.
+ *
+ * Everything auth-related lives in firebaseAuth.js on purpose: this module is
+ * imported by SiteContentContext, so anything it touches ships to every
+ * visitor. @firebase/auth is ~446KB of source that only the four people who
+ * open /admin will ever need, and a static import here pulled it into the main
+ * bundle for every sponsor reading the tier table.
+ */
 
 const env = import.meta.env;
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: env.VITE_FIREBASE_API_KEY,
   authDomain: env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: env.VITE_FIREBASE_PROJECT_ID,
@@ -21,45 +24,6 @@ const firebaseConfig = {
 
 export const isFirebaseConfigured = Object.values(firebaseConfig).every(Boolean);
 
-const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
-export const auth = app ? getAuth(app) : null;
+export const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
 export const db = app ? getFirestore(app) : null;
 export const siteContentDocRef = db ? doc(db, 'siteContent', 'current') : null;
-
-const googleProvider = app ? new GoogleAuthProvider() : null;
-if (googleProvider) {
-  googleProvider.setCustomParameters({ prompt: 'select_account' });
-}
-
-export const signInWithGoogle = () => {
-  if (!auth || !googleProvider) {
-    return Promise.reject(new Error('Firebase is not configured.'));
-  }
-  return signInWithPopup(auth, googleProvider);
-};
-
-export const signOutAdmin = () => (auth ? signOut(auth) : Promise.resolve());
-
-const sanitize = (value) => {
-  if (Array.isArray(value)) return value.map(sanitize);
-  if (value && typeof value === 'object') {
-    return Object.fromEntries(
-      Object.entries(value)
-        .filter(([, v]) => v !== undefined)
-        .map(([k, v]) => [k, sanitize(v)]),
-    );
-  }
-  return value;
-};
-
-export const saveSiteContent = async (content) => {
-  if (!siteContentDocRef) throw new Error('Firestore is not configured.');
-  if (!auth?.currentUser) throw new Error('Sign in before saving.');
-
-  await auth.currentUser.getIdToken();
-  await setDoc(
-    siteContentDocRef,
-    encodeSiteContentForFirestore(sanitize(content)),
-    { merge: true },
-  );
-};

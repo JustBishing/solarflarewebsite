@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import {
   AnimatePresence,
@@ -18,16 +19,26 @@ const navItems = [
   { label: 'Sponsorships', to: '/sponsorships' },
 ];
 
+const FOCUSABLE = 'a[href], button:not([disabled])';
+
+const focusRing =
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2';
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const shouldReduceMotion = useShouldReduceMotion();
   const {
-    siteContent: { branding },
+    siteContent: { branding, sponsorships },
   } = useSiteContent();
   const { scrollY } = useScroll();
   const location = useLocation();
   const logoSrc = resolveSiteAssetUrl(branding.logoSrc, 'logo.png');
+  const donateLink = sponsorships?.intro?.primaryCtaLink;
+  const donateLabel = sponsorships?.intro?.primaryCtaLabel || 'Sponsor us';
+
+  const panelRef = useRef(null);
+  const toggleRef = useRef(null);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 8);
@@ -38,6 +49,47 @@ const Header = () => {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+    toggleRef.current?.focus();
+  }, []);
+
+  // The panel used to have no keyboard handling at all: Escape did nothing, so
+  // the scroll lock stayed on with no way out but hitting the 40px toggle
+  // again, and Tab walked straight out of the open panel into the page behind.
+  useEffect(() => {
+    if (!isMenuOpen) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeMenu();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const focusable = panelRef.current?.querySelectorAll(FOCUSABLE);
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    panelRef.current?.querySelector(FOCUSABLE)?.focus();
+
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isMenuOpen, closeMenu]);
 
   const headerAnimate = useMemo(() => {
     if (scrolled) {
@@ -67,15 +119,21 @@ const Header = () => {
           : { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
       }
     >
-      <div className="container flex h-20 items-center justify-between gap-6">
-        <Link to="/" className="group flex items-center gap-3 text-lg font-semibold text-sf-text">
+      <div className="container flex h-20 items-center justify-between gap-4">
+        <Link
+          to="/"
+          className={`group flex min-w-0 items-center gap-3 rounded-xl text-lg font-semibold text-sf-text ${focusRing}`}
+        >
           <img
             src={logoSrc}
             alt={branding.logoAlt}
-            className="h-10 w-auto drop-shadow-[0_0_14px_rgba(248,146,33,0.35)] transition-transform group-hover:scale-105"
-            loading="lazy"
+            width="40"
+            height="40"
+            className="h-10 w-auto shrink-0 drop-shadow-[0_0_14px_rgba(248,146,33,0.35)] transition-transform group-hover:scale-105"
           />
-          <span className="heading-display hidden text-base font-bold uppercase tracking-tight sm:inline-block">
+          {/* Previously hidden below sm, which left a phone showing a sun glyph
+              and a hamburger and never naming the team. */}
+          <span className="heading-display truncate text-sm font-bold uppercase tracking-tight sm:text-base">
             {branding.siteName}
           </span>
         </Link>
@@ -86,7 +144,7 @@ const Header = () => {
               to={item.to}
               end={item.end}
               className={({ isActive }) =>
-                `label-mono rounded-full px-4 py-2 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sf-orange-2 ${
+                `label-mono rounded-full px-4 py-2 transition ${focusRing} ${
                   isActive
                     ? 'text-sf-orange-2'
                     : 'text-sf-muted/70 hover:text-sf-text'
@@ -108,16 +166,17 @@ const Header = () => {
           ))}
         </nav>
         <MotionButton
+          ref={toggleRef}
           type="button"
-          aria-label="Toggle navigation menu"
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={isMenuOpen}
           aria-controls="mobile-nav"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-sf-border bg-sf-surface text-sf-text shadow-sm transition hover:border-sf-orange-1 sm:hidden"
-          onClick={() => setIsMenuOpen((prev) => !prev)}
+          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-sf-border bg-sf-surface text-sf-text shadow-sm transition hover:border-sf-orange-1 sm:hidden ${focusRing}`}
+          onClick={() => (isMenuOpen ? closeMenu() : setIsMenuOpen(true))}
           whileTap={scaleTap}
         >
-          <span className="sr-only">Toggle navigation menu</span>
           <svg
+            aria-hidden="true"
             className="h-5 w-5"
             viewBox="0 0 24 24"
             fill="none"
@@ -141,11 +200,37 @@ const Header = () => {
           </svg>
         </MotionButton>
       </div>
+      {/*
+        Portalled to <body>: this header carries a backdrop-filter, which makes
+        it a containing block for fixed-position descendants, so a scrim
+        rendered inside it covers the 80px header rather than the viewport.
+
+        Always mounted and toggled with CSS rather than AnimatePresence. An
+        exiting node here lingers in the DOM after its opacity animation
+        finishes, and a full-viewport invisible element that still accepts
+        pointer events swallows every click on the page. pointer-events-none
+        when closed makes that impossible regardless of unmount timing.
+
+        aria-hidden with no tab stop is deliberate: Escape and the toggle are
+        the keyboard paths, and this is a redundant pointer convenience.
+      */}
+      {createPortal(
+        <div
+          aria-hidden="true"
+          onClick={closeMenu}
+          className={`fixed inset-0 z-40 bg-black/70 backdrop-blur-sm sm:hidden ${
+            shouldReduceMotion ? '' : 'transition-opacity duration-200'
+          } ${isMenuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
+        />,
+        document.body,
+      )}
       <AnimatePresence>
         {isMenuOpen ? (
           <motion.nav
+            key="mobile-nav"
             id="mobile-nav"
-            className="sm:hidden"
+            ref={panelRef}
+            className="relative overflow-hidden sm:hidden"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -173,6 +258,16 @@ const Header = () => {
                     {item.label}
                   </NavLink>
                 ))}
+                {donateLink ? (
+                  <a
+                    href={donateLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`mt-1 rounded-xl bg-sf-orange-1 px-4 py-3 text-center text-base font-semibold text-sf-bg transition hover:bg-sf-orange-2 ${focusRing}`}
+                  >
+                    {donateLabel}
+                  </a>
+                ) : null}
               </div>
             </div>
           </motion.nav>

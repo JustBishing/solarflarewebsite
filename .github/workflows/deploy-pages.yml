@@ -46,8 +46,19 @@ jobs:
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
           VITE_ADMIN_AUTHORIZED_EMAILS: ${{ secrets.VITE_ADMIN_AUTHORIZED_EMAILS }}
 
-      - name: Add SPA fallback
-        run: cp dist/index.html dist/404.html
+      # npm run build already runs scripts/prerender.mjs, which writes a real
+      # dist/<route>/index.html for every route (so Pages answers 200 instead
+      # of 404), plus 404.html, sitemap.xml and robots.txt. Verify rather than
+      # trust: a silent prerender failure would cost every route its status.
+      - name: Verify prerendered routes
+        run: |
+          for route in team past-seasons sponsorships; do
+            test -f "dist/$route/index.html" || { echo "missing dist/$route/index.html"; exit 1; }
+          done
+          test -f dist/404.html
+          test -f dist/sitemap.xml
+          test -f dist/robots.txt
+          grep -q 'Sponsor Us' dist/sponsorships/index.html || { echo 'per-route meta not applied'; exit 1; }
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -18,7 +18,7 @@ const SectionIndex = ({ label, index }) => (
         <span className="label-mono text-sm text-sf-orange-1/70">{index}</span>
       ) : null}
       <span className="h-12 w-px bg-gradient-to-b from-sf-orange-1/45 to-transparent" />
-      <span className="writing-vertical label-mono rotate-180 whitespace-nowrap text-white/25">
+      <span className="writing-vertical label-mono rotate-180 whitespace-nowrap text-white/50">
         {label}
       </span>
     </div>
