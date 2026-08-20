@@ -1,0 +1,18 @@
+{
+  "_comment": "Makes the sponsor ask season-neutral so it stops soliciting funds for a season that has ended, and drops an unowned recurring promise. Rerun with the new season name once FIRST announces it in September.",
+  "patch": {
+    "home": {
+      "sponsors": {
+        "ctaDescription": "Interested in partnering with Solar Flare? Explore our sponsorship tiers to see how your organization can back our upcoming season."
+      }
+    },
+    "sponsorships": {
+      "intro": {
+        "paragraphs": [
+          "Contributions directly fund robot parts, tools, competition fees, and outreach programs. Every donation or in-kind gift allows us to build higher-performing mechanisms, travel to events, and host workshops for aspiring engineers.",
+          "As a fiscally sponsored project of Hack Club, a 501(c)(3), your sponsorship is fully tax-deductible. We can provide a receipt for your records."
+        ]
+      }
+    }
+  }
+}
