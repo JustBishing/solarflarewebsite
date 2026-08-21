@@ -44,6 +44,17 @@ work your friend raised. Status: `[x]` done on branch · `[ ]` not started ·
 
 ## 2. Still open from the critique
 
+- [x] **Firebase SDK off the public bundle.** Content is read over the
+      Firestore REST API; the SDK only loads on the lazy `/admin` route.
+      221KB → 141KB of JS+CSS per page. Editing is unchanged.
+- [x] **Dependency and CI hygiene.** Production tree at 0 vulnerabilities;
+      GitHub Actions on current majors; `npm run snapshot:content` refreshes
+      `public/siteContent.json` with no service account.
+- [ ] **Firestore still stores `.png` asset paths.** A runtime shim
+      (`migrateLegacyAssetPath`) rewrites them to `.webp`, so nothing is
+      broken — but the stored data is wrong, and deleting that shim as dead
+      code would break every logo and portrait. Worth a content patch.
+
 - [x] **OG share image** — `/og-cover.jpg`, 1200×630, live.
 - [x] **Admin draft-clobbering.** Sections with unsaved edits now survive an
       incoming Firestore snapshot, the editor is told when someone else saved
@@ -55,10 +66,10 @@ work your friend raised. Status: `[x]` done on branch · `[ ]` not started ·
 - [?] **Upgrade the admin gate properly.** Hashing hides the addresses but
       isn't authorization. Real fix: an `admins/{uid}` Firestore doc, so the
       list lives server-side. Needs a rules change + one doc per admin.
-- [~] **The invisible design system.** Ghost wordmarks are cut — 2.2% white on
-      near-black never read as type, only as banding under the body copy they
-      sat behind. Angled bands (1.31° shear at 1.05:1) and the editorial rail
-      (only above 1536px) are still open: commit to them or cut them.
+- [x] **The invisible design system.** Resolved: ghost wordmarks cut; angled
+      bands committed at #1c1313 (1.033:1 → 1.061:1); editorial rail moved off
+      `2xl` onto a `rail` breakpoint at 1440px (the true floor is 1392px, set
+      by container width plus two rail gutters); footer watermark 3% → 7%.
 
 ## 3. Content fixes — DONE, applied to Firestore
 
