@@ -1,14 +1,14 @@
-import { initializeApp } from 'firebase/app';
-import { doc, getFirestore } from 'firebase/firestore';
-
 /**
- * App + Firestore only.
+ * Configuration only — deliberately imports nothing from `firebase/*`.
  *
- * Everything auth-related lives in firebaseAuth.js on purpose: this module is
- * imported by SiteContentContext, so anything it touches ships to every
- * visitor. @firebase/auth is ~446KB of source that only the four people who
- * open /admin will ever need, and a static import here pulled it into the main
- * bundle for every sponsor reading the tier table.
+ * This module is reachable from public pages, so anything it imports ships to
+ * every visitor. It used to call initializeApp() and getFirestore() here,
+ * which pulled firebase/app and firebase/firestore into the main bundle: ~80KB
+ * gzipped, over a third of the page's JS, to read one world-readable document.
+ *
+ * Public pages now read that document over REST (see siteContentRest.js). The
+ * SDK is initialised in firebaseAuth.js, which only the lazily-loaded /admin
+ * route touches. Do not import `firebase/*` from this file.
  */
 
 const env = import.meta.env;
@@ -23,7 +23,3 @@ export const firebaseConfig = {
 };
 
 export const isFirebaseConfigured = Object.values(firebaseConfig).every(Boolean);
-
-export const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
-export const db = app ? getFirestore(app) : null;
-export const siteContentDocRef = db ? doc(db, 'siteContent', 'current') : null;

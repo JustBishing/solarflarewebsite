@@ -14,6 +14,7 @@ import {
   saveSiteContent,
   signInWithGoogle,
   signOutAdmin,
+  subscribeSiteContent,
 } from '../lib/firebaseAuth.js';
 
 const MotionDiv = motion.div;
@@ -180,6 +181,23 @@ const Admin = () => {
   // effect below has to read the current value without re-subscribing.
   const touchedRef = useRef(new Set());
 
+  /**
+   * Latest content as it exists in Firestore.
+   *
+   * Public pages read the document once over REST and never subscribe, which
+   * is why they no longer ship the SDK. The editor is the one place that does
+   * need a live view — it is how it notices someone else saving mid-edit — so
+   * it keeps its own subscription here.
+   */
+  const [remoteContent, setRemoteContent] = useState(siteContent);
+
+  useEffect(() => { setRemoteContent(siteContent); }, [siteContent]);
+
+  useEffect(() => {
+    if (!isFirebaseConfigured) return undefined;
+    return subscribeSiteContent(setRemoteContent, (err) => setError(err.message));
+  }, []);
+
   const markTouched = (path) => {
     touchedRef.current.add(path[0]);
     setIsDirty(true);
@@ -191,7 +209,7 @@ const Admin = () => {
     touchedRef.current = new Set();
     setIsDirty(false);
     setHasRemoteUpdate(false);
-    setDraftContent(cloneValue(siteContent));
+    setDraftContent(cloneValue(remoteContent));
     setStatus('');
     setError('');
   };
@@ -208,17 +226,17 @@ const Admin = () => {
     const touched = touchedRef.current;
 
     if (touched.size === 0) {
-      setDraftContent(cloneValue(siteContent));
+      setDraftContent(cloneValue(remoteContent));
       return;
     }
 
     setHasRemoteUpdate(true);
     setDraftContent((draft) => {
-      const next = cloneValue(siteContent);
+      const next = cloneValue(remoteContent);
       touched.forEach((key) => { next[key] = draft[key]; });
       return next;
     });
-  }, [siteContent]);
+  }, [remoteContent]);
 
   // Closing the tab mid-edit should cost a confirmation, not the work.
   useEffect(() => {

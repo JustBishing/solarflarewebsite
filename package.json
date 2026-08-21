@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "backup:content": "node scripts/export-firestore-content.mjs",
-    "prerender": "node scripts/prerender.mjs"
+    "prerender": "node scripts/prerender.mjs",
+    "snapshot:content": "node scripts/snapshot-site-content.mjs"
   },
   "dependencies": {
     "firebase": "^12.11.0",

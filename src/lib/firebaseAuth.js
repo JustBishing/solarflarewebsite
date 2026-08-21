@@ -1,3 +1,4 @@
+import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   GoogleAuthProvider,
@@ -5,17 +6,42 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { setDoc } from 'firebase/firestore';
-import { app, siteContentDocRef } from './firebase.js';
-import { encodeSiteContentForFirestore } from './siteContent.js';
+import { doc, getFirestore, onSnapshot, setDoc } from 'firebase/firestore';
+import { firebaseConfig, isFirebaseConfigured } from './firebase.js';
+import {
+  decodeSiteContentFromFirestore,
+  encodeSiteContentForFirestore,
+  resolveSiteContent,
+} from './siteContent.js';
 
 /**
- * Admin-only surface. Reached exclusively through the lazily-loaded /admin
- * route, which keeps @firebase/auth out of the bundle a visitor downloads to
- * read the site. Do not import this from anything on a public page.
+ * Admin-only surface, and the only place the Firebase SDK is initialised.
+ * Reached exclusively through the lazily-loaded /admin route, which keeps both
+ * firebase/app and @firebase/auth out of the bundle a visitor downloads to
+ * read the site. Do not import this from anything on a public page — public
+ * reads go through siteContentRest.js.
  */
 
+const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null;
+const db = app ? getFirestore(app) : null;
+const siteContentDocRef = db ? doc(db, 'siteContent', 'current') : null;
+
 export const auth = app ? getAuth(app) : null;
+
+/**
+ * Live subscription to the content document. Only the editor needs this: it is
+ * how /admin notices that someone else saved while you were mid-edit. Public
+ * pages fetch once over REST and are content to be a reload behind.
+ */
+export const subscribeSiteContent = (onContent, onError) => {
+  if (!siteContentDocRef) return () => {};
+
+  return onSnapshot(
+    siteContentDocRef,
+    (snap) => onContent(resolveSiteContent(decodeSiteContentFromFirestore(snap.data()))),
+    onError,
+  );
+};
 
 const googleProvider = app ? new GoogleAuthProvider() : null;
 if (googleProvider) {

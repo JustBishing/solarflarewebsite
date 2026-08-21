@@ -1,7 +1,7 @@
 import { createContext, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { onSnapshot } from 'firebase/firestore';
-import { db, isFirebaseConfigured, siteContentDocRef } from '../lib/firebase.js';
+import { isFirebaseConfigured } from '../lib/firebase.js';
+import { fetchSiteContent } from '../lib/siteContentRest.js';
 import {
   decodeSiteContentFromFirestore,
   defaultSiteContent,
@@ -84,31 +84,46 @@ export const SiteContentProvider = ({ children }) => {
       setIsLoading(false);
     }, CONTENT_TIMEOUT_MS);
 
-    const stop = (unsubscribe) => () => {
+    const controller = new AbortController();
+    const stop = () => {
       window.clearTimeout(timeout);
-      if (typeof unsubscribe === 'function') unsubscribe();
+      controller.abort();
     };
 
-    // Use Firestore when configured
-    if (isFirebaseConfigured && db && siteContentDocRef) {
-      const unsubscribe = onSnapshot(
-        siteContentDocRef,
-        (snap) => applyContent(resolveSiteContent(decodeSiteContentFromFirestore(snap.data()))),
-        handleError,
-      );
-      return stop(unsubscribe);
+    // The bundled snapshot. Used when Firebase isn't configured at all (local
+    // builds with blank env vars) and as the second chance if the live read
+    // fails — it is a real export of the live document, so it is closer to the
+    // truth than the JS defaults handleError would otherwise land on.
+    const loadBundledSnapshot = () =>
+      fetch(`${import.meta.env.BASE_URL}siteContent.json`, { signal: controller.signal })
+        .then((res) => {
+          if (!res.ok) throw new Error(`Failed to load content (${res.status})`);
+          return res.json();
+        })
+        .then((data) => applyContent(resolveSiteContent(data)));
+
+    const ignoreAbort = (error) => {
+      if (error.name === 'AbortError') return;
+      handleError(error);
+    };
+
+    // Live content over REST — see siteContentRest.js for why this is not the
+    // Firestore SDK. One GET of one world-readable document.
+    if (isFirebaseConfigured) {
+      fetchSiteContent(controller.signal)
+        .then((data) =>
+          applyContent(resolveSiteContent(decodeSiteContentFromFirestore(data))))
+        .catch((error) => {
+          if (error.name === 'AbortError') return;
+          return loadBundledSnapshot().catch(ignoreAbort);
+        });
+
+      return stop;
     }
 
-    // Fall back to static JSON
-    fetch(`${import.meta.env.BASE_URL}siteContent.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Failed to load content (${res.status})`);
-        return res.json();
-      })
-      .then((data) => applyContent(resolveSiteContent(data)))
-      .catch(handleError);
+    loadBundledSnapshot().catch(ignoreAbort);
 
-    return stop();
+    return stop;
   }, []);
 
   const value = useMemo(

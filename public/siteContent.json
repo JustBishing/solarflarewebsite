@@ -1,68 +1,6 @@
 {
-  "sponsorships": {
-    "intro": {
-      "title": "Explore opportunities in sponsorships",
-      "description": "Partnerships help us compete at our best while expanding hands-on STEM opportunities for students throughout Westchester County.",
-      "paragraphs": [
-        "Contributions directly fund robot parts, tools, competition fees, and outreach programs. Every donation or in-kind gift allows us to build higher-performing mechanisms, travel to events, and host workshops for aspiring engineers.",
-        "As a fiscally sponsored project of Hack Club, a 501(c)(3), your sponsorship is fully tax-deductible. We can provide a receipt for your records."
-      ],
-      "primaryCtaLabel": "Donate via Hack Club Bank",
-      "primaryCtaLink": "https://hcb.hackclub.com/donations/start/solar-flare",
-      "secondaryCtaLabel": "Start a conversation",
-      "secondaryCtaLink": "mailto:team@solarflarerobotics.org"
-    },
-    "tiers": {
-      "title": "Sponsorship tiers",
-      "items": [
-        {
-          "title": "Bronze",
-          "amount": "$250",
-          "benefits": [
-            "Logo on our website sponsorship wall",
-            "Thank-you post naming you across our social media",
-            "Logo in our season engineering portfolio, read by FIRST judges"
-          ]
-        },
-        {
-          "title": "Silver",
-          "amount": "$500",
-          "benefits": [
-            "All Bronze benefits",
-            "Logo on the pit banner we display at every competition",
-            "A dedicated social post about your support, with photos from the season"
-          ]
-        },
-        {
-          "title": "Gold",
-          "amount": "$1,000",
-          "benefits": [
-            "All Silver benefits",
-            "Logo on the robot and on the team shirts we wear all season",
-            "Standing invitation to any competition, with a pit tour and a look at the robot"
-          ]
-        },
-        {
-          "title": "Platinum",
-          "amount": "$2,500+",
-          "benefits": [
-            "All Gold benefits",
-            "Presenting sponsor \u2014 named first and largest everywhere we list sponsors",
-            "An end-of-season email with our results, photos, and where your money went"
-          ]
-        }
-      ]
-    },
-    "currentSponsors": {
-      "title": "Current sponsors",
-      "description": "We are grateful for every organization investing in the future engineers, programmers, and makers on Solar Flare Robotics."
-    }
-  },
   "footer": {
-    "description": "FTC Team #25707 - Solar Flare Robotics, proudly representing the NY-Excelsior region.",
-    "sponsorNote": "Fiscally sponsored by Hack Club (501(c)(3)), making every donation tax-deductible.",
     "contactTitle": "Get in touch",
-    "quickLinksTitle": "Quick links",
     "email": "team@solarflarerobotics.org",
     "socials": [
       {
@@ -74,84 +12,103 @@
         "href": "https://www.youtube.com/@solarflarerobotics"
       }
     ],
-    "copyrightPrefix": "Solar Flare Robotics. All rights reserved."
-  },
-  "hero": {
-    "description": "Solar Flare Robotics is an FTC team from the NY-Excelsior region, building advanced robots, mentoring peers, and expanding STEM access across our community. We are fiscally sponsored by Hack Club, so every contribution is tax-deductible.",
-    "primaryCtaLabel": "Meet the team",
-    "primaryCtaLink": "/team",
-    "secondaryCtaLabel": "Support our season",
-    "secondaryCtaLink": "/sponsorships",
-    "stats": [
-      {
-        "accent": "orange",
-        "label": "2025-26 Excelsior Winning Alliance Partner & Innovate Award winners."
-      },
-      {
-        "label": "Fiscally sponsored by Hack Club Bank \u00b7 donations stay tax-deductible.",
-        "accent": "light"
-      }
-    ],
-    "title": "Lighting the future of FTC innovation",
-    "eyebrow": "FTC Team #25707 \u00b7 DECODE"
-  },
-  "theme": {
-    "colors": {
-      "orange1": "#FF914d",
-      "text": "#FFFFFF",
-      "muted": "#ffffff",
-      "elevated": "#1C2339",
-      "orange2": "#80b7ff",
-      "border": "#dee0ed",
-      "bg": "#0d1221",
-      "surface": "#38445c"
-    }
+    "sponsorNote": "Fiscally sponsored by Hack Club (501(c)(3)), making every donation tax-deductible.",
+    "copyrightPrefix": "Solar Flare Robotics. All rights reserved.",
+    "quickLinksTitle": "Quick links",
+    "description": "FTC Team #25707 - Solar Flare Robotics, proudly representing the NY-Excelsior region."
   },
   "sponsors": [
     {
-      "logo": "sponsorships/HAAS.webp",
-      "contribution": "$2,000 Grant",
       "website": "https://ghaasfoundation.org/",
+      "contribution": "$2,000 Grant",
+      "logo": "sponsorships/HAAS.webp",
       "name": "Gene Haas Foundation"
     },
     {
-      "name": "Pantry Shelf",
+      "logo": "sponsorships/pantry.webp",
       "website": "https://www.pantryshelf.com/",
-      "contribution": "$1,000 Sponsorship",
-      "logo": "sponsorships/pantry.webp"
+      "name": "Pantry Shelf",
+      "contribution": "$1,000 Sponsorship"
     },
     {
-      "name": "Polymaker",
+      "logo": "sponsorships/polymaker.webp",
       "website": "https://polymaker.com/",
-      "contribution": "$200 Credit",
-      "logo": "sponsorships/polymaker.webp"
+      "name": "Polymaker",
+      "contribution": "$200 Credit"
     },
     {
       "logo": "sponsorships/Misumi.webp",
       "contribution": "30% Discount",
-      "website": "https://us.misumi-ec.com/?gad_source=1&gad_campaignid=350961273&gbraid=0AAAAADtMMx8sNgD0U0kmwkUof_4Y-0Q2p&gclid=Cj0KCQjwpv7NBhCzARIsADkIfWx5D7rHbo_R9aFy7gTgjExBklqeTk5P4h-RFSqREJ9tCo4uO66eisAaAsZ0EALw_wcB",
-      "name": "Misumi"
+      "name": "Misumi",
+      "website": "https://us.misumi-ec.com/?gad_source=1&gad_campaignid=350961273&gbraid=0AAAAADtMMx8sNgD0U0kmwkUof_4Y-0Q2p&gclid=Cj0KCQjwpv7NBhCzARIsADkIfWx5D7rHbo_R9aFy7gTgjExBklqeTk5P4h-RFSqREJ9tCo4uO66eisAaAsZ0EALw_wcB"
     },
     {
-      "contribution": "30% Discount",
-      "logo": "sponsorships/CNC Madness.webp",
       "name": "CNC Madness",
-      "website": "https://cncmadness.com/"
+      "website": "https://cncmadness.com/",
+      "logo": "sponsorships/CNC Madness.webp",
+      "contribution": "30% Discount"
     },
     {
-      "website": "https://www.wphospital.org/",
-      "name": "White Plains Hospital",
+      "contribution": "$200 Sponsorship",
       "logo": "sponsorships/WhitePlainsHospital.webp",
-      "contribution": "$200 Sponsorship"
+      "website": "https://www.wphospital.org/",
+      "name": "White Plains Hospital"
     },
     {
-      "website": "https://artofproblemsolving.com/",
-      "name": "Art of Problem Solving",
+      "contribution": "$100 Credit",
       "logo": "sponsorships/AOPS.webp",
-      "contribution": "$100 Credit"
+      "website": "https://artofproblemsolving.com/",
+      "name": "Art of Problem Solving"
     }
   ],
   "team": {
+    "apply": {
+      "title": "Apply to join Solar Flare",
+      "buttonLabel": "Apply now",
+      "description": "Interested in building, programming, outreach, or strategy? Fill out our interest form and we will follow up about the next steps.",
+      "buttonLink": "https://docs.google.com/forms/d/e/1FAIpQLSddJdvq9qldA5Velh1F4SKJrOyt0YPKk1tst5hpR22xhks9IA/viewform?usp=dialog"
+    },
+    "roster": {
+      "title": "Meet the squad",
+      "members": [
+        {
+          "bio": "Tristan is a sophomore at Edgemont Jr./Sr. High School, who leads CAD, hardware, and outreach, while also helping with programming. He is also our main driver.",
+          "name": "Tristan Li",
+          "photo": "members/Tristan.webp",
+          "role": "Captain & Founder"
+        },
+        {
+          "name": "Arick Khanna",
+          "role": "software lead",
+          "photo": "members/Arick.webp",
+          "bio": "Arick brings three years of Python and Java experience to Solar Flare and focuses on auto and teleop software. He is also our secondary driver."
+        },
+        {
+          "bio": "Arjun Khanna does most of the robot assembly and wiring on the team.",
+          "photo": "members/Arjun Khanna.webp",
+          "role": "Hardware",
+          "name": "Arjun Khanna"
+        },
+        {
+          "photo": "members/Dani.webp",
+          "role": "Computer vision",
+          "bio": "Dani is a dedicated 10th grader focused on developing computer vision models for object tracking and Apriltag-based localization.",
+          "name": "Dani Nayal"
+        },
+        {
+          "bio": "Ryan helps with robot assembly and wiring, as well as operating our CNC router to cut wood and aluminum parts.",
+          "name": "Ryan Ma",
+          "role": "Hardware & manufacturing",
+          "photo": "members/Ryan.webp"
+        },
+        {
+          "bio": "Rishi leads our team's fundraising as well as organizing outreach initiatives throughout our community.",
+          "role": "Outreach & fundraising",
+          "photo": "members/Rishi.webp",
+          "name": "Rishi"
+        }
+      ]
+    },
     "intro": {
       "title": "A team of dedicated individuals",
       "description": "Solar Flare is made up of builders, programmers, storytellers, and leaders who show up ready to learn at every workshop and match.",
@@ -162,7 +119,6 @@
     },
     "connect": {
       "title": "Connect with us",
-      "label": "Follow",
       "links": [
         {
           "label": "Instagram",
@@ -176,76 +132,30 @@
           "label": "Email",
           "href": "mailto:team@solarflarerobotics.org"
         }
-      ]
-    },
-    "apply": {
-      "buttonLink": "https://docs.google.com/forms/d/e/1FAIpQLSddJdvq9qldA5Velh1F4SKJrOyt0YPKk1tst5hpR22xhks9IA/viewform?usp=dialog",
-      "description": "Interested in building, programming, outreach, or strategy? Fill out our interest form and we will follow up about the next steps.",
-      "title": "Apply to join Solar Flare",
-      "buttonLabel": "Apply now"
-    },
-    "roster": {
-      "title": "Meet the squad",
-      "members": [
-        {
-          "name": "Tristan Li",
-          "bio": "Tristan is a sophomore at Edgemont Jr./Sr. High School, who leads CAD, hardware, and outreach, while also helping with programming. He is also our main driver.",
-          "role": "Captain & Founder",
-          "photo": "members/Tristan.webp"
-        },
-        {
-          "role": "software lead",
-          "photo": "members/Arick.webp",
-          "name": "Arick Khanna",
-          "bio": "Arick brings three years of Python and Java experience to Solar Flare and focuses on auto and teleop software. He is also our secondary driver."
-        },
-        {
-          "name": "Arjun Khanna",
-          "bio": "Arjun Khanna does most of the robot assembly and wiring on the team.",
-          "role": "Hardware",
-          "photo": "members/Arjun Khanna.webp"
-        },
-        {
-          "role": "Computer vision",
-          "photo": "members/Dani.webp",
-          "name": "Dani Nayal",
-          "bio": "Dani is a dedicated 10th grader focused on developing computer vision models for object tracking and Apriltag-based localization."
-        },
-        {
-          "name": "Ryan Ma",
-          "bio": "Ryan helps with robot assembly and wiring, as well as operating our CNC router to cut wood and aluminum parts.",
-          "role": "Hardware & manufacturing",
-          "photo": "members/Ryan.webp"
-        },
-        {
-          "name": "Rishi",
-          "bio": "Rishi leads our team's fundraising as well as organizing outreach initiatives throughout our community.",
-          "role": "Outreach & fundraising",
-          "photo": "members/Rishi.webp"
-        }
-      ]
+      ],
+      "label": "Follow"
     }
+  },
+  "branding": {
+    "season": "Decode",
+    "siteName": "Solar Flare Robotics",
+    "logoAlt": "Solar Flare Robotics logo",
+    "teamNumber": "25707",
+    "logoSrc": "logo.png",
+    "region": "NY-Excelsior region"
   },
   "home": {
     "about": {
-      "title": "About Solar Flare",
       "paragraphs": [
         "We are FTC Team #25707, a crew of determined students from Edgemont Jr./Sr. High School and the broader NY-Excelsior region. Our team formed to explore the intersection of creativity and engineering, challenging ourselves to design smarter robots every match.",
         "FIRST Tech Challenge gives us the space to prototype, iterate, and solve real-world problems together. Through the program we hone programming, CAD, machining, and leadership skills that extend far beyond the field.",
         "Solar Flare is fiscally sponsored by Hack Club, a 501(c)(3) organization. That partnership means every donation is tax-deductible and directly funds parts, upgrades, tools, and outreach that sustain our mission."
       ],
-      "description": "Solar Flare Robotics is a second-year FIRST Tech Challenge team pushing Decode with bold ideas and community impact."
-    },
-    "sponsors": {
-      "title": "Thanks to Our Sponsors",
-      "description": "We\u2019re grateful for the partners who fuel our builds, scrimmages, and community events. Their support keeps Solar Flare blazing forward.",
-      "ctaLabel": "View sponsorships",
-      "ctaLink": "/sponsorships",
-      "ctaDescription": "Interested in partnering with Solar Flare? Explore our sponsorship tiers to see how your organization can back our upcoming season."
+      "title": "About Solar Flare",
+      "description": "Solar Flare Robotics is a second-year FIRST Tech Challenge team from Edgemont, New York, building competitive robots and widening STEM access across our community."
     },
     "highlights": {
       "title": "Season Highlights",
-      "description": "Turning our second season Decode into an unforgettable run with hardware breakthroughs, award recognition, and alliances that keep us learning.",
       "items": [
         {
           "event": "Albany Academy Qualifier",
@@ -253,14 +163,14 @@
           "date": "Jan 17, 2026"
         },
         {
-          "summary": "Winning Alliance Captain, Inspire Award 2nd Place, and Qualified for the Regional Championship.",
+          "event": "Peekskill Qualifier",
           "date": "Jan 31, 2026",
-          "event": "Peekskill Qualifier"
+          "summary": "Winning Alliance Captain, Inspire Award 2nd Place, and Qualified for the Regional Championship."
         },
         {
-          "summary": "Winning Alliance Partner alongside Team 10949 M.O.B., Innovate Award 1st Place, and Qualified for the FIRST World Championship in Houston, Texas.",
           "date": "Mar 7-8, 2026",
-          "event": "MVCC Excelsior Regional Championship"
+          "event": "MVCC Excelsior Regional Championship",
+          "summary": "Winning Alliance Partner alongside Team 10949 M.O.B., Innovate Award 1st Place, and Qualified for the FIRST World Championship in Houston, Texas."
         },
         {
           "date": "Apr 29 - May 2, 2026",
@@ -268,33 +178,109 @@
           "summary": "Our first trip to Worlds, competing in the Ross Division in Houston, Texas."
         },
         {
-          "event": "Decode",
+          "summary": "#10 highest score in the world and #1 OPR in New York. At the FIRST World Championship we were the 1st pick of a 5th-place divisional alliance, closing the season ranked #75 EPA and #99 OPR worldwide.",
           "date": "Season Stats",
-          "summary": "#10 highest score in the world and #1 OPR in New York. At the FIRST World Championship we were the 1st pick of a 5th-place divisional alliance, closing the season ranked #75 EPA and #99 OPR worldwide."
+          "event": "Decode"
         }
-      ]
+      ],
+      "description": "Our second season, Decode, start to finish — from the first qualifier in Albany to the FIRST World Championship in Houston."
     },
-    "showcase": {
-      "image": "photos/worlds-field.webp",
-      "imageAlt": "Solar Flare Robotics competing at the FIRST World Championship in Houston, with team 25707 on the field during a qualification match.",
-      "caption": ""
-    },
-    "robot": {
-      "eyebrow": "The robot",
-      "title": "Designed, wired, and driven",
-      "titleAccent": "by students",
-      "description": "Every subsystem on our Decode robot was specified, built, and tuned in-house across the season.",
-      "image": "photos/robot.webp",
-      "imageAlt": "Close-up of FTC team 25707's Decode robot showing the intake, carbon-fibre chassis plate, drivetrain, and a Limelight vision camera.",
-      "caption": "Limelight vision, custom carbon-fibre plate, and a six-wheel drivetrain."
+    "sponsors": {
+      "ctaDescription": "Interested in partnering with Solar Flare? Explore our sponsorship tiers to see how your organization can back our upcoming season.",
+      "description": "We’re grateful for the partners who fuel our builds, scrimmages, and community events. Their support keeps Solar Flare blazing forward.",
+      "ctaLabel": "View sponsorships",
+      "ctaLink": "/sponsorships",
+      "title": "Thanks to Our Sponsors"
     }
   },
-  "branding": {
-    "siteName": "Solar Flare Robotics",
-    "teamNumber": "25707",
-    "region": "NY-Excelsior region",
-    "logoAlt": "Solar Flare Robotics logo",
-    "logoSrc": "logo.png",
-    "season": "Decode"
+  "hero": {
+    "secondaryCtaLink": "/sponsorships",
+    "secondaryCtaLabel": "Support our season",
+    "primaryCtaLabel": "Meet the team",
+    "description": "Solar Flare Robotics is an FTC team from the NY-Excelsior region, building advanced robots, mentoring peers, and expanding STEM access across our community. We are fiscally sponsored by Hack Club, so every contribution is tax-deductible.",
+    "primaryCtaLink": "/team",
+    "stats": [
+      {
+        "accent": "orange",
+        "label": "2025-26 Excelsior Winning Alliance Partner & Innovate Award winners."
+      },
+      {
+        "label": "Fiscally sponsored by Hack Club Bank · donations stay tax-deductible.",
+        "accent": "light"
+      }
+    ],
+    "title": "Lighting the future of FTC innovation",
+    "eyebrow": "FTC Team #25707 · Edgemont, New York"
+  },
+  "sponsorships": {
+    "intro": {
+      "paragraphs": [
+        "Contributions directly fund robot parts, tools, competition fees, and outreach programs. Every donation or in-kind gift allows us to build higher-performing mechanisms, travel to events, and host workshops for aspiring engineers.",
+        "As a fiscally sponsored project of Hack Club, a 501(c)(3), your sponsorship is fully tax-deductible. We can provide a receipt for your records."
+      ],
+      "description": "Partnerships help us compete at our best while expanding hands-on STEM opportunities for students throughout Westchester County.",
+      "primaryCtaLink": "https://hcb.hackclub.com/donations/start/solar-flare",
+      "primaryCtaLabel": "Donate via Hack Club Bank",
+      "title": "Explore opportunities in sponsorships",
+      "secondaryCtaLabel": "Start a conversation",
+      "secondaryCtaLink": "mailto:team@solarflarerobotics.org"
+    },
+    "currentSponsors": {
+      "title": "Current sponsors",
+      "description": "We are grateful for every organization investing in the future engineers, programmers, and makers on Solar Flare Robotics."
+    },
+    "tiers": {
+      "items": [
+        {
+          "benefits": [
+            "Logo on our website sponsorship wall",
+            "Thank-you post naming you across our social media",
+            "Logo in our season engineering portfolio, read by FIRST judges"
+          ],
+          "title": "Bronze",
+          "amount": "$250"
+        },
+        {
+          "title": "Silver",
+          "benefits": [
+            "All Bronze benefits",
+            "Logo on the pit banner we display at every competition",
+            "A dedicated social post about your support, with photos from the season"
+          ],
+          "amount": "$500"
+        },
+        {
+          "benefits": [
+            "All Silver benefits",
+            "Logo on the robot and on the team shirts we wear all season",
+            "Standing invitation to any competition, with a pit tour and a look at the robot"
+          ],
+          "amount": "$1,000",
+          "title": "Gold"
+        },
+        {
+          "benefits": [
+            "All Gold benefits",
+            "Presenting sponsor — named first and largest everywhere we list sponsors",
+            "An end-of-season email with our results, photos, and where your money went"
+          ],
+          "title": "Platinum",
+          "amount": "$2,500+"
+        }
+      ],
+      "title": "Sponsorship tiers"
+    }
+  },
+  "theme": {
+    "colors": {
+      "muted": "#ffffff",
+      "elevated": "#1C2339",
+      "surface": "#38445c",
+      "bg": "#0d1221",
+      "border": "#dee0ed",
+      "orange2": "#80b7ff",
+      "text": "#FFFFFF",
+      "orange1": "#FF914d"
+    }
   }
 }
