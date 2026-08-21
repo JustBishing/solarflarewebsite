@@ -50,9 +50,8 @@ work your friend raised. Status: `[x]` done on branch · `[ ]` not started ·
       other. Needs dirty-state tracking + a `beforeunload` guard.
 - [x] **`public/siteContent.json`** regenerated from live content — no longer a
       2024-25 snapshot with an ex-member in it.
-- [ ] **Rajdhani as body face.** A condensed display face set for every
-      paragraph on the site — the main reason the copy reads as UI chrome.
-      Wants a real text face.
+- [x] **Rajdhani as body face.** Replaced with IBM Plex Sans (400/500/600).
+      Rajdhani is gone entirely, so it is also one fewer font request.
 - [?] **Upgrade the admin gate properly.** Hashing hides the addresses but
       isn't authorization. Real fix: an `admins/{uid}` Firestore doc, so the
       list lives server-side. Needs a rules change + one doc per admin.
@@ -73,6 +72,11 @@ Applied via `gh workflow run update-content.yml` (patches in `content/`):
       (`content/sponsorship-tiers.json`)
 - [ ] Sponsorship copy still pitches the 2025-26 Decode season, which closed in
       March. Re-point at the upcoming season when you know the dates.
+- [?] `content/season-tense.json` — written, NOT applied. Fixes tense only:
+      drops `· DECODE` from the hero eyebrow and stops describing a finished
+      season in the present tense. Needs your yes before it goes to Firestore.
+- [!] `branding.season` is still `"Decode"` and prints in the homepage
+      marquee. Re-point once FIRST announces the 2026-27 game.
 
 To change live copy from now on: edit or add a patch under `content/`, then
 `gh workflow run update-content.yml -f patch=content/<file>.json -f mode=dry-run`,
@@ -81,10 +85,11 @@ and keeps it as a 90-day artifact.
 
 ## 4. Your friend's feedback — design/content, needs decisions
 
-- [?] **"Home page is buns" / "poor representation of our achievements."**
-      Agreed in substance: `#10` is styled louder than `#1 OPR in New York`,
-      and `#75 EPA` gets the same scoreboard scale as a first-place finish.
-      Decide what the top three facts are and rank the visual weight to match.
+- [x] **"Home page is buns" / "poor representation of our achievements."**
+      Record section is now ranked by array order: first result leads at full
+      scoreboard scale, next two stack beside it, the rest drop to a footnote
+      row. `#75 EPA` no longer shouts as loudly as first pick at Worlds.
+      /admin gained Move up / Move down, since position now carries meaning.
 - [?] **"No visuals."** True — the only images are 7 logos and 6 portraits.
       No robot, no CAD, no match photos, no video. This is the single biggest
       gap and it needs assets from you, not code.
@@ -92,9 +97,11 @@ and keeps it as a 90-day artifact.
       numbers (events, students reached, hours).
 - [?] **"Add a why sponsor us section."** Distinct from the tier table: budget,
       where money goes, what a sponsor gets out of it. Needs real figures.
-- [?] **"Sponsor section is booty."** Partly done (per-tier CTAs, logo
-      normalisation pending). Logos are still not optically balanced — a solid
-      white oval next to thin line marks.
+- [?] **"Sponsor section is booty."** Per-tier CTAs done. Amounts now only
+      appear on /sponsorships, so the home page wall says who backs us rather
+      than for how much; the grid's empty cell no longer reads as a missing
+      logo. Still open: logos are not optically balanced — a solid white oval
+      next to thin line marks.
 - [?] **"Better navigation."** Nav is 4 flat items with no donate action in the
       desktop header. Adding Outreach makes it 5 — worth deciding the shape
       before adding.
