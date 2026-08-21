@@ -25,6 +25,17 @@ const MotionDiv = motion.div;
  */
 const isSeasonSummary = (item) => /season stats/i.test(item.date ?? '');
 
+/**
+ * Order is the ranking. The first result in Firestore is the one the section
+ * is built around, the next two support it, and anything after that is a
+ * footnote. Editors reorder in /admin; nothing here needs a new content field.
+ */
+const rankRecordStats = (stats) => ({
+  lead: stats[0],
+  supporting: stats.slice(1, 3),
+  footnotes: stats.slice(3),
+});
+
 const Home = () => {
   const shouldReduceMotion = useShouldReduceMotion();
   const {
@@ -33,6 +44,7 @@ const Home = () => {
   const textVariants = resolveVariant(fadeInUp, shouldReduceMotion);
   const listVariants = resolveVariant(staggerChildren, shouldReduceMotion);
   const timeline = home.highlights.items.filter((item) => !isSeasonSummary(item));
+  const record = rankRecordStats(home.record.stats);
 
   return (
     <>
@@ -83,19 +95,50 @@ const Home = () => {
         titleAccent={home.record.titleAccent}
         description={home.record.description}
       >
-        <MotionDiv
-          className="grid gap-x-12 gap-y-10 sm:grid-cols-2"
-          variants={listVariants}
-        >
-          {home.record.stats.map((stat) => (
-            <StatBlock
-              key={stat.label}
-              value={stat.value}
-              label={stat.label}
-              caption={stat.caption}
-              accent={stat.accent}
-            />
-          ))}
+        <MotionDiv className="space-y-12" variants={listVariants}>
+          {/* The headline figure holds the left column at full scale; its
+              supporting results stack beside it rather than spreading edge to
+              edge, so the three read as one claim with evidence. */}
+          <div className="grid gap-10 lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-16">
+            {record.lead ? (
+              <StatBlock
+                scale="lead"
+                value={record.lead.value}
+                label={record.lead.label}
+                caption={record.lead.caption}
+                accent={record.lead.accent}
+              />
+            ) : null}
+
+            {record.supporting.length ? (
+              <div className="grid content-center gap-9 border-t border-white/10 pt-10 lg:border-l lg:border-t-0 lg:pl-16 lg:pt-0">
+                {record.supporting.map((stat) => (
+                  <StatBlock
+                    key={stat.label}
+                    value={stat.value}
+                    label={stat.label}
+                    caption={stat.caption}
+                    accent={stat.accent}
+                  />
+                ))}
+              </div>
+            ) : null}
+          </div>
+
+          {record.footnotes.length ? (
+            <div className="flex flex-wrap items-center gap-x-10 gap-y-6 border-t border-white/10 pt-8">
+              {record.footnotes.map((stat) => (
+                <StatBlock
+                  key={stat.label}
+                  scale="minor"
+                  value={stat.value}
+                  label={stat.label}
+                  caption={stat.caption}
+                  accent={stat.accent}
+                />
+              ))}
+            </div>
+          ) : null}
         </MotionDiv>
       </Section>
 

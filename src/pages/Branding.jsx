@@ -77,11 +77,11 @@ const fonts = [
     weights: '600 · 700 · 800 · 900',
   },
   {
-    family: 'Rajdhani',
+    family: 'IBM Plex Sans',
     role: 'Body — paragraphs, UI, buttons',
     sample: 'Building robots. Fueling the next generation of innovators.',
     className: 'font-sans',
-    weights: '400 · 500 · 600 · 700',
+    weights: '400 · 500 · 600',
   },
   {
     family: 'JetBrains Mono',

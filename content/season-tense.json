@@ -1,0 +1,16 @@
+{
+  "_comment": "Fixes tense only. The homepage described Decode in the present tense months after the season closed at Worlds. These edits state the same facts as a finished record and remove the dead season from the hero eyebrow, without claiming anything about the next season. NOT INCLUDED, because it needs facts nobody has yet: branding.season is still 'Decode' and prints in the homepage marquee — re-point it once FIRST announces the 2026-27 game, along with a forward-looking hero line.",
+  "patch": {
+    "hero": {
+      "eyebrow": "FTC Team #25707 · Edgemont, New York"
+    },
+    "home": {
+      "about": {
+        "description": "Solar Flare Robotics is a second-year FIRST Tech Challenge team from Edgemont, New York, building competitive robots and widening STEM access across our community."
+      },
+      "highlights": {
+        "description": "Our second season, Decode, start to finish — from the first qualifier in Albany to the FIRST World Championship in Houston."
+      }
+    }
+  }
+}

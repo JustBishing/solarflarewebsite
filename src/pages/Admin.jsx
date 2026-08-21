@@ -115,15 +115,16 @@ const insertInto = (value, path, nextItem) => {
   };
 };
 
-const ActionButton = ({ children, onClick, tone = 'secondary' }) => (
+const ActionButton = ({ children, onClick, tone = 'secondary', disabled = false }) => (
   <button
     type="button"
     onClick={onClick}
-    className={
+    disabled={disabled}
+    className={`disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-sf-border disabled:hover:text-sf-text ${
       tone === 'primary'
         ? 'rounded-xl bg-sf-orange-1 px-4 py-2 text-sm font-semibold text-sf-bg transition hover:bg-sf-orange-2'
         : 'rounded-xl border border-sf-border px-4 py-2 text-sm font-semibold text-sf-text transition hover:border-sf-orange-1 hover:text-sf-orange-1'
-    }
+    }`}
   >
     {children}
   </button>
@@ -215,6 +216,24 @@ const Admin = () => {
 
   const removeItem = (path, index) => {
     setDraftContent((c) => removeFrom(c, path, index));
+    setStatus('');
+    setError('');
+  };
+
+  // Season results are sized by their position: first is the headline figure,
+  // the next two sit beside it, the rest drop to a footnote row. Reordering is
+  // therefore an editorial control, not a convenience.
+  const moveItem = (path, index, offset) => {
+    setDraftContent((c) => {
+      const list = path.reduce((value, key) => value?.[key], c);
+      const target = index + offset;
+      if (!Array.isArray(list) || target < 0 || target >= list.length) {
+        return c;
+      }
+      const next = [...list];
+      [next[index], next[target]] = [next[target], next[index]];
+      return updateIn(c, path, next);
+    });
     setStatus('');
     setError('');
   };
@@ -506,6 +525,10 @@ const Admin = () => {
             multiline
             className="text-sf-muted"
           />
+          <p className="label-mono text-white/60">
+            Order sets the size — 1st is the headline figure, 2nd and 3rd sit
+            beside it, the rest drop to a footnote row.
+          </p>
           <div className="grid gap-4 md:grid-cols-2">
             {draftContent.home.record.stats.map((stat, index) => (
               <div
@@ -547,6 +570,20 @@ const Admin = () => {
                     }
                   >
                     {stat.accent ? 'Highlighted in ember' : 'Highlight in ember'}
+                  </ActionButton>
+                  <ActionButton
+                    disabled={index === 0}
+                    onClick={() => moveItem(['home', 'record', 'stats'], index, -1)}
+                  >
+                    Move up
+                  </ActionButton>
+                  <ActionButton
+                    disabled={
+                      index === draftContent.home.record.stats.length - 1
+                    }
+                    onClick={() => moveItem(['home', 'record', 'stats'], index, 1)}
+                  >
+                    Move down
                   </ActionButton>
                   <ActionButton
                     onClick={() =>

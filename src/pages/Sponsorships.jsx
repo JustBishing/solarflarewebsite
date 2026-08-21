@@ -145,7 +145,7 @@ const Sponsorships = () => {
         description={sponsorships.currentSponsors.description}
       >
         <MotionDiv variants={listVariants}>
-          <SponsorGrid sponsors={sponsors} />
+          <SponsorGrid sponsors={sponsors} showContribution />
         </MotionDiv>
       </Section>
     </>

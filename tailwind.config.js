@@ -16,7 +16,7 @@ export default {
         'sf-muted': 'rgb(var(--sf-muted) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['"Rajdhani"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"IBM Plex Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['"Archivo"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },

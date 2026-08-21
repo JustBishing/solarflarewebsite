@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  font-family: 'Rajdhani', ui-sans-serif, system-ui, sans-serif;
-  font-weight: 500;
+  font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
