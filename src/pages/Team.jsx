@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Section from '../components/Section.jsx';
 import TeamCard from '../components/TeamCard.jsx';
-import GhostWordmark from '../components/GhostWordmark.jsx';
 import ArcDivider from '../components/ArcDivider.jsx';
 import { useSiteContent } from '../context/useSiteContent.js';
 import {
@@ -33,7 +32,6 @@ const Team = () => {
         description={team.intro.description}
         className="relative"
       >
-        <GhostWordmark text="Team" />
         <MotionDiv
           className="relative space-y-5 text-base leading-relaxed text-sf-muted sm:text-lg"
           variants={textVariants}

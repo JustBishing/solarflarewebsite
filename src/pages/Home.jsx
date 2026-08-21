@@ -4,7 +4,6 @@ import Hero from '../components/Hero.jsx';
 import Section from '../components/Section.jsx';
 import SponsorGrid from '../components/SponsorGrid.jsx';
 import Marquee from '../components/Marquee.jsx';
-import GhostWordmark from '../components/GhostWordmark.jsx';
 import ArcDivider from '../components/ArcDivider.jsx';
 import ImageBand from '../components/ImageBand.jsx';
 import StatBlock from '../components/StatBlock.jsx';
@@ -74,7 +73,6 @@ const Home = () => {
         description={home.about.description}
         className="relative"
       >
-        <GhostWordmark text="Solar Flare" />
         <MotionDiv
           className="relative space-y-5 text-base leading-relaxed text-sf-muted sm:text-lg"
           variants={textVariants}

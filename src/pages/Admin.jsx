@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import AdminEditableField from '../components/admin/AdminEditableField.jsx';
@@ -172,9 +172,62 @@ const Admin = () => {
   const [activePage, setActivePage] = useState('home');
 
   const [canEdit, setCanEdit] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const [hasRemoteUpdate, setHasRemoteUpdate] = useState(false);
   const scope = SAVE_SCOPES[activePage] || SAVE_SCOPES.home;
 
-  useEffect(() => { setDraftContent(cloneValue(siteContent)); }, [siteContent]);
+  // Top-level sections with unsaved edits. A ref, not state: the snapshot
+  // effect below has to read the current value without re-subscribing.
+  const touchedRef = useRef(new Set());
+
+  const markTouched = (path) => {
+    touchedRef.current.add(path[0]);
+    setIsDirty(true);
+    setStatus('');
+    setError('');
+  };
+
+  const discardDraft = () => {
+    touchedRef.current = new Set();
+    setIsDirty(false);
+    setHasRemoteUpdate(false);
+    setDraftContent(cloneValue(siteContent));
+    setStatus('');
+    setError('');
+  };
+
+  /**
+   * Firestore pushes a snapshot on every write, including other editors'.
+   * This used to replace the whole draft, so two people editing at once
+   * silently overwrote each other and there was no sign it had happened.
+   *
+   * Sections with unsaved edits are now kept; everything else refreshes, so
+   * an unrelated save on another page still lands.
+   */
+  useEffect(() => {
+    const touched = touchedRef.current;
+
+    if (touched.size === 0) {
+      setDraftContent(cloneValue(siteContent));
+      return;
+    }
+
+    setHasRemoteUpdate(true);
+    setDraftContent((draft) => {
+      const next = cloneValue(siteContent);
+      touched.forEach((key) => { next[key] = draft[key]; });
+      return next;
+    });
+  }, [siteContent]);
+
+  // Closing the tab mid-edit should cost a confirmation, not the work.
+  useEffect(() => {
+    if (!isDirty) return undefined;
+
+    const warn = (event) => { event.preventDefault(); event.returnValue = ''; };
+    window.addEventListener('beforeunload', warn);
+    return () => window.removeEventListener('beforeunload', warn);
+  }, [isDirty]);
 
   useEffect(() => {
     if (!isFirebaseConfigured || !auth) {
@@ -204,20 +257,17 @@ const Admin = () => {
 
   const setField = (path, value) => {
     setDraftContent((c) => updateIn(c, path, value));
-    setStatus('');
-    setError('');
+    markTouched(path);
   };
 
   const addItem = (path, item) => {
     setDraftContent((c) => insertInto(c, path, item));
-    setStatus('');
-    setError('');
+    markTouched(path);
   };
 
   const removeItem = (path, index) => {
     setDraftContent((c) => removeFrom(c, path, index));
-    setStatus('');
-    setError('');
+    markTouched(path);
   };
 
   // Season results are sized by their position: first is the headline figure,
@@ -234,8 +284,7 @@ const Admin = () => {
       [next[index], next[target]] = [next[target], next[index]];
       return updateIn(c, path, next);
     });
-    setStatus('');
-    setError('');
+    markTouched(path);
   };
 
   const handleSave = async () => {
@@ -243,7 +292,13 @@ const Admin = () => {
     setStatus('');
     setError('');
     try {
-      await saveSiteContent(scope.pick(draftContent));
+      const saved = scope.pick(draftContent);
+      await saveSiteContent(saved);
+      // Only the sections this scope actually wrote are clean again; edits
+      // parked on another page stay protected from the incoming snapshot.
+      Object.keys(saved).forEach((key) => touchedRef.current.delete(key));
+      setIsDirty(touchedRef.current.size > 0);
+      setHasRemoteUpdate(false);
       setStatus('Saved! The live site will update automatically.');
     } catch (err) {
       setError(err?.message || 'Save failed.');
@@ -1628,6 +1683,24 @@ const Admin = () => {
           {loadError ? (
             <p className="rounded-2xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-200">
               Content load error: {loadError}
+            </p>
+          ) : null}
+
+          {hasRemoteUpdate ? (
+            <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+              <span>
+                Someone else saved while you were editing. Your unsaved
+                sections were kept; the rest has been refreshed.
+              </span>
+              <ActionButton onClick={discardDraft}>
+                Discard my edits and load theirs
+              </ActionButton>
+            </div>
+          ) : null}
+
+          {isDirty && !hasRemoteUpdate ? (
+            <p className="rounded-2xl border border-sf-border bg-sf-surface px-4 py-3 text-sm text-sf-muted">
+              You have unsaved changes.
             </p>
           ) : null}
 

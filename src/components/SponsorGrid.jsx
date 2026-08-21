@@ -39,11 +39,14 @@ const SponsorGrid = ({ sponsors, showContribution = false, className = '' }) => 
             className="group flex flex-col items-center justify-between gap-5 bg-sf-bg shadow-[0_0_0_1px_rgba(255,255,255,0.07)] p-6 text-center transition-colors duration-300 hover:bg-sf-elevated focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sf-orange-2 sm:p-8"
             variants={resolveVariant(fadeInUp, shouldReduceMotion)}
           >
+            {/* Capped on both axes, not height alone: a wide wordmark set to
+                the same height as a compact mark covers several times the
+                area and dominates the wall. */}
             <div className="flex min-h-[6rem] w-full items-center justify-center">
               <img
                 src={resolveSiteAssetUrl(sponsor.logo)}
                 alt={`${sponsor.name} logo`}
-                className="max-h-20 w-full object-contain opacity-75 transition-all duration-300 group-hover:opacity-100"
+                className="max-h-16 w-auto max-w-[80%] object-contain opacity-80 transition-all duration-300 group-hover:opacity-100"
                 loading="lazy"
               />
             </div>

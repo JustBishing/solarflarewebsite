@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import Section from '../components/Section.jsx';
 import SponsorGrid from '../components/SponsorGrid.jsx';
 import StatBlock from '../components/StatBlock.jsx';
-import GhostWordmark from '../components/GhostWordmark.jsx';
 import ArcDivider from '../components/ArcDivider.jsx';
 import { useSiteContent } from '../context/useSiteContent.js';
 import {
@@ -36,7 +35,6 @@ const Sponsorships = () => {
         description={sponsorships.intro.description}
         className="relative"
       >
-        <GhostWordmark text="Support" />
         <MotionDiv
           className="relative space-y-6 text-base leading-relaxed text-sf-muted sm:text-lg"
           variants={textVariants}

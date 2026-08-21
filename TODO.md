@@ -45,9 +45,9 @@ work your friend raised. Status: `[x]` done on branch · `[ ]` not started ·
 ## 2. Still open from the critique
 
 - [x] **OG share image** — `/og-cover.jpg`, 1200×630, live.
-- [ ] **Admin draft-clobbering.** `Admin.jsx` resets the whole draft on every
-      Firestore snapshot, so two people editing at once silently overwrite each
-      other. Needs dirty-state tracking + a `beforeunload` guard.
+- [x] **Admin draft-clobbering.** Sections with unsaved edits now survive an
+      incoming Firestore snapshot, the editor is told when someone else saved
+      and can discard to take theirs, and closing the tab mid-edit warns.
 - [x] **`public/siteContent.json`** regenerated from live content — no longer a
       2024-25 snapshot with an ex-member in it.
 - [x] **Rajdhani as body face.** Replaced with IBM Plex Sans (400/500/600).
@@ -55,10 +55,10 @@ work your friend raised. Status: `[x]` done on branch · `[ ]` not started ·
 - [?] **Upgrade the admin gate properly.** Hashing hides the addresses but
       isn't authorization. Real fix: an `admins/{uid}` Firestore doc, so the
       list lives server-side. Needs a rules change + one doc per admin.
-- [?] **The invisible design system.** Angled bands shear 1.31° at 1.05:1
-      contrast; ghost wordmarks read as JPEG artifacts over body copy; the
-      editorial rail only exists above 1536px. Either commit to these or cut
-      them — right now they cost code and deliver nothing.
+- [~] **The invisible design system.** Ghost wordmarks are cut — 2.2% white on
+      near-black never read as type, only as banding under the body copy they
+      sat behind. Angled bands (1.31° shear at 1.05:1) and the editorial rail
+      (only above 1536px) are still open: commit to them or cut them.
 
 ## 3. Content fixes — DONE, applied to Firestore
 
@@ -72,7 +72,10 @@ Applied via `gh workflow run update-content.yml` (patches in `content/`):
       (`content/sponsorship-tiers.json`)
 - [ ] Sponsorship copy still pitches the 2025-26 Decode season, which closed in
       March. Re-point at the upcoming season when you know the dates.
-- [?] `content/season-tense.json` — written, NOT applied. Fixes tense only:
+- [?] `content/season-tense.json` — dry-run verified (3 fields), NOT applied.
+      The apply command is blocked by the local permission classifier; run it
+      yourself with `gh workflow run update-content.yml -f
+      patch=content/season-tense.json -f mode=apply`. Fixes tense only:
       drops `· DECODE` from the hero eyebrow and stops describing a finished
       season in the present tense. Needs your yes before it goes to Firestore.
 - [!] `branding.season` is still `"Decode"` and prints in the homepage
@@ -100,8 +103,10 @@ and keeps it as a 90-day artifact.
 - [?] **"Sponsor section is booty."** Per-tier CTAs done. Amounts now only
       appear on /sponsorships, so the home page wall says who backs us rather
       than for how much; the grid's empty cell no longer reads as a missing
-      logo. Still open: logos are not optically balanced — a solid white oval
-      next to thin line marks.
+      logo. Logos are now capped on both axes, so a wide wordmark no longer
+      covers several times the area of a compact mark. Still open: Pantry
+      Shelf ships a baked-in white oval that outweighs the thin line marks
+      around it — that needs a cleaned asset, not CSS.
 - [?] **"Better navigation."** Nav is 4 flat items with no donate action in the
       desktop header. Adding Outreach makes it 5 — worth deciding the shape
       before adding.

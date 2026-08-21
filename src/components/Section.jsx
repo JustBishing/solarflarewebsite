@@ -20,10 +20,33 @@ const MotionDiv = motion.div;
  *  - feature : centred, for the stat band
  */
 const VARIANTS = {
-  default: { container: 'max-w-6xl', header: 'max-w-2xl', split: false },
-  wide: { container: 'max-w-7xl', header: 'max-w-3xl', split: false },
-  split: { container: 'max-w-7xl', header: '', split: true },
-  feature: { container: 'max-w-6xl', header: 'max-w-3xl', split: false },
+  default: {
+    container: 'max-w-6xl',
+    header: 'max-w-2xl',
+    split: false,
+    heading: 'text-3xl sm:text-5xl',
+  },
+  wide: {
+    container: 'max-w-7xl',
+    header: 'max-w-3xl',
+    split: false,
+    heading: 'text-3xl sm:text-5xl',
+  },
+  split: {
+    container: 'max-w-7xl',
+    header: '',
+    split: true,
+    // The split heading lives in a 22rem column, so it gets a smaller step
+    // than a full-width one. At 5xl a title like "Explore opportunities in
+    // sponsorships" broke to four lines and stranded "in" on its own.
+    heading: 'text-3xl sm:text-4xl',
+  },
+  feature: {
+    container: 'max-w-6xl',
+    header: 'max-w-3xl',
+    split: false,
+    heading: 'text-3xl sm:text-5xl',
+  },
 };
 
 const BANDS = {
@@ -63,7 +86,7 @@ const Section = ({
         as={headingLevel}
         lines={headingLines}
         trigger="view"
-        className="text-3xl leading-[1.08] sm:text-5xl"
+        className={`leading-[1.08] ${layout.heading}`}
       />
       {description ? (
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-sf-muted sm:text-lg">

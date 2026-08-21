@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import Section from '../components/Section.jsx';
-import GhostWordmark from '../components/GhostWordmark.jsx';
 import { useSiteContent } from '../context/useSiteContent.js';
 import {
   fadeInUp,
@@ -31,7 +30,6 @@ const PastSeasons = () => {
         description={pastSeasons.intro.description}
         className="relative"
       >
-        <GhostWordmark text="Seasons" />
         <MotionDiv
           className="relative space-y-5 text-base leading-relaxed text-sf-muted sm:text-lg"
           variants={textVariants}
