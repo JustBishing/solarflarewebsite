@@ -3,7 +3,8 @@ export const defaultThemeColors = {
   orange2: '#ffb27a',
   ember: '#ff6a2a',
   bg: '#0c0c10',
-  band: '#141010',
+  // 1.061:1 against bg. Was #141010 (1.033:1), which no display resolved.
+  band: '#1c1313',
   surface: '#17171c',
   elevated: '#1f1f25',
   border: '#2f2f38',

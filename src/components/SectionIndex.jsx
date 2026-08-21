@@ -7,11 +7,12 @@ import PropTypes from 'prop-types';
  * than decorating one.
  */
 const SectionIndex = ({ label, index }) => (
-  // Only shown from 2xl up: below that the container fills the viewport and
-  // the rail would sit on top of the heading instead of beside it.
+  // Gated on the `rail` breakpoint (1440px), not a stock one: the cutoff is
+  // set by the container width plus two rail gutters, not by device class.
+  // See the screens block in tailwind.config.js.
   <div
     aria-hidden="true"
-    className="pointer-events-none absolute -left-14 top-0 hidden h-full w-14 select-none 2xl:block"
+    className="pointer-events-none absolute -left-14 top-0 hidden h-full w-14 select-none rail:block"
   >
     <div className="sticky top-32 flex flex-col items-center gap-4">
       {index ? (

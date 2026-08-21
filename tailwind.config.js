@@ -3,6 +3,16 @@ export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
+      screens: {
+        /**
+         * The editorial rail sits in the gutter at -3.5rem, so it needs the
+         * viewport to clear the widest container (max-w-7xl, 1280px) plus a
+         * rail's width on each side — 1392px. Below that it is clipped off
+         * screen entirely. 1440 is the first round number above the floor,
+         * and it picks up 13" laptops, which the old 2xl gate missed.
+         */
+        rail: '1440px',
+      },
       colors: {
         'sf-orange-1': 'rgb(var(--sf-orange1) / <alpha-value>)',
         'sf-orange-2': 'rgb(var(--sf-orange2) / <alpha-value>)',

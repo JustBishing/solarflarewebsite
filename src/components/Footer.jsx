@@ -32,7 +32,7 @@ const Footer = () => {
       {/* Team number as a base watermark, echoing the hero. */}
       <span
         aria-hidden="true"
-        className="heading-hero pointer-events-none absolute -bottom-10 right-4 hidden select-none font-black leading-none text-white/[0.03] lg:block"
+        className="heading-hero pointer-events-none absolute -bottom-10 right-4 hidden select-none font-black leading-none text-white/[0.07] lg:block"
         style={{ fontSize: 'clamp(8rem, 14vw, 13rem)' }}
       >
         {branding.teamNumber}
