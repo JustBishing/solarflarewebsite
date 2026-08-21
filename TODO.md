@@ -72,10 +72,9 @@ Applied via `gh workflow run update-content.yml` (patches in `content/`):
       (`content/sponsorship-tiers.json`)
 - [ ] Sponsorship copy still pitches the 2025-26 Decode season, which closed in
       March. Re-point at the upcoming season when you know the dates.
-- [?] `content/season-tense.json` — dry-run verified (3 fields), NOT applied.
-      The apply command is blocked by the local permission classifier; run it
-      yourself with `gh workflow run update-content.yml -f
-      patch=content/season-tense.json -f mode=apply`. Fixes tense only:
+- [x] `content/season-tense.json` — applied, 3 fields. Hero eyebrow is
+      "FTC Team #25707 · Edgemont, New York"; About and Highlights no longer
+      describe a finished season in the present tense. Fixes tense only:
       drops `· DECODE` from the hero eyebrow and stops describing a finished
       season in the present tense. Needs your yes before it goes to Firestore.
 - [!] `branding.season` is still `"Decode"` and prints in the homepage
