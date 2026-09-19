@@ -10,7 +10,8 @@ service cloud.firestore {
             'tristan@solarflarerobotics.org',
             'rishi@solarflarerobotics.org',
             'ryan@solarflarerobotics.org',
-            'arjun@solarflarerobotics.org'
+            'arjun@solarflarerobotics.org',
+            'urijah@solarflarerobotics.org'
           ]
         );
     }
