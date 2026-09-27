@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-09-20T17:15:10.338Z",
+  "exportedAt": "2026-09-27T18:01:28.667Z",
   "source": "siteContent/current",
   "content": {
     "theme": {
@@ -12,81 +12,6 @@
         "border": "#dee0ed",
         "bg": "#0d1221",
         "surface": "#38445c"
-      }
-    },
-    "team": {
-      "intro": {
-        "title": "A team of dedicated individuals",
-        "description": "Solar Flare is made up of builders, programmers, storytellers, and leaders who show up ready to learn at every workshop and match.",
-        "paragraphs": [
-          "We rally around a shared love of robotics, combining diverse skill sets in code, mechanical design, outreach, and match strategy. That collaboration helps us iterate quickly and deliver reliable performance on the field.",
-          "Beyond competitions we mentor younger students, speak at community events, and advocate for equitable access to STEM. Solar Flare is proof that when driven students work together, we can build more than robots-we build opportunities."
-        ]
-      },
-      "connect": {
-        "title": "Connect with us",
-        "label": "Follow",
-        "links": [
-          {
-            "label": "Instagram",
-            "href": "https://instagram.com/solarflarerobotics"
-          },
-          {
-            "label": "YouTube",
-            "href": "https://www.youtube.com/@solarflarerobotics"
-          },
-          {
-            "label": "Email",
-            "href": "mailto:team@solarflarerobotics.org"
-          }
-        ]
-      },
-      "apply": {
-        "buttonLink": "https://docs.google.com/forms/d/e/1FAIpQLSddJdvq9qldA5Velh1F4SKJrOyt0YPKk1tst5hpR22xhks9IA/viewform?usp=dialog",
-        "description": "Interested in building, programming, outreach, or strategy? Fill out our interest form and we will follow up about the next steps.",
-        "title": "Apply to join Solar Flare",
-        "buttonLabel": "Apply now"
-      },
-      "roster": {
-        "title": "Meet the squad",
-        "members": [
-          {
-            "name": "Tristan Li",
-            "bio": "Tristan is a sophomore at Edgemont Jr./Sr. High School, who leads CAD, hardware, and outreach, while also helping with programming. He is also our main driver.",
-            "role": "Captain & Founder",
-            "photo": "members/Tristan.png"
-          },
-          {
-            "role": "software lead",
-            "photo": "members/Arick.png",
-            "name": "Arick Khanna",
-            "bio": "Arick brings three years of Python and Java experience to Solar Flare and focuses on auto and teleop software. He is also our secondary driver."
-          },
-          {
-            "name": "Arjun Khanna",
-            "bio": "Arjun Khanna does most of the robot assembly and wiring on the team.",
-            "role": "Hardware",
-            "photo": "members/Arjun Khanna.png"
-          },
-          {
-            "role": "Computer vision",
-            "photo": "members/Dani.png",
-            "name": "Dani Nayal",
-            "bio": "Dani is a dedicated 10th grader focused on developing computer vision models for object tracking and Apriltag-based localization."
-          },
-          {
-            "name": "Ryan Ma",
-            "bio": "Ryan helps with robot assembly and wiring, as well as operating our CNC router to cut wood and aluminum parts.",
-            "role": "Hardware & manufacturing",
-            "photo": "members/Ryan.png"
-          },
-          {
-            "name": "Rishi",
-            "bio": "Rishi leads our team's fundraising as well as organizing outreach initiatives throughout our community.",
-            "role": "Outreach & fundraising",
-            "photo": "members/Rishi.png"
-          }
-        ]
       }
     },
     "branding": {
@@ -284,6 +209,93 @@
           "Solar Flare is fiscally sponsored by Hack Club, a 501(c)(3) organization. That partnership means every donation is tax-deductible and directly funds parts, upgrades, tools, and outreach that sustain our mission."
         ],
         "description": "Solar Flare Robotics is a second-year FIRST Tech Challenge team from Edgemont, New York, building competitive robots and widening STEM access across our community."
+      }
+    },
+    "team": {
+      "intro": {
+        "title": "A team of dedicated individuals",
+        "description": "Solar Flare is made up of builders, programmers, storytellers, and leaders who show up ready to learn at every workshop and match.",
+        "paragraphs": [
+          "We rally around a shared love of robotics, combining diverse skill sets in code, mechanical design, outreach, and match strategy. That collaboration helps us iterate quickly and deliver reliable performance on the field.",
+          "Beyond competitions we mentor younger students, speak at community events, and advocate for equitable access to STEM. Solar Flare is proof that when driven students work together, we can build more than robots-we build opportunities."
+        ]
+      },
+      "connect": {
+        "title": "Connect with us",
+        "label": "Follow",
+        "links": [
+          {
+            "label": "Instagram",
+            "href": "https://instagram.com/solarflarerobotics"
+          },
+          {
+            "label": "YouTube",
+            "href": "https://www.youtube.com/@solarflarerobotics"
+          },
+          {
+            "label": "Email",
+            "href": "mailto:team@solarflarerobotics.org"
+          }
+        ]
+      },
+      "apply": {
+        "buttonLink": "https://docs.google.com/forms/d/e/1FAIpQLSddJdvq9qldA5Velh1F4SKJrOyt0YPKk1tst5hpR22xhks9IA/viewform?usp=dialog",
+        "description": "Interested in building, programming, outreach, or strategy? Fill out our interest form and we will follow up about the next steps.",
+        "title": "Apply to join Solar Flare",
+        "buttonLabel": "Apply now"
+      },
+      "roster": {
+        "title": "Meet the squad",
+        "members": [
+          {
+            "bio": "Tristan is a Junior at Edgemont Jr./Sr. High School, who leads CAD, hardware, and outreach, while also helping with programming. He is also our main driver.",
+            "name": "Tristan",
+            "photo": "members/Tristan.webp",
+            "role": "Captain & Founder"
+          },
+          {
+            "role": "Primary software dev",
+            "photo": "members/Arick.webp",
+            "name": "Arick",
+            "bio": "Arick brings three years of Python and Java experience to Solar Flare and focuses on auto and teleop software. He is also our secondary driver."
+          },
+          {
+            "photo": "members/Arjun Khanna.webp",
+            "role": "Hardware",
+            "bio": "Arjun Khanna does most of the robot assembly and wiring on the team.",
+            "name": "Arjun"
+          },
+          {
+            "role": "Computer vision",
+            "name": "Dani",
+            "photo": "members/Dani.webp",
+            "bio": "Dani is a dedicated 11h grader focused on developing computer vision models for object tracking and Apriltag-based localization."
+          },
+          {
+            "photo": "members/Ryan.webp",
+            "role": "Hardware & manufacturing",
+            "name": "Ryan",
+            "bio": "Ryan helps with robot assembly and wiring, as well as operating our CNC router to cut wood and aluminum parts."
+          },
+          {
+            "name": "Rishi",
+            "bio": "Rishi leads our team's fundraising as well as organizing outreach initiatives throughout our community.",
+            "photo": "members/Rishi.webp",
+            "role": "Outreach & fundraising"
+          },
+          {
+            "name": "Christian",
+            "role": "Hardware & Outreach",
+            "bio": "Christian is a sophmore solar flare rookie who mainly focuses on mechanics and outreach for the team.",
+            "photo": "https://media.discordapp.net/attachments/1212603248893235217/1551386474170163240/IMG20260920200806.jpg?ex=6ab1c8be&is=6ab0773e&hm=b8ddc408e637dc5cd11267cd1345cbfe238c48be905ceb7dd5f4218103427ea3&=&format=webp&width=766&height=1024"
+          },
+          {
+            "name": "Urijah",
+            "role": "secondary Software dev",
+            "bio": "Urijah is a junior at Edgemont HS who joined the team at the end of Decode, and primarly focuses on software.",
+            "photo": "https://media.discordapp.net/attachments/1212603248893235217/1551396994851799110/IMG20260920205735.jpg?ex=6ab1d28b&is=6ab0810b&hm=99840b98a329702817d4a1355d2923ad9cb0438e9e39a63329ee0a83fc083ffb&=&format=webp&width=766&height=1024"
+          }
+        ]
       }
     }
   }
