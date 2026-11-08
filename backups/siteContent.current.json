@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-11-01T18:43:20.050Z",
+  "exportedAt": "2026-11-08T18:37:39.099Z",
   "source": "siteContent/current",
   "content": {
     "theme": {
@@ -248,21 +248,21 @@
         "title": "Meet the squad",
         "members": [
           {
-            "bio": "Tristan is a Junior at Edgemont Jr./Sr. High School, who leads CAD, hardware, and outreach, while also helping with programming. He is also our main driver.",
-            "name": "Tristan",
+            "role": "Captain & Founder",
             "photo": "members/Tristan.webp",
-            "role": "Captain & Founder"
+            "name": "Tristan",
+            "bio": "Tristan is a Junior at Edgemont Jr./Sr. High School, who leads CAD, hardware, and outreach, while also helping with programming. He is also our main driver."
           },
           {
+            "bio": "Arick brings three years of Python and Java experience to Solar Flare and focuses on auto and teleop software. He is also our secondary driver.",
             "role": "Primary software dev",
-            "photo": "members/Arick.webp",
             "name": "Arick",
-            "bio": "Arick brings three years of Python and Java experience to Solar Flare and focuses on auto and teleop software. He is also our secondary driver."
+            "photo": "members/Arick.webp"
           },
           {
+            "bio": "Arjun Khanna does most of the robot assembly and wiring on the team.",
             "photo": "members/Arjun Khanna.webp",
             "role": "Hardware",
-            "bio": "Arjun Khanna does most of the robot assembly and wiring on the team.",
             "name": "Arjun"
           },
           {
@@ -272,28 +272,28 @@
             "bio": "Dani is a dedicated 11h grader focused on developing computer vision models for object tracking and Apriltag-based localization."
           },
           {
+            "bio": "Ryan helps with robot assembly and wiring, as well as operating our CNC router to cut wood and aluminum parts.",
             "photo": "members/Ryan.webp",
-            "role": "Hardware & manufacturing",
             "name": "Ryan",
-            "bio": "Ryan helps with robot assembly and wiring, as well as operating our CNC router to cut wood and aluminum parts."
+            "role": "Hardware & manufacturing"
           },
           {
-            "name": "Rishi",
             "bio": "Rishi leads our team's fundraising as well as organizing outreach initiatives throughout our community.",
-            "photo": "members/Rishi.webp",
-            "role": "Outreach & fundraising"
+            "name": "Rishi",
+            "role": "Outreach & fundraising",
+            "photo": "members/Rishi.webp"
           },
           {
-            "name": "Christian",
-            "role": "Hardware & Outreach",
             "bio": "Christian is a sophmore solar flare rookie who mainly focuses on mechanics and outreach for the team.",
-            "photo": "https://media.discordapp.net/attachments/1212603248893235217/1551386474170163240/IMG20260920200806.jpg?ex=6ab1c8be&is=6ab0773e&hm=b8ddc408e637dc5cd11267cd1345cbfe238c48be905ceb7dd5f4218103427ea3&=&format=webp&width=766&height=1024"
+            "role": "Hardware & Outreach",
+            "name": "Christian",
+            "photo": "https://i.ibb.co/VWzY7jty/Christianpfp.webp"
           },
           {
-            "name": "Urijah",
             "role": "secondary Software dev",
+            "name": "Urijah",
             "bio": "Urijah is a junior at Edgemont HS who joined the team at the end of Decode, and primarly focuses on software.",
-            "photo": "https://media.discordapp.net/attachments/1212603248893235217/1551396994851799110/IMG20260920205735.jpg?ex=6ab1d28b&is=6ab0810b&hm=99840b98a329702817d4a1355d2923ad9cb0438e9e39a63329ee0a83fc083ffb&=&format=webp&width=766&height=1024"
+            "photo": "https://i.ibb.co/ymBwBG5Y/Urijah-Dalachpfp.jpg"
           }
         ]
       }
